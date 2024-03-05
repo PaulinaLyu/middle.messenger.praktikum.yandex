@@ -21,7 +21,7 @@ function navigate(page: pageType) {
   document.body.innerHTML = handlebarsFunct({});
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("login"));
+document.addEventListener("DOMContentLoaded", () => navigate("chat"));
 
 document.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;

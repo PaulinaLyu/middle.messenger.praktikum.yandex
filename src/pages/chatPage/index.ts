@@ -4,8 +4,13 @@ import "./chatPage.scss";
 
 Handlebars.registerHelper("chat-page-list", () => {
   return [
-    { name: "Андрей", message: "Магическая битва топ", unread: "2" },
-    { name: "Маша", message: "Уиииииии" },
-    { name: "Ваня", message: "Го в Японию", unread: "4" },
+    {
+      name: "Андрей",
+      message: "Магическая битва топ",
+      unread: "2",
+      date: "10:40",
+    },
+    { name: "Маша", message: "Уиииииии", date: "пн" },
+    { name: "Ваня", message: "Го в Японию", unread: "4", date: "12:00" },
   ];
 });
