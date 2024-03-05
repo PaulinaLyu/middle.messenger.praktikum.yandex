@@ -1,5 +1,7 @@
 import Handlebars from "handlebars";
 import * as Pages from "./pages";
+import * as Components from "./components";
+import "./main.scss";
 
 const pages = {
   chat: [Pages.chatPage],
@@ -8,6 +10,10 @@ const pages = {
 };
 
 type pageType = keyof typeof pages;
+
+Object.entries(Components).forEach(([name, component]) => {
+  Handlebars.registerPartial(name, component);
+});
 
 function navigate(page: pageType) {
   const [source] = pages[page];

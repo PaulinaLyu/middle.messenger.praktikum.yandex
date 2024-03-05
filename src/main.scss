@@ -1,0 +1,19 @@
+@import '../static/variables.scss';
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font: $font-body;
+    color: $text-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box
+}
