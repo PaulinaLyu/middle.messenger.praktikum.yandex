@@ -4,6 +4,7 @@ import * as Pages from "./pages";
 const pages = {
   chat: [Pages.chatPage],
   login: [Pages.loginPage],
+  profile: [Pages.profilePage],
 };
 
 type pageType = keyof typeof pages;
