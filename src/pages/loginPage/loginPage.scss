@@ -5,8 +5,10 @@
     flex-direction: column;
   
     &__body {
-      flex: 1;
+        flex: 1;
     }
-
-}
   
+    &__input {
+        margin-top: 16px;
+    }
+}

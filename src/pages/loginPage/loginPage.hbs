@@ -1,7 +1,8 @@
 {{#> Card }}
   <form class="login-page">
     <div class="login-page__body">
-        Login
+      {{> Input className="login-page__input" title="Логин" name="login" }}
+      {{> Input className="login-page__input" title="Пароль" name="password" type="password" }}
     </div>
       <div>
         {{> Button text="Авторизоваться" page="chat" }}
