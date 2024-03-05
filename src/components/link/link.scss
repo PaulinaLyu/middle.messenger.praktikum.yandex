@@ -12,6 +12,10 @@
     text-decoration: none;
     cursor: pointer;
 
+    &--secondary {
+        color: $secondary-text-color;
+    }
+
     &:hover {
         text-decoration: underline;
     }
