@@ -1,6 +1,15 @@
 $font-body: "Inter,Segoe UI,Roboto,Helvetica Neue,sans-sans";
-$text-color: #000; 
+
+$primary-text-color: #000; 
+$primary-text-invert-color: #fff;
+
+$primary-color: #3369F3; 
+$warning-color: #FF0000; 
+
+$primary-bgcolor: #fff;
+$secondary-bgcolor:#EFEFEF;
+
+$border: 1px solid #{$secondary-bgcolor};
 
 //Card
-$card-bgcolor: #FFF;
 $card-shadow: 0px 0px 6px #00000024;
