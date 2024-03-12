@@ -1,7 +1,27 @@
+@import '../../../static/variables';
+
 .profile-page {
-    width: 280px;
-    height: 390px;
+    width: 500px;
     display: flex;
+    align-items: center;
     flex-direction: column;
+
+    &__avatar {
+        min-height: 130px;
+        min-width: 130px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+        background: $additional-elements-bgcolor;
+        margin-bottom: 23px;
+    }
+
+    &__name-text {
+        font-weight: $font-weight-semibold;
+    }
+
 }
   

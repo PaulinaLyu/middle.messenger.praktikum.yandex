@@ -1,6 +1,11 @@
 <div class="profile-page">
-    <div>
-        Profile
-    </div>
-    <a href="{{ url }}" class="link{{#if className}} {{className}}{{/if}}" page="chat">"Назад к чату"</a>
+    {{#if avatar}}
+        <img class="profile-page__avatar" src={{ avatar }}><img>
+    {{else }}
+        <div class="profile-page__avatar">
+            <img width="40px" height="40px" src='../../../static/icons/img.svg'><img>
+        </div>
+    {{/if}}  
+        <div><span class="profile-page__name-text">{{ profile.name }}</span></div>
+        <div><span class="profile-page__name-text">{{ name }}</span></div>
 </div>
