@@ -1,10 +1,14 @@
 <div class="chat-page">
-    {{> ChatHeader}}
-    <div>
-        {{#each (chat-page-list)}}
-            {{> ChatItem }}
-        {{/each}}
+    <div class="chat-page__list">
+        {{> ChatHeader}}
+            <div>
+                {{#each (chat-page-list)}}
+                    {{> ChatItem }}
+                {{/each}}
+            </div>
+    </div>
+    <div  class="chat-page__messages">
+        <a href="{{ url }}" class="link{{#if className}} {{className}}{{/if}}" page="login">"Назад к логину"</a>
     </div>
 
-    <a href="{{ url }}" class="link{{#if className}} {{className}}{{/if}}" page="login">"Назад к логину"</a>
 </div>

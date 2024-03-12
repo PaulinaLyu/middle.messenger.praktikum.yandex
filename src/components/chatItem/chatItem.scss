@@ -23,11 +23,17 @@
         justify-content: space-between;
     }
 
+    &__main {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     &__avatar {
-        background: $secondary-bgcolor;
-        height: 47px;
-        width: 47px;
+        background: $additional-elements-bgcolor;
+        min-height: 47px;
+        min-width: 47px;
         border-radius: 50%;
+        margin-right: 10px;
     }
 
     &__name {
