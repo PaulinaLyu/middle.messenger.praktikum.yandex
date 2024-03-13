@@ -1,11 +1,22 @@
 <div class="profile-page">
-    {{#if avatar}}
-        <img class="profile-page__avatar" src={{ avatar }}><img>
-    {{else }}
-        <div class="profile-page__avatar">
-            <img width="40px" height="40px" src='../../../static/icons/img.svg'><img>
+    <div class="profile-page__sidebar">
+        {{#> Button page="chat" circle=true }}
+            <img width="10px" height="10px" src='../../../static/icons/arrow-left.svg'><img>
+        {{/ Button }}
+    </div>
+    <div class="profile-page__main">
+        {{#if avatar}}
+            <img class="profile-page__main__avatar" src={{ avatar }}><img>
+        {{else }}
+            <div class="profile-page__main__avatar">
+                <img width="40px" height="40px" src='../../../static/icons/img.svg'><img>
+            </div>
+        {{/if}}  
+        <div><span class="profile-page__main__name-text">{{ name }}</span></div>
+        <div class="profile-page__main__body">
+            {{> ProfileItem label="Почта" value="yandex" }}
+            {{> ProfileItem label="Логин" value="yandex" }}
+            {{> ProfileItem label="Имя" value="yandex" }}
         </div>
-    {{/if}}  
-        <div><span class="profile-page__name-text">{{ profile.name }}</span></div>
-        <div><span class="profile-page__name-text">{{ name }}</span></div>
+    </div>
 </div>

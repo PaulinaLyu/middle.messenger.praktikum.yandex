@@ -6,7 +6,9 @@
         {{> Input className="login-page__input" title="Пароль" name="password" type="password" }}
     </div>
       <div>
-        {{> Button text="Авторизоваться" page="chat" }}
+        {{#> Button page="chat" }}
+          <span>Авторизоваться</span>
+        {{/ Button }}
         {{> Link page="LoginPage" text="Нет аккаунта?"}}
     </div>
   </form>

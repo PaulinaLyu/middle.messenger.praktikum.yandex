@@ -3,10 +3,19 @@ import * as Pages from "./pages";
 import * as Components from "./components";
 import "./main.scss";
 
+const cont = {
+  email: "pochta@yandex.ru",
+  login: "ivanivanov",
+  name: "Иван",
+  first_name: "Иванов",
+  display_name: "Иван",
+  phone: "+7 (909) 967 30 30",
+};
+
 const pages = {
   chat: [Pages.chatPage],
   login: [Pages.loginPage],
-  profile: [Pages.profilePage],
+  profile: [Pages.profilePage, cont],
 };
 
 type pageType = keyof typeof pages;
@@ -16,9 +25,9 @@ Object.entries(Components).forEach(([name, component]) => {
 });
 
 function navigate(page: pageType) {
-  const [source] = pages[page];
+  const [source, context] = pages[page];
   const handlebarsFunct = Handlebars.compile(source);
-  document.body.innerHTML = handlebarsFunct({});
+  document.body.innerHTML = handlebarsFunct(context);
 }
 
 document.addEventListener("DOMContentLoaded", () => navigate("chat"));
