@@ -5,3 +5,4 @@ export { Input } from "./input";
 export { Title } from "./title";
 export { ChatItem } from "./chatItem";
 export { ChatHeader } from "./chatHeader";
+export { ProfileItem } from "./profileItem";

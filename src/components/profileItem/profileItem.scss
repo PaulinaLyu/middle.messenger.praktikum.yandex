@@ -1,0 +1,18 @@
+@import '../../../static/variables';
+
+.profileItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: $divider;
+
+    &__value {
+        color: $secondary-text-color;
+    }
+
+    &__label {
+        font-weight: $font-weight-medium;;
+    }
+
+}
