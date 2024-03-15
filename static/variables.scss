@@ -5,6 +5,7 @@ $font-weight-medium: 600;
 $font-weight-semibold: 700;
 
 $font-lg: #{$font-weight-regular} 20px/20px #{$font-body};
+$font-md: #{$font-weight-regular} 16px/16px #{$font-body};
 $font-regular: #{$font-weight-regular} 13px/13px #{$font-body};
 $font-sm: #{$font-weight-regular} 11px/11px #{$font-body};
 $font-xs: #{$font-weight-regular} 9px/9px #{$font-body};
@@ -25,3 +26,6 @@ $divider: 1px solid #EAEAEA;
 
 //Card
 $card-shadow: 0px 0px 6px #00000024;
+
+//Button
+$circle-button-size: 30px;

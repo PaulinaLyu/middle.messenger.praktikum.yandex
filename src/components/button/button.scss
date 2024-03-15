@@ -9,4 +9,22 @@
   color: $primary-text-invert-color;
   border: 0;
   cursor: pointer;
+
+  &--circle {
+    width: $circle-button-size;
+    height: $circle-button-size;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  &--ghost {
+    width: auto;
+    height: auto;
+    background: transparent;
+    color: $primary-color;
+    padding: 0;
+  }
 }

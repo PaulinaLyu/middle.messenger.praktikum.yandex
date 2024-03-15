@@ -7,7 +7,7 @@
     display: flex;
     
     &__sidebar {
-        width: 5%;
+        width: 4%;
         height: 100%;
 
         display: flex;
@@ -18,15 +18,23 @@
         border-right: $divider;
     }
 
-
     &__main {
-        width: 95%;
-        
+        width: 96%;
+
         display: flex;
         align-items: center;
-        flex-direction: column;
+        justify-content: center;
+
+        &__container {
+            width: 35%;
+            display: block;
+            text-align: center;
+        }
     
         &__avatar {
+            margin: 0 auto;
+            height: 130px;
+            width: 130px;
             min-height: 130px;
             min-width: 130px;
     
@@ -40,6 +48,7 @@
         }
     
         &__name-text {
+            font: $font-md;
             font-weight: $font-weight-semibold;
         }
     
@@ -47,6 +56,19 @@
             margin: 60px 0;
         }
     
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        &__item {
+            padding: 10px 0;
+            width: 100%;
+            border-bottom: $divider;
+            text-align: start;
+        }
     }
 }
 
