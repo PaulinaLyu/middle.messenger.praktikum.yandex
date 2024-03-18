@@ -31,7 +31,8 @@ $card-shadow: 0px 0px 6px #00000024;
 $circle-button-size: 30px;
 
 //Modal
-$modal-zindex: 9999;
+$modal-display-bg-zindex: 9999;
+$modal-zindex: 10000;
 
 //Avatar
 $user-avatar-size: 130px;
