@@ -1,21 +1,14 @@
 import Handlebars from "handlebars";
 import * as Pages from "./pages";
 import * as Components from "./components";
+import * as Mocks from "./mocks";
+import * as Scripts from "./scripts";
 import "./main.scss";
-
-const cont = {
-  email: "pochta@yandex.ru",
-  login: "ivanivanov",
-  name: "Иван",
-  first_name: "Иванов",
-  display_name: "Иван",
-  phone: "+7 (909) 967 30 30",
-};
 
 const pages = {
   chat: [Pages.chatPage],
   login: [Pages.loginPage],
-  profile: [Pages.profilePage, cont],
+  profile: [Pages.profilePage, Mocks.profileMock, Scripts.profilePageFunc],
 };
 
 type pageType = keyof typeof pages;
@@ -25,9 +18,16 @@ Object.entries(Components).forEach(([name, component]) => {
 });
 
 function navigate(page: pageType) {
-  const [source, context] = pages[page];
+  const [source, context, func] = pages[page];
   const handlebarsFunct = Handlebars.compile(source);
   document.body.innerHTML = handlebarsFunct(context);
+  debugger;
+  if (func) {
+    debugger;
+    func();
+    debugger;
+  }
+  debugger;
 }
 
 document.addEventListener("DOMContentLoaded", () => navigate("chat"));

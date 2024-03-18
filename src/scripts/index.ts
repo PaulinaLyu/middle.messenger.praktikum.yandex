@@ -1,0 +1,1 @@
+export { profilePageFunc } from "./profileScripts";

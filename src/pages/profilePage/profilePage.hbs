@@ -1,4 +1,5 @@
 <div class="profile-page">
+    {{> Modal title="Загрузите файл" modalClassName='profile-page__modal' btnText='Поменять'}}
     <div class="profile-page__sidebar">
         {{#> Button page="chat" circle=true }}
             <img src='../../../static/icons/arrow-left.svg' page="chat"><img>
@@ -6,13 +7,9 @@
     </div>
     <div class="profile-page__main">
         <div class="profile-page__main__container">
-        {{#if avatar}}
-            <img class="profile-page__main__avatar" src={{ avatar }}><img>
-        {{else }}
             <div class="profile-page__main__avatar">
-                <img width="40px" height="40px" src='../../../static/icons/img.svg'><img>
+                <img width="40px" height="40px"src={{#if avatar}}{{ avatar }}{{else }}'../../../static/icons/img.svg'{{/if}}><img>
             </div>
-        {{/if}}  
         <div><span class="profile-page__main__name-text">{{ name }}</span></div>
         <div class="profile-page__main__body">
             {{> ProfileItem label="Почта" value="yandex" }}
