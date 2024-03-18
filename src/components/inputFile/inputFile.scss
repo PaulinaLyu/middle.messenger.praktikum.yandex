@@ -1,0 +1,17 @@
+.inputFile {
+    position: relative;
+    display: block;
+}
+
+.inputFile input[type='file'] {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    position: absolute;
+    z-index: 4;
+
+    opacity: 0;
+    cursor: pointer;
+}
