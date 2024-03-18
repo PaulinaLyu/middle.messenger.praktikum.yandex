@@ -1,11 +1,9 @@
 @import '../../../static/variables';
+@import '../../../static/mixins';
 
 .link {
     font: $font-sm;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 40px;
+    height: $link-height;
     width: 100%;
     text-align: center;
     color: $primary-color;
@@ -19,4 +17,6 @@
     &:hover {
         text-decoration: underline;
     }
+
+    @include displayFlex(center, stretch, column)
 }

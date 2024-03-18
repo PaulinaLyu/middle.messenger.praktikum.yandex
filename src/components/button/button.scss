@@ -1,4 +1,5 @@
 @import '../../../static/variables';
+@import '../../../static/mixins';
 
 .button {
   height: 37px;
@@ -13,11 +14,9 @@
   &--circle {
     width: $circle-button-size;
     height: $circle-button-size;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 50%;
+
+    @include displayFlex(center,center)
   }
 
   &--ghost {
