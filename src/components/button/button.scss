@@ -25,6 +25,10 @@
     background: transparent;
     color: $primary-color;
     padding: 0;
+
+    &--warning {
+      color: $warning-color;
+    }
   }
 
   &--underline {
