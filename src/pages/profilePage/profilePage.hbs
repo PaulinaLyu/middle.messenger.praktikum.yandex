@@ -12,9 +12,18 @@
             </div>
         <div><span class="profile-page__main__name-text">{{ name }}</span></div>
         <div class="profile-page__main__body">
-            {{> ProfileItem label="Почта" value="yandex" }}
-            {{> ProfileItem label="Логин" value="yandex" }}
-            {{> ProfileItem label="Имя" value="yandex" }}
+            {{#if isChangePass}}
+                {{> ProfileItem label="Старый пароль" value=email }}
+                {{> ProfileItem label="Новый пароль" value=email }}
+                {{> ProfileItem label="Повторите новый пароль" value=email }}
+            {{else}}
+                {{> ProfileItem label="Почта" value=email }}
+                {{> ProfileItem label="Логин" value=login }}
+                {{> ProfileItem label="Имя" value=name }}
+                {{> ProfileItem label="Фамилия" value=first_name }}
+                {{> ProfileItem label="Имя в чате" value=display_name }}
+                {{> ProfileItem label="Телефон" value=phone }}
+            {{/if}}
         </div>
         <div class="profile-page__footer">
             <div class="profile-page__footer__item">
@@ -24,11 +33,11 @@
             </div>
             <div class="profile-page__footer__item">
                 {{#> Button ghost='true' }}
-                    <span>Изменить пароль</span>
+                    <span page="profile-change-pass" >Изменить пароль</span>
                 {{/ Button }}
             </div>
             <div class="profile-page__footer__item">
-                {{#> Button ghost='true' }}
+                {{#> Button ghost='true' warning='true' className='profile-page__footer__btn--warning' }}
                     <span page="chat">Выйти</span>
                 {{/ Button }}
             </div>

@@ -38,6 +38,8 @@
             background: $additional-elements-bgcolor;
             margin-bottom: 23px;
 
+            cursor: pointer;
+
             &:hover img {
                 visibility: hidden;
             }

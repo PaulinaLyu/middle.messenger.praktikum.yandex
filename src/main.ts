@@ -9,7 +9,17 @@ const pages = {
   chat: [Pages.chatPage],
   login: [Pages.loginPage, { isRegistration: false }],
   "login-registration": [Pages.loginPage, { isRegistration: true }],
-  profile: [Pages.profilePage, Mocks.profileMock, Scripts.profilePageFunc],
+  profile: [
+    Pages.profilePage,
+    { ...Mocks.profileMock, isChangePass: false },
+    ,
+    Scripts.profilePageFunc,
+  ],
+  "profile-change-pass": [
+    Pages.profilePage,
+    { ...Mocks.profileMock, isChangePass: true },
+    Scripts.profilePageFunc,
+  ],
 };
 
 type pageType = keyof typeof pages;
@@ -22,13 +32,10 @@ function navigate(page: pageType) {
   const [source, context, func] = pages[page];
   const handlebarsFunct = Handlebars.compile(source);
   document.body.innerHTML = handlebarsFunct(context);
-  debugger;
+
   if (func) {
-    debugger;
     func();
-    debugger;
   }
-  debugger;
 }
 
 document.addEventListener("DOMContentLoaded", () => navigate("chat"));
