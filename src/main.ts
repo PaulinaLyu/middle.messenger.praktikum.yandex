@@ -7,7 +7,8 @@ import "./main.scss";
 
 const pages = {
   chat: [Pages.chatPage],
-  login: [Pages.loginPage],
+  login: [Pages.loginPage, { isRegistration: false }],
+  "login-registration": [Pages.loginPage, { isRegistration: true }],
   profile: [Pages.profilePage, Mocks.profileMock, Scripts.profilePageFunc],
 };
 

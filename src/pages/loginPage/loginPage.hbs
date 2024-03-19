@@ -1,15 +1,30 @@
 {{#> Card }}
   <form class="login-page">
     <div class="login-page__body">
+      {{#if isRegistration}}
+        {{> Title title="Регистрация" }}
+        {{> Input className="login-page__input" title="Почта" name="email" }}
+        {{> Input className="login-page__input" title="Логин" name="login" }}
+        {{> Input className="login-page__input" title="Имя" name="name" }}
+        {{> Input className="login-page__input" title="Фамилия" name="first_name" }}
+        {{> Input className="login-page__input" title="Телефон" name="phone" }}
+        {{> Input className="login-page__input" title="Пароль" name="password" type="password" }}
+        {{> Input className="login-page__input" title="Пароль (еще раз)" name="password" type="password" }}
+      {{else}}
         {{> Title  title="Вход" }}
         {{> Input className="login-page__input" title="Логин" name="login" }}
         {{> Input className="login-page__input" title="Пароль" name="password" type="password" }}
+      {{/if}}
     </div>
-      <div>
-        {{#> Button page="chat" }}
-          <span>Авторизоваться</span>
-        {{/ Button }}
-        {{> Link page="LoginPage" text="Нет аккаунта?"}}
+    <div>
+      {{#> Button page="chat" type="button" }}
+          <span>{{#if isRegistration}}Зарегистрироваться{{else}}Авторизоваться{{/if}}</span>
+      {{/ Button }}
+      {{#if isRegistration}}
+          {{> Link page="login" text='Войти' }}
+      {{else}}
+          {{> Link page="login-registration" text='Нет аккаунта?' }}
+      {{/if}}
     </div>
   </form>
 

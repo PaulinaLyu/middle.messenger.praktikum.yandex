@@ -1,11 +1,12 @@
 .login-page {
     width: 280px;
-    height: 390px;
+    min-height: 390px;
     display: flex;
     flex-direction: column;
   
     &__body {
         flex: 1;
+        margin-bottom: 48px;
     }
   
     &__input {
