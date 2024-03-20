@@ -8,6 +8,12 @@
 
     &__value {
         color: $secondary-text-color;
+        border: 0;
+        text-align: end;
+
+        &:disabled {
+            background: none;
+        }
     }
 
     &__label {

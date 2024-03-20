@@ -11,13 +11,17 @@ const pages = {
   "login-registration": [Pages.loginPage, { isRegistration: true }],
   profile: [
     Pages.profilePage,
-    { ...Mocks.profileMock, isChangePass: false },
-    ,
+    { ...Mocks.profileMock, isChangePass: false, isDisabled: true },
+    Scripts.profilePageFunc,
+  ],
+  "profile-update": [
+    Pages.profilePage,
+    { ...Mocks.profileMock, isChangePass: false, isDisabled: false },
     Scripts.profilePageFunc,
   ],
   "profile-change-pass": [
     Pages.profilePage,
-    { ...Mocks.profileMock, isChangePass: true },
+    { ...Mocks.profileMock, isChangePass: true, isDisabled: false },
     Scripts.profilePageFunc,
   ],
 };

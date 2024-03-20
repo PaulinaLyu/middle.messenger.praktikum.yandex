@@ -82,6 +82,10 @@
             text-align: start;
         }
 
+        &__btn {
+            width: 40%;
+        }
+
         @include displayFlex(flex-start,start,column)
     }
 }
