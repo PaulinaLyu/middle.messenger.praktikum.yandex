@@ -1,10 +1,14 @@
 export function profilePageFunc() {
   const avatarSettingBtn = document.querySelector(
     ".profile-page__main__avatar"
-  );
-  const avatarSettingModal = document.querySelector(".profile-page__modal");
-  const inputFile = document.querySelector(".inputFile__input");
-  const modalSubmitBtn = document.querySelector(".modal__footer__btn");
+  ) as HTMLElement;
+  const avatarSettingModal = document.querySelector(
+    ".profile-page__modal"
+  ) as HTMLElement;
+  const inputFile = document.querySelector(".inputFile__input") as HTMLElement;
+  const modalSubmitBtn = document.querySelector(
+    ".modal__footer__btn"
+  ) as HTMLElement;
 
   const handleBtnClick = () => {
     if (avatarSettingModal) {
@@ -31,18 +35,9 @@ export function profilePageFunc() {
   //   }
   // };
 
-  if (avatarSettingBtn) {
-    avatarSettingBtn.addEventListener("click", handleBtnClick);
-  }
-
-  if (inputFile) {
-    inputFile.addEventListener("change", handleInputFileChange);
-  }
-
-  if (modalSubmitBtn) {
-    modalSubmitBtn.addEventListener("click", handleCloseModal);
-  }
-
+  avatarSettingBtn.addEventListener("click", handleBtnClick);
+  inputFile.addEventListener("change", handleInputFileChange);
+  modalSubmitBtn.addEventListener("click", handleCloseModal);
   // if (avatarSettingModal) {
   //   avatarSettingModal.addEventListener("click", handleModalCloseClick);
   // }

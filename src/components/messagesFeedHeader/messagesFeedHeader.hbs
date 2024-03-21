@@ -1,0 +1,18 @@
+<header class="messages-feed-header">
+    <div class="messages-feed-header__user">
+        {{#if chatAvatar}}
+            <div class="messages-feed-header__avatar">
+                <img src={{ chatAvatar }}><img>
+            </div>
+        {{else }}
+            <div class="messages-feed-header__avatar"></div>
+        {{/if}}
+        <span class="messages-feed-header__name">{{ chatName }}</span>
+    </div>
+    <div>
+        {{#> Dropdown src="../../../static/icons/vertical-dots.svg" }}
+            {{> DropdownOptionItem iconSrc="../../../../static/icons/circle-plus.svg" text='Добавить пользователя' }}
+            {{> DropdownOptionItem iconSrc="../../../../static/icons/circle-cross.svg" text='Удалить пользователя' }}
+        {{/ Dropdown }}
+    </div>
+</header>

@@ -1,12 +1,13 @@
 @import '../../../static/mixins';
 @import '../../../static/variables';
 
-.messagesFeed {
+.messages-feed {
     position: relative;
     width: 100%;
     height: 100%;
-    color: $secondary-text-color;
+
     &__no-data {
+        color: $secondary-text-color;
         @include centerElementWithPosition;
     }
 }

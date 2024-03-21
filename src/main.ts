@@ -6,7 +6,7 @@ import * as Scripts from "./scripts";
 import "./main.scss";
 
 const pages = {
-  chat: [Pages.chatPage],
+  chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
   login: [Pages.loginPage, { isRegistration: false }],
   "login-registration": [Pages.loginPage, { isRegistration: true }],
   profile: [
