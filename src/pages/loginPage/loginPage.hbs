@@ -3,17 +3,17 @@
     <div class="login-page__body">
       {{#if isRegistration}}
         {{> Title title="Регистрация" }}
-        {{> InputField className="login-page__input" title="Почта" name="email" }}
-        {{> InputField className="login-page__input" title="Логин" name="login" }}
-        {{> InputField className="login-page__input" title="Имя" name="name" }}
-        {{> InputField className="login-page__input" title="Фамилия" name="first_name" }}
-        {{> InputField className="login-page__input" title="Телефон" name="phone" }}
-        {{> InputField className="login-page__input" title="Пароль" name="password" type="password" }}
-        {{> InputField className="login-page__input" title="Пароль (еще раз)" name="password" type="password" }}
+        {{> InputField className="login-page__input" title="Почта" name="email" inputId="reg-email" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Логин" name="login" inputId="reg-login" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Имя" name="name" inputId="reg-name" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Фамилия" name="first_name" inputId="reg-first_name" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Телефон" name="phone" inputId="reg-phone" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Пароль" name="password" type="password" inputId="reg-password" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Пароль (еще раз)" name="password" type="password" inputId="reg-password-repeat" border=true no-bg=true }}
       {{else}}
         {{> Title  title="Вход" }}
-        {{> InputField className="login-page__input" title="Логин" name="login" }}
-        {{> InputField className="login-page__input" title="Пароль" name="password" type="password" }}
+        {{> InputField className="login-page__input" title="Логин" name="login" inputId="login-login" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Пароль" name="password" inputId="login-password" type="password" border=true no-bg=true }}
       {{/if}}
     </div>
     <div>

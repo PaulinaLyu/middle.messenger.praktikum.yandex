@@ -1,6 +1,7 @@
 export { Card } from "./card";
 export { Button } from "./button";
 export { Link } from "./link";
+export { Input } from "./input";
 export { InputField } from "./inputField";
 export { InputFile } from "./inputFile";
 export { Title } from "./title";

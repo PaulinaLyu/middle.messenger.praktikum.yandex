@@ -1,8 +1,4 @@
 <div class="input-field{{#if className}} {{ className }}{{/if}}">
-  <div class="input-field__label">{{ title }}</div>
-  <div class="input-field__element">
-    <input
-        class="input__element__body"
-        type="{{ type }}" title="{{ title }}" name="{{ name }}" value="{{value}}">
-    </div>
+  <label for={{inputId}} class="input-field__label">{{ title }}</label>
+  {{> Input id=inputId placeholder=placeholder name=name type=type}}
 </div>
