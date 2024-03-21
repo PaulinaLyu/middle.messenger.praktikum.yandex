@@ -1,5 +1,8 @@
 <div class="chat-header{{#if className}} {{ className }}{{/if}}">
-    <div>
+    <nav class="chat-header__nav">
         {{> Link page="profile" secondary='secondary' text="Профиль"}}
-    </div>
+        {{> Link page="login" secondary='secondary' text="Логин"}}
+        {{> Link page="error500" secondary='secondary' text="500 ошибка"}}
+        {{> Link page="error404" secondary='secondary' text="404 ошибка"}}
+    </nav>
 </div>
