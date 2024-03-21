@@ -24,6 +24,8 @@ const pages = {
     { ...Mocks.profileMock, isChangePass: true, isDisabled: false },
     Scripts.profilePageFunc,
   ],
+  error500: [Pages.errorPage, { text: "Мы уже фиксим", error: 500 }],
+  error404: [Pages.errorPage, { text: "Не туда попали", error: 404 }],
 };
 
 type pageType = keyof typeof pages;

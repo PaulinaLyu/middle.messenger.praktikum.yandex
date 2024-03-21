@@ -1,0 +1,16 @@
+@import '../../../static/mixins.scss';
+@import '../../../static/variables.scss';
+
+.error-page {
+
+    &__error {
+        font: $font-xxl;
+        margin-bottom: 26px;
+    }
+
+    &__link {
+        margin-top: 70px;
+    }
+
+    @include displayFlex(center, center, column)
+}

@@ -4,6 +4,7 @@ $font-weight-regular: 500;
 $font-weight-medium: 600;
 $font-weight-semibold: 700;
 
+$font-xxl: #{$font-weight-medium} 40px/40px #{$font-body};
 $font-lg: #{$font-weight-regular} 20px/20px #{$font-body};
 $font-md: #{$font-weight-regular} 16px/16px #{$font-body};
 $font-regular: #{$font-weight-regular} 13px/13px #{$font-body};
