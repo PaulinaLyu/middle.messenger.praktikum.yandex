@@ -1,6 +1,6 @@
 @import '../../../static/variables';
 
-.input {
+.input-field {
     &__label {
       color: $secondary-text-color;
       font: $font-xs;
@@ -9,14 +9,14 @@
     &__element {
         border-bottom: 1px solid $primary-color;
         height: 26px;
-
-        &__body {
-            border: none;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font: inherit;
-        }
     } 
 
+}
+
+.input__element__body {
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font: inherit;
 }
