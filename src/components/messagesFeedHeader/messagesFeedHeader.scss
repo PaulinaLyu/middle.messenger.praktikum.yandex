@@ -4,6 +4,7 @@
 .messages-feed-header{
     border-bottom: $divider;
     padding-bottom: 10px;
+    height: $messages-header;
 
     &__user{
         @include displayFlex(flex-start, center)
@@ -13,6 +14,7 @@
         background: $additional-elements-bgcolor;
         min-height: $messages-avatar-size;
         min-width: $messages-avatar-size;
+        font-weight: $font-weight-medium;
         border-radius: 50%;
         margin-right: 10px;
     }

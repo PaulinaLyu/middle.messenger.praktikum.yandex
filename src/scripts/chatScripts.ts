@@ -3,6 +3,7 @@ export function chatPageFunc() {
   const dropdownContent = document.querySelector(
     ".dropdown-content"
   ) as HTMLElement;
+
   dropbtn.addEventListener("click", () => {
     dropdownContent.classList.toggle("dropdown-content--show");
   });

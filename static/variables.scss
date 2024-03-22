@@ -28,7 +28,7 @@ $divider: 1px solid #EAEAEA;
 //Input
 $input-height: 32px;
 $input-border-radius: 5px;
-$input-padding: 10px 14px 10px 2.5rem;
+$input-padding: 10px 14px 10px 1rem;
 
 //Card
 $card-shadow: 0px 0px 6px #00000024;
@@ -53,3 +53,9 @@ $link-height: 40px;
 
 //Dropdown
 $dropdown-border: 12px;
+
+//Messages
+$messages-header: 54px;
+$messages-footer: #{$messages-header};
+$messages-user-card-radius: 0 12px 12px 12px;
+$messages-owner-card-radius: 12px 12px 0 12px;
