@@ -5,8 +5,8 @@
         {{> Title title="Регистрация" }}
         {{> InputField className="login-page__input" title="Почта" name="email" inputId="reg-email" border=true no-bg=true }}
         {{> InputField className="login-page__input" title="Логин" name="login" inputId="reg-login" border=true no-bg=true }}
-        {{> InputField className="login-page__input" title="Имя" name="name" inputId="reg-name" border=true no-bg=true }}
-        {{> InputField className="login-page__input" title="Фамилия" name="first_name" inputId="reg-first_name" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Имя" name="first_name" inputId="reg-first_name" border=true no-bg=true }}
+        {{> InputField className="login-page__input" title="Фамилия" name="second_name" inputId="reg-second_name" border=true no-bg=true }}
         {{> InputField className="login-page__input" title="Телефон" name="phone" inputId="reg-phone" border=true no-bg=true }}
         {{> InputField className="login-page__input" title="Пароль" name="password" type="password" inputId="reg-password" border=true no-bg=true }}
         {{> InputField className="login-page__input" title="Пароль (еще раз)" name="password" type="password" inputId="reg-password-repeat" border=true no-bg=true }}
@@ -18,7 +18,7 @@
     </div>
     <div>
       {{#> Button page="chat" type="button" }}
-          <span>{{#if isRegistration}}Зарегистрироваться{{else}}Авторизоваться{{/if}}</span>
+          <span>{{#if isRegistration}}Зарегистрироваться{{else}}Войти{{/if}}</span>
       {{/ Button }}
       {{#if isRegistration}}
           {{> Link page="login" text='Войти' }}
