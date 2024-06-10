@@ -15,16 +15,16 @@
         <div><span class="profile-page__main__name-text">{{ name }}</span></div>
         <div class="profile-page__main__body">
             {{#if isChangePass }}
-                {{> ProfileItem type="password" label="Старый пароль" }}
-                {{> ProfileItem type="password" label="Новый пароль" }}
-                {{> ProfileItem type="password" label="Повторите новый пароль" }}
+                {{> ProfileItem name="oldPassword" type="password" label="Старый пароль" }}
+                {{> ProfileItem name="newPassword" type="password" label="Новый пароль" }}
+                {{> ProfileItem name="repeatNewPassword" type="password" label="Повторите новый пароль" }}
             {{else}}
-                {{> ProfileItem label="Почта" isDisabled=isDisabled value=email }}
-                {{> ProfileItem label="Логин" isDisabled=isDisabled value=login }}
-                {{> ProfileItem label="Имя" isDisabled=isDisabled value=name }}
-                {{> ProfileItem label="Фамилия" isDisabled=isDisabled value=first_name }}
-                {{> ProfileItem label="Имя в чате" isDisabled=isDisabled value=display_name }}
-                {{> ProfileItem label="Телефон" isDisabled=isDisabled value=phone }}
+                {{> ProfileItem name="email" label="Почта" isDisabled=isDisabled value=email }}
+                {{> ProfileItem name="login" label="Логин" isDisabled=isDisabled value=login }}
+                {{> ProfileItem name="first_name" label="Имя" isDisabled=isDisabled value=first_name }}
+                {{> ProfileItem name="second_name" label="Фамилия" isDisabled=isDisabled value=second_name }}
+                {{> ProfileItem name="display_name" label="Имя в чате" isDisabled=isDisabled value=display_name }}
+                {{> ProfileItem name="phone" label="Телефон" isDisabled=isDisabled value=phone }}
             {{/if}}
         </div>
         <div class="profile-page__footer">
