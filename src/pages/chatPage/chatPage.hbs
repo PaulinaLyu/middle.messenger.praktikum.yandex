@@ -1,12 +1,12 @@
 <div class="chat-page">
-    <div class="chat-page__list">
+    <aside class="chat-page__list">
         {{> ChatHeader}}
         <div>
             {{#each (chat-page-list)}}
                 {{> ChatItem }}
             {{/each}}
         </div>
-    </div>
+    </aside>
     <div  class="chat-page__messages">
         {{> MessagesFeed}}
     </div>
