@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
   },
-  publicDir: './static',
+  publicDir: 'static',
   server: {
-    port: 3000
+    port: 4000
   },
 });
