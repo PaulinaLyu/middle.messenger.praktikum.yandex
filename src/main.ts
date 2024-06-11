@@ -39,7 +39,7 @@ function navigate(page: pageType) {
   const handlebarsFunct = Handlebars.compile(source);
   document.body.innerHTML = handlebarsFunct(context);
 
-  if (func) {
+  if (typeof func === "function") {
     func();
   }
 }
