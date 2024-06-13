@@ -8,12 +8,17 @@
         
         border-top: $divider;
 
-        padding: 12px 0;
+        padding: 12px;
         cursor: pointer;
 
         &--current {
             background: $secondary-color;
             cursor: default;
+        }   
+
+        
+        &:hover {
+            background: #d5d5d5;
         }   
 
         @include displayFlex(space-between)
@@ -68,4 +73,5 @@
 
         @include displayFlex(center, center)
     }
+
 }
