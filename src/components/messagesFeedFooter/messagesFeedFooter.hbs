@@ -1,17 +1,13 @@
 <footer class="messages-feed-footer">
-    <div>
-        {{#> Dropdown src="/icons/clip.svg" }}
-            {{> DropdownOptionItem iconSrc="/icons/photo.svg" text='Фото или Видео' }}
-            {{> DropdownOptionItem iconSrc="/icons/file.sv" text='Файл' }}
-            {{> DropdownOptionItem iconSrc="/icons/location.svg" text='Локация' }}
-        {{/ Dropdown }}
-    </div>
-    <div>
-        {{> Input className="" circle=true id="message-input" placeholder="Сообщение" name="message"}}
-    </div>
-    <div>
-        {{#> Button circle=true }}
-            <img src="/icons/arrow-right.svg"><img>
-        {{/ Button }}
-    </div>
+    {{#> Dropdown src="/icons/clip.svg" position="top" }}
+        {{> DropdownOptionItem iconSrc="/icons/photo.svg" text='Фото или Видео' }}
+        {{> DropdownOptionItem iconSrc="/icons/file.svg" text='Файл' }}
+        {{> DropdownOptionItem iconSrc="/icons/location.svg" text='Локация' }}
+    {{/ Dropdown }}
+
+    {{> Input className="" circle=true id="message-input" placeholder="Сообщение" name="message"}}
+
+    {{#> Button circle=true }}
+        <img src="/icons/arrow-right.svg"><img>
+    {{/ Button }}
 </footer>

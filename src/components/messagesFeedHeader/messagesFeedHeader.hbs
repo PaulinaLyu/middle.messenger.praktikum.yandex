@@ -9,10 +9,9 @@
         {{/if}}
         <span class="messages-feed-header__name">{{ chatName }}</span>
     </div>
-    <div>
-        {{#> Dropdown src="/icons/vertical-dots.svg" }}
-            {{> DropdownOptionItem iconSrc="/icons/circle-plus.svg" text='Добавить пользователя' }}
-            {{> DropdownOptionItem iconSrc="/icons/circle-cross.svg" text='Удалить пользователя' }}
-        {{/ Dropdown }}
-    </div>
+
+    {{#> Dropdown src="/icons/vertical-dots.svg" }}
+        {{> DropdownOptionItem iconSrc="/icons/circle-plus.svg" text='Добавить пользователя' }}
+        {{> DropdownOptionItem iconSrc="/icons/circle-cross.svg" text='Удалить пользователя' }}
+    {{/ Dropdown }}
 </header>

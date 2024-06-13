@@ -2,7 +2,9 @@
   {{#> Button className="dropbtn" circle=true ghost=true }}
     <img class="dropbtn__content" src={{src}} />
   {{/ Button }}
-  {{#> Card className="dropdown-content" }}
-    {{> @partial-block }}
-  {{/ Card }}
+  <div class="dropdown-content dropdown-content--{{#if position}}{{position}}{{else }}bottom{{/if}}" >
+    {{#> Card }}
+      {{> @partial-block }}
+    {{/ Card }}
+  </div>
 </div>

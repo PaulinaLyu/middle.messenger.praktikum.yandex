@@ -1,11 +1,13 @@
 <div class="chat-page">
     <aside class="chat-page__list">
         {{> ChatHeader}}
-        <div>
+        <ul class="chat-page__list-container">
             {{#each (chat-page-list)}}
-                {{> ChatItem }}
+                <li>
+                    {{> ChatItem }}
+                </li>
             {{/each}}
-        </div>
+        </ul>
     </aside>
     <div  class="chat-page__messages">
         {{> MessagesFeed}}

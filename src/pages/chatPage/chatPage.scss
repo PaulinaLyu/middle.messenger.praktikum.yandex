@@ -12,6 +12,12 @@
         padding: 20px 10px;
         border-right: $divider;
     }
+
+    &__list-container {
+        padding: 0;
+        list-style-type: none;
+    }
+
     &__messages {
         width: 75%;
         padding: 10px 20px 0 20px;

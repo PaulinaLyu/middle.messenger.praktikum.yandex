@@ -1,18 +1,24 @@
 export function chatPageFunc() {
-  const dropbtn = document.querySelector(".dropbtn") as HTMLElement;
-  const dropdownContent = document.querySelector(
-    ".dropdown-content"
-  ) as HTMLElement;
+  document.addEventListener('click', event => {
+    const target = event.target as HTMLElement ;
+    const dropbtn = target.closest('.dropbtn') as HTMLElement;
 
-  dropbtn.addEventListener("click", () => {
-    dropdownContent.classList.toggle("dropdown-content--show");
-  });
+    if (dropbtn) {
+      const dropdown = dropbtn.nextElementSibling as HTMLElement;
+      if (dropdown) {
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+          if (content !== dropdown) {
+            debugger;
+            content.classList.remove('dropdown-content--show');
+          }
+        });
 
-  window.addEventListener("click", (event) => {
-    if (!(event.target as HTMLElement).matches(".dropbtn")) {
-      if (dropdownContent.classList.contains("dropdown-content--show")) {
-        dropdownContent.classList.remove("dropdown-content--show");
+        dropdown.classList.toggle('dropdown-content--show');
       }
+    } else {
+      document.querySelectorAll('.dropdown-content').forEach(content => {
+        content.classList.remove('dropdown-content--show');
+      });
     }
   });
 }
