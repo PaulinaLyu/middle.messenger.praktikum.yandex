@@ -1,11 +1,11 @@
-@import '../../../static/variables';
+@import "../../../static/variables";
 
 .messages-feed-footer {
-    border-top: $divider;
-    height: $messages-footer;
+  border-top: $divider;
+  height: $messages-footer;
 
-    display: grid;
-    grid-template-columns: 1fr 40fr 1fr;
-    grid-gap: 14px;
-    align-items: center; 
+  display: grid;
+  grid-template-columns: 1fr 40fr 1fr;
+  grid-gap: 14px;
+  align-items: center;
 }

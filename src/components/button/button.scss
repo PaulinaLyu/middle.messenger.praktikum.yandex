@@ -1,5 +1,5 @@
-@import '../../../static/variables';
-@import '../../../static/mixins';
+@import "../../../static/variables";
+@import "../../../static/mixins";
 
 .button {
   height: 37px;
@@ -16,7 +16,7 @@
     height: $circle-button-size;
     border-radius: 50%;
 
-    @include displayFlex(center,center)
+    @include displayFlex(center, center);
   }
 
   &--ghost {

@@ -1,16 +1,16 @@
-@import '../../../static/variables';
+@import "../../../static/variables";
 
 .dropdown {
   position: relative;
   display: inline-block;
 }
-  
+
 .dropbtn {
   height: 30px;
   width: 30px;
   cursor: pointer;
 }
-  
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -32,11 +32,11 @@
     display: block;
   }
 
-  &> *:not(:last-child){
+  & > *:not(:last-child) {
     margin-bottom: 16px;
   }
 }
-  
+
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }

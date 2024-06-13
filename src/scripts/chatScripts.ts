@@ -1,22 +1,22 @@
 export function chatPageFunc() {
-  document.addEventListener('click', event => {
-    const target = event.target as HTMLElement ;
-    const dropbtn = target.closest('.dropbtn') as HTMLElement;
+  document.addEventListener("click", event => {
+    const target = event.target as HTMLElement;
+    const dropbtn = target.closest(".dropbtn") as HTMLElement;
 
     if (dropbtn) {
       const dropdown = dropbtn.nextElementSibling as HTMLElement;
       if (dropdown) {
-        document.querySelectorAll('.dropdown-content').forEach(content => {
+        document.querySelectorAll(".dropdown-content").forEach(content => {
           if (content !== dropdown) {
-            content.classList.remove('dropdown-content--show');
+            content.classList.remove("dropdown-content--show");
           }
         });
 
-        dropdown.classList.toggle('dropdown-content--show');
+        dropdown.classList.toggle("dropdown-content--show");
       }
     } else {
-      document.querySelectorAll('.dropdown-content').forEach(content => {
-        content.classList.remove('dropdown-content--show');
+      document.querySelectorAll(".dropdown-content").forEach(content => {
+        content.classList.remove("dropdown-content--show");
       });
     }
   });

@@ -1,8 +1,8 @@
-@import '../../../static/variables';
+@import "../../../static/variables";
 
 .input-field {
-    &__label {
-      color: $secondary-text-color;
-      font: $font-xs;
-    }
+  &__label {
+    color: $secondary-text-color;
+    font: $font-xs;
+  }
 }

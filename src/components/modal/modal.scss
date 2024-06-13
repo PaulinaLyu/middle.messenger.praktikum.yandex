@@ -1,41 +1,40 @@
-@import '../../../static/variables';
-@import '../../../static/mixins';
+@import "../../../static/variables";
+@import "../../../static/mixins";
 
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: $modal-display-bg-zindex;
+
+  &__content {
+    width: 20%;
+    min-width: 330px;
+    background-color: white;
+    box-shadow: $card-shadow;
+    border-radius: 12px;
+    padding: 40px 30px;
+    z-index: $modal-zindex;
+
+    @include centerElementWithPosition;
+    @include displayFlex(center, center, column);
+
+    &__title {
+      margin-bottom: 48px;
+    }
+  }
+
+  &__footer {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: $modal-display-bg-zindex;
 
-    &__content {
-        width: 20%;
-        min-width: 330px;
-        background-color: white;
-        box-shadow: $card-shadow;
-        border-radius: 12px;
-        padding: 40px 30px;
-        z-index: $modal-zindex;
-    
-        @include centerElementWithPosition;
-        @include displayFlex(center,center,column);
-    
-        &__title {
-            margin-bottom: 48px;
-        }
-    }
-
-    &__footer {
-        width: 100%;
-
-        margin-top: 45px;
-    }
+    margin-top: 45px;
+  }
 }
 
 .modal.active {
-    display: block;
+  display: block;
 }
-

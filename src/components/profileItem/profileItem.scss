@@ -1,24 +1,24 @@
-@import '../../../static/variables';
-@import '../../../static/mixins';
+@import "../../../static/variables";
+@import "../../../static/mixins";
 
 .profileItem {
-    width: 100%;
-    padding: 12px 0;
-    border-bottom: $divider;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: $divider;
 
-    &__value {
-        color: $secondary-text-color;
-        border: 0;
-        text-align: end;
+  &__value {
+    color: $secondary-text-color;
+    border: 0;
+    text-align: end;
 
-        &:disabled {
-            background: none;
-        }
+    &:disabled {
+      background: none;
     }
+  }
 
-    &__label {
-        font-weight: $font-weight-medium;;
-    }
+  &__label {
+    font-weight: $font-weight-medium;
+  }
 
-    @include displayFlex(space-between)
+  @include displayFlex(space-between);
 }

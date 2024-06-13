@@ -1,14 +1,8 @@
 export function profilePageFunc() {
-  const avatarSettingBtn = document.querySelector(
-    ".profile-page__main__avatar"
-  ) as HTMLElement;
-  const avatarSettingModal = document.querySelector(
-    "#profileAvatarSettingModal"
-  ) as HTMLElement;
+  const avatarSettingBtn = document.querySelector(".profile-page__main__avatar") as HTMLElement;
+  const avatarSettingModal = document.querySelector("#profileAvatarSettingModal") as HTMLElement;
   const inputFile = document.querySelector(".inputFile__input") as HTMLElement;
-  const modalSubmitBtn = document.querySelector(
-    ".modal__footer__btn"
-  ) as HTMLElement;
+  const modalSubmitBtn = document.querySelector(".modal__footer__btn") as HTMLElement;
 
   const handleBtnClick = () => {
     avatarSettingModal.classList.add("active");
@@ -35,12 +29,10 @@ export function profilePageFunc() {
   inputFile.addEventListener("change", handleInputFileChange);
   modalSubmitBtn.addEventListener("click", handleCloseModal);
 
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", event => {
     const target = event.target as HTMLElement;
 
-    if (
-      !target.closest("#profileAvatarSettingModal, .profile-page__main__avatar")
-    ) {
+    if (!target.closest("#profileAvatarSettingModal, .profile-page__main__avatar")) {
       avatarSettingModal.classList.remove("active");
     }
   });

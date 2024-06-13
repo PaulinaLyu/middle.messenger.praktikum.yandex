@@ -7,17 +7,10 @@ interface ContextType {
   [key: string]: any;
 }
 
-Handlebars.registerHelper(
-  "if_type_search",
-  function (
-    this: ContextType,
-    type: string,
-    options: Handlebars.HelperOptions
-  ) {
-    if (type === "search") {
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
+Handlebars.registerHelper("if_type_search", function (this: ContextType, type: string, options: Handlebars.HelperOptions) {
+  if (type === "search") {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
   }
-);
+});

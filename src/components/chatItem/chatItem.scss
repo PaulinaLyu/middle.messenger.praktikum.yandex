@@ -1,77 +1,75 @@
-@import '../../../static/variables';
-@import '../../../static/mixins';
+@import "../../../static/variables";
+@import "../../../static/mixins";
 
 .chat-item {
-    &__container {
-        height: 70px;
-        width: 100%;
-        
-        border-top: $divider;
+  &__container {
+    height: 70px;
+    width: 100%;
 
-        padding: 12px;
-        cursor: pointer;
+    border-top: $divider;
 
-        &--current {
-            background: $secondary-color;
-            cursor: default;
-        }   
+    padding: 12px;
+    cursor: pointer;
 
-        
-        &:hover {
-            background: #d5d5d5;
-        }   
-
-        @include displayFlex(space-between)
+    &--current {
+      background: $secondary-color;
+      cursor: default;
     }
 
-    &__info {
-        @include displayFlex(space-between, stretch, column)
+    &:hover {
+      background: #d5d5d5;
     }
 
-    &__main {
-        @include displayFlex
-    }
+    @include displayFlex(space-between);
+  }
 
-    &__avatar {
-        background: $additional-elements-bgcolor;
-        min-height: $chatList-avatar-size;
-        min-width: $chatList-avatar-size;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
+  &__info {
+    @include displayFlex(space-between, stretch, column);
+  }
 
-    &__name {
-        font-weight: $font-weight-semibold;
-    }
+  &__main {
+    @include displayFlex;
+  }
 
-    &__date {
-        float: right;
-        color: $secondary-text-color;
-        font: $font-xs;
-    }
+  &__avatar {
+    background: $additional-elements-bgcolor;
+    min-height: $chatList-avatar-size;
+    min-width: $chatList-avatar-size;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
 
-    &__message-text {
-        font: $font-sm;   
-        color: $secondary-text-color;
-        margin-top: 4px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  &__name {
+    font-weight: $font-weight-semibold;
+  }
 
-    &__unread {
-        margin-top: 14px;
-        height: $chatlist-info-unread-size;
-        width: $chatlist-info-unread-size;
-        font: $font-sm;
-        background: $primary-color;
-        color: $primary-text-invert-color;
-        place-self: end;
-        border-radius: 50%;
+  &__date {
+    float: right;
+    color: $secondary-text-color;
+    font: $font-xs;
+  }
 
-        @include displayFlex(center, center)
-    }
+  &__message-text {
+    font: $font-sm;
+    color: $secondary-text-color;
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
+  &__unread {
+    margin-top: 14px;
+    height: $chatlist-info-unread-size;
+    width: $chatlist-info-unread-size;
+    font: $font-sm;
+    background: $primary-color;
+    color: $primary-text-invert-color;
+    place-self: end;
+    border-radius: 50%;
+
+    @include displayFlex(center, center);
+  }
 }

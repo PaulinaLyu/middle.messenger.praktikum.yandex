@@ -1,4 +1,4 @@
-$font-body: "Inter","Segoe UI","Roboto","Helvetica Neue", sans-serif;
+$font-body: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
 
 $font-weight-regular: 500;
 $font-weight-medium: 600;
@@ -11,19 +11,19 @@ $font-regular: #{$font-weight-regular} 13px/13px #{$font-body};
 $font-sm: #{$font-weight-regular} 11px/11px #{$font-body};
 $font-xs: #{$font-weight-regular} 9px/9px #{$font-body};
 
-$primary-text-color: #1E1E1E; 
-$secondary-text-color: #999999; 
+$primary-text-color: #1e1e1e;
+$secondary-text-color: #999999;
 $primary-text-invert-color: #fff;
 
-$primary-color: #3369F3; 
-$secondary-color: #E4EDFD; 
-$warning-color: #FF0000; 
+$primary-color: #3369f3;
+$secondary-color: #e4edfd;
+$warning-color: #ff0000;
 
 $primary-bgcolor: #fff;
-$secondary-bgcolor:#FBFBFB;
-$additional-elements-bgcolor:#EFEFEF;
+$secondary-bgcolor: #fbfbfb;
+$additional-elements-bgcolor: #efefef;
 
-$divider: 1px solid #EAEAEA;
+$divider: 1px solid #eaeaea;
 
 //Input
 $input-height: 32px;

@@ -1,16 +1,15 @@
-@import '../../../static/variables';
-@import '../../../static/mixins';
-
+@import "../../../static/variables";
+@import "../../../static/mixins";
 
 .dropdown-option-item {
-    width: 100%;
-    cursor: pointer;
-    padding: 5px;
+  width: 100%;
+  cursor: pointer;
+  padding: 5px;
 
-    &__icon {
-        color: $primary-color;
-        margin-right: 15px;
-    }
+  &__icon {
+    color: $primary-color;
+    margin-right: 15px;
+  }
 
-    @include displayFlex(flex-start, center)
+  @include displayFlex(flex-start, center);
 }

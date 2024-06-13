@@ -1,13 +1,13 @@
-import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   root: resolve(__dirname),
   build: {
-    outDir: resolve(__dirname, 'dist'),
+    outDir: resolve(__dirname, "dist"),
   },
-  publicDir: 'static',
+  publicDir: "static",
   server: {
-    port: 3000
+    port: 3000,
   },
 });

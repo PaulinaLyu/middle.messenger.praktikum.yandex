@@ -1,27 +1,28 @@
-@import '../static/variables.scss';
-@import '../static/mixins.scss';
+@import "../static/variables.scss";
+@import "../static/mixins.scss";
 
-html, body {
-    padding: 0;
-    margin: 0;
-    height: 100vh;
-    width: 100vw;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
-    font: $font-regular;
-    color: $primary-text-color;
-    @include displayFlex(center,center)
+  font: $font-regular;
+  color: $primary-text-color;
+  @include displayFlex(center, center);
 }
 
 * {
-    box-sizing: border-box
+  box-sizing: border-box;
 }
 
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }
 
 p {
-    margin: 0
+  margin: 0;
 }
