@@ -8,7 +8,6 @@ export function chatPageFunc() {
       if (dropdown) {
         document.querySelectorAll('.dropdown-content').forEach(content => {
           if (content !== dropdown) {
-            debugger;
             content.classList.remove('dropdown-content--show');
           }
         });
