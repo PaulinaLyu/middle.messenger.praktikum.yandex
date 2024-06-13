@@ -31,11 +31,11 @@ https://paulmessenger.netlify.app/
 
 ## Используемые технологии
 
-Vite: для сборки проекта.
-Sass: препроцессор для CSS.
-Handlebars: шаблонизатор для генерации HTML.
-Express: сервер для раздачи статики.
+- Vite: для сборки проекта.
+- Sass: препроцессор для CSS.
+- Handlebars: шаблонизатор для генерации HTML.
+- Express: сервер для раздачи статики.
 
-### Ссылка на макет figma
+## Ссылка на макет figma
 
 https://www.figma.com/design/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1-2&t=hEcJSu2lchyU2V0V-0
