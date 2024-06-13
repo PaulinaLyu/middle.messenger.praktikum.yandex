@@ -8,6 +8,6 @@ export default defineConfig({
   },
   publicDir: 'static',
   server: {
-    port: 4000
+    port: 3000
   },
 });
