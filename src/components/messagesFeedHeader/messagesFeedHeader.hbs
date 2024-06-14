@@ -2,7 +2,7 @@
     <div class="messages-feed-header__user">
         {{#if chatAvatar}}
             <div class="messages-feed-header__avatar">
-                <img src={{ chatAvatar }}><img>
+                <img alt="User avatar" src={{ chatAvatar }}><img>
             </div>
         {{else }}
             <div class="messages-feed-header__avatar"></div>
@@ -10,7 +10,7 @@
         <span class="messages-feed-header__name">{{ chatName }}</span>
     </div>
 
-    {{#> Dropdown src="/icons/vertical-dots.svg" }}
+    {{#> Dropdown src="/icons/vertical-dots.svg" alt="Vertical dots icon" }}
         {{> DropdownOptionItem iconSrc="/icons/circle-plus.svg" text='Добавить пользователя' }}
         {{> DropdownOptionItem iconSrc="/icons/circle-cross.svg" text='Удалить пользователя' }}
     {{/ Dropdown }}
