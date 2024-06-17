@@ -1,0 +1,9 @@
+.chat-header {
+  width: 100%;
+  padding-bottom: 14px;
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,8 @@
+@import "../../../static/variables";
+
+.card {
+  background: $primary-bgcolor;
+  box-shadow: $card-shadow;
+  border-radius: 12px;
+  padding: 20px;
+}

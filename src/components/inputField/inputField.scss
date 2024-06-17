@@ -1,0 +1,8 @@
+@import "../../../static/variables";
+
+.input-field {
+  &__label {
+    color: $secondary-text-color;
+    font: $font-xs;
+  }
+}

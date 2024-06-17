@@ -1,0 +1,13 @@
+@mixin centerElementWithPosition {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin displayFlex($jus-cont: flex-start, $al-it: stretch, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $jus-cont;
+  align-items: $al-it;
+}
