@@ -8,7 +8,10 @@
     "start": "tsc && vite build && node server.cjs",
     "build": "tsc && vite build",
     "format": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules/.vite",
+    "reinstall": "rm -rf node_modules && npm install",
+    "dev:restart": "npm run clean && npm run reinstall && npm run dev"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
