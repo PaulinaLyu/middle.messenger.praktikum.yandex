@@ -1,4 +1,4 @@
-type Listener<T = unknown> = (...args: T[]) => void;
+type Listener<T = any> = (...args: T[]) => void;
 
 interface Listeners {
   [event: string]: Listener[];
