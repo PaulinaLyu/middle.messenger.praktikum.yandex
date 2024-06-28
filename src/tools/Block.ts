@@ -3,7 +3,7 @@ import Handlebars from "handlebars";
 
 interface Props {
   [key: string]: any;
-  events?: { [key: string]: (event: Event) => void };
+  events?: { [key: string]: (event: any) => void };
   attr?: { [key: string]: string };
 }
 
@@ -36,19 +36,23 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
     this.lists = lists;
+    debugger;
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
+    debugger;
   }
 
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach(eventName => {
+      debugger;
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _registerEvents(eventBus: EventBus): void {
+    debugger;
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -86,7 +90,7 @@ export default class Block {
     const children: Children = {};
     const props: Props = {};
     const lists: Lists = {};
-
+    debugger;
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
@@ -127,17 +131,19 @@ export default class Block {
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
-
+    debugger;
     Object.entries(this.lists).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
     });
 
     const fragment = this._createDocumentElement("template");
+    debugger;
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
-
+    debugger;
     Object.values(this.children).forEach(child => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       const childContent = child.getContent();
+      debugger;
       if (stub && childContent) {
         stub.replaceWith(childContent);
       }
@@ -166,6 +172,7 @@ export default class Block {
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
+    debugger;
     this._addEvents();
     this.addAttributes();
   }
