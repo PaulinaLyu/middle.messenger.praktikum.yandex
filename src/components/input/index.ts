@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import "./input.scss";
-export { default as Input } from "./input.hbs?raw";
+export { Input } from "./Input.ts";
 
 interface ContextType {
   type: string;

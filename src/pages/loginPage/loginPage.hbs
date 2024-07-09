@@ -1,7 +1,7 @@
 <main>
 {{#> Card }}
   <form class="login-page">
-    <div class="login-page__body">
+    {{!-- <div class="login-page__body">
       {{#if isRegistration}}
         {{> Title title="Регистрация" }}
         {{> InputField className="login-page__input" title="Почта" name="email" inputId="reg-email" border=true no-bg=true }}
@@ -16,11 +16,11 @@
         {{> InputField className="login-page__input" title="Логин" name="login" inputId="login-login" border=true no-bg=true }}
         {{> InputField className="login-page__input" title="Пароль" name="password" inputId="login-password" type="password" border=true no-bg=true }}
       {{/if}}
-    </div>
+    </div> --}}
     <div>
-      {{#> Button page="chat" type="button" }}
+      {{!-- {{#> Button page="chat" type="button" }}
           <span>{{#if isRegistration}}Зарегистрироваться{{else}}Войти{{/if}}</span>
-      {{/ Button }}
+      {{/ Button }} --}}
       {{#if isRegistration}}
           {{> Link page="login" text='Войти' }}
       {{else}}

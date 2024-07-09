@@ -1,2 +1,2 @@
 import "./card.scss";
-export { default as Card } from "./card.hbs?raw";
+export { Card } from "./Card.ts";
