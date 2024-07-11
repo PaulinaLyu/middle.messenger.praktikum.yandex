@@ -1,5 +1,6 @@
 import Handlebars from "handlebars";
 export { default as profilePage } from "./profilePage.hbs?raw";
+export { ProfilePage } from "./ProfilePage";
 import "./profilePage.scss";
 
 interface ContextType {

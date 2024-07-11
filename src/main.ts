@@ -5,6 +5,7 @@ import * as Mocks from "./mocks";
 import * as Scripts from "./scripts";
 import "./main.scss";
 import { LoginPage } from "./pages/loginPage";
+import { ProfilePage } from "./pages/profilePage";
 
 // const pages = {
 //   chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
@@ -170,6 +171,7 @@ import { LoginPage } from "./pages/loginPage";
 //   }
 // }
 
-const block = new LoginPage({ text: "Link", url: "", isPage: true });
+// const block = new LoginPage({ text: "Link", url: "", isPage: true });
+const block = new ProfilePage({ isPage: true });
 const container = document.getElementById("app")!;
 container.append(block.getContent()!);
