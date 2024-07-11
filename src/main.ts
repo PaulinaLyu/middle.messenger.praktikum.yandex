@@ -177,8 +177,8 @@ import { LoginPage } from "./pages/loginPage";
 // const container = document.getElementById("app")!;
 // container.append(block.getContent()!);
 
-const block = new Title({ title: "Nfqnk" });
-// const block = new LoginPage({ text: "Link", url: "" });
+// const block = new Title({ title: "Nfqnk" });
+const block = new LoginPage({ text: "Link", url: "" });
 // //const block = new PageWithList();
 const container = document.getElementById("app")!;
 debugger;

@@ -1,4 +1,5 @@
 import Block from "../../tools/Block";
+import Handlebars from "handlebars";
 import { default as LinkTemplate } from "./link.hbs?raw";
 
 interface LinkProps {
@@ -11,6 +12,7 @@ interface LinkProps {
 
 export class Link extends Block {
   constructor(props: LinkProps) {
+    Handlebars.registerPartial("Link", LinkTemplate);
     super({
       ...props,
     });
