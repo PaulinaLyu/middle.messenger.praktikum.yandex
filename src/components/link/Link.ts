@@ -12,10 +12,10 @@ interface LinkProps {
 
 export class Link extends Block {
   constructor(props: LinkProps) {
-    Handlebars.registerPartial("Link", LinkTemplate);
     super({
       ...props,
     });
+    Handlebars.registerPartial("Link", LinkTemplate);
   }
 
   render() {

@@ -1,4 +1,5 @@
 import Block from "../../tools/Block";
+import Handlebars from "handlebars";
 import { default as InputFieldTemplate } from "./inputField.hbs?raw";
 
 interface InputFieldProps {
@@ -13,6 +14,7 @@ export class InputField extends Block {
     super({
       ...props,
     });
+    Handlebars.registerPartial("InputField", InputFieldTemplate);
   }
 
   render() {

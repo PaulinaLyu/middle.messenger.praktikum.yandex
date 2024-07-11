@@ -1,4 +1,5 @@
 import Block from "../../tools/Block";
+import Handlebars from "handlebars";
 import { default as InputTemplate } from "./input.hbs?raw";
 
 interface InputProps {
@@ -16,6 +17,7 @@ export class Input extends Block {
     super({
       ...props,
     });
+    Handlebars.registerPartial("Input", InputTemplate);
   }
 
   render() {

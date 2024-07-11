@@ -1,4 +1,5 @@
 import Block from "../../tools/Block";
+import Handlebars from "handlebars";
 import { default as ButtonTemplate } from "./button.hbs?raw";
 
 interface ButtonProps {
@@ -17,6 +18,7 @@ export class Button extends Block {
         click: (e: MouseEvent) => props.onClick(e),
       },
     });
+    Handlebars.registerPartial("Button", ButtonTemplate);
   }
 
   render() {

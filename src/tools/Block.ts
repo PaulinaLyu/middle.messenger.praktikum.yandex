@@ -36,23 +36,20 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
     this.lists = lists;
-    debugger;
+
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
-    debugger;
   }
 
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach(eventName => {
-      debugger;
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _registerEvents(eventBus: EventBus): void {
-    debugger;
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -90,7 +87,7 @@ export default class Block {
     const children: Children = {};
     const props: Props = {};
     const lists: Lists = {};
-    debugger;
+
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
@@ -125,56 +122,69 @@ export default class Block {
   }
 
   private _render(): void {
-    console.log("Render");
+    // Получаем текущие свойства и детей в виде заглушек
     const propsAndStubs = { ...this.props };
     const _tmpId = Math.floor(100000 + Math.random() * 900000);
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
-    debugger;
+
     Object.entries(this.lists).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
     });
 
-    const fragment = this._createDocumentElement("template");
-    debugger;
-    fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
-    debugger;
-    Object.values(this.children).forEach(child => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      const childContent = child.getContent();
+    // Компилируем шаблон с помощью Handlebars
+    const renderReturn = this.render();
+    if (this.props.isPage) {
+      const template = Handlebars.compile(renderReturn);
+      const fragment = this._createDocumentElement("template");
       debugger;
-      if (stub && childContent) {
-        stub.replaceWith(childContent);
-      }
-    });
-
-    Object.entries(this.lists).forEach(([key, child]) => {
-      const listCont = this._createDocumentElement("template");
-      child.forEach(item => {
-        if (item instanceof Block) {
-          const content = item.getContent();
-          if (content) {
-            listCont.content.append(content);
-          }
-        } else {
-          listCont.content.append(item as string);
+      // Заполняем шаблон свойствами и заглушками
+      fragment.innerHTML = template(propsAndStubs);
+      debugger;
+      // Заменяем заглушки на реальные элементы детей
+      Object.values(this.children).forEach(child => {
+        const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        const childContent = child.getContent();
+        if (stub && childContent) {
+          stub.replaceWith(childContent);
         }
       });
-      const stub = fragment.content.querySelector(`[data-id="__l_${_tmpId}"]`);
-      if (stub) {
-        stub.replaceWith(listCont.content);
-      }
-    });
 
-    const newElement = fragment.content.firstElementChild as HTMLElement;
-    if (this._element) {
-      this._element.replaceWith(newElement);
+      // Обрабатываем списки детей
+      Object.entries(this.lists).forEach(([key, list]) => {
+        const listCont = this._createDocumentElement("template");
+        list.forEach(item => {
+          if (item instanceof Block) {
+            const content = item.getContent();
+            if (content) {
+              listCont.content.append(content);
+            }
+          } else {
+            listCont.content.append(item as string);
+          }
+        });
+        const stub = fragment.content.querySelector(`[data-id="__l_${_tmpId}"]`);
+        if (stub) {
+          stub.replaceWith(listCont.content);
+        }
+      });
+
+      // Заменяем текущий элемент новым
+      const newElement = fragment.content.firstElementChild as HTMLElement;
+      if (this._element) {
+        this._element.replaceWith(newElement);
+      }
+      this._element = newElement;
+
+      // Добавляем события и атрибуты
+      this._addEvents();
+      this.addAttributes();
+    } else {
+      debugger;
+      Handlebars.registerPartial("Link", renderReturn);
     }
-    this._element = newElement;
-    debugger;
-    this._addEvents();
-    this.addAttributes();
   }
 
   protected render(): string {

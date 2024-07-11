@@ -1,4 +1,5 @@
 import Block from "../../tools/Block";
+import Handlebars from "handlebars";
 import { default as TitleTemplate } from "./title.hbs?raw";
 
 interface TitleProps {
@@ -10,6 +11,7 @@ export class Title extends Block {
     super({
       ...props,
     });
+    Handlebars.registerPartial("Title", TitleTemplate);
   }
 
   render() {

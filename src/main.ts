@@ -4,8 +4,6 @@ import * as Components from "./components";
 import * as Mocks from "./mocks";
 import * as Scripts from "./scripts";
 import "./main.scss";
-// import { Button } from "./components";
-import { Title } from "./components";
 import { LoginPage } from "./pages/loginPage";
 
 // const pages = {
@@ -172,18 +170,6 @@ import { LoginPage } from "./pages/loginPage";
 //   }
 // }
 
-// const block = new PageWithButton({ buttonText: "Button" });
-// //const block = new PageWithList();
-// const container = document.getElementById("app")!;
-// container.append(block.getContent()!);
-
-// const block = new Title({ title: "Nfqnk" });
-const block = new LoginPage({ text: "Link", url: "" });
-// //const block = new PageWithList();
+const block = new LoginPage({ text: "Link", url: "", isPage: true });
 const container = document.getElementById("app")!;
-debugger;
 container.append(block.getContent()!);
-
-// {{#> Button page="chat" type="button" }}
-// <span>{{#if isRegistration}}Зарегистрироваться{{else}}Войти{{/if}}</span>
-// {{/ Button }}

@@ -8,11 +8,10 @@ interface CardProps {
 
 export class Card extends Block {
   constructor(props: CardProps) {
-    Handlebars.registerPartial("Card", CardTemplate);
-
     super({
       ...props,
     });
+    Handlebars.registerPartial("Card", CardTemplate);
   }
 
   render() {
