@@ -1,6 +1,6 @@
 import Block from "../../tools/Block";
-import Handlebars from "handlebars";
-import { default as ButtonTemplate } from "./button.hbs?raw";
+// import Handlebars from "handlebars";
+// import { default as ButtonTemplate } from "./button.hbs?raw";
 
 interface ButtonProps {
   onClick: (value: MouseEvent) => void;
@@ -8,6 +8,7 @@ interface ButtonProps {
   text: string;
   page: string;
   type: string;
+  isCircle: boolean;
 }
 
 export class Button extends Block {
@@ -15,13 +16,19 @@ export class Button extends Block {
     super({
       ...props,
       events: {
-        click: (e: MouseEvent) => props.onClick(e),
+        click: (e: MouseEvent) => {
+          props.onClick(e);
+        },
+      },
+      attr: {
+        class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}`,
+        type: props.type,
+        page: props.page,
       },
     });
-    Handlebars.registerPartial("Button", ButtonTemplate);
   }
 
   render() {
-    return ButtonTemplate;
+    return `<button>{{text}}</button>`;
   }
 }

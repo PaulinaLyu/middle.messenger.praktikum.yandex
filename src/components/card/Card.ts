@@ -1,5 +1,4 @@
 import Block from "../../tools/Block";
-import Handlebars from "handlebars";
 import { default as CardTemplate } from "./card.hbs?raw";
 
 interface CardProps {
@@ -11,7 +10,7 @@ export class Card extends Block {
     super({
       ...props,
     });
-    Handlebars.registerPartial("Card", CardTemplate);
+    // Handlebars.registerPartial("Card", CardTemplate);
   }
 
   render() {

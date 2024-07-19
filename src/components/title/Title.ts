@@ -10,11 +10,13 @@ export class Title extends Block {
   constructor(props: TitleProps) {
     super({
       ...props,
+      title: props.title,
     });
-    Handlebars.registerPartial("Title", TitleTemplate);
   }
 
   render() {
-    return TitleTemplate;
+    return `<h1 class="page-title">
+        {{title}}
+      </h1>`;
   }
 }
