@@ -15,7 +15,7 @@ export class ProfilePage extends Block {
       modal: new Modal(),
       input: new Input(),
       inputField: new InputField(),
-      button: new Button(),
+      button: new Button({ onClick: props.onBtnClick }),
       inputFile: new InputFile(),
       profileItem: new ProfileItem(),
     });

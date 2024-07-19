@@ -171,7 +171,72 @@ import { ProfilePage } from "./pages/profilePage";
 //   }
 // }
 
-// const block = new LoginPage({ text: "Link", url: "", isPage: true });
-const block = new ProfilePage({ isPage: true });
-const container = document.getElementById("app")!;
-container.append(block.getContent()!);
+const pages = {
+  // chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
+  login: new LoginPage({ isRegistration: false, onBtnClick: () => console.log("Клик"), buttonText: "Войти", title: "Вход", linkText: "Нет аккаунта?", page: "login-registration", buttonPage: "chat" }),
+  "login-registration": new LoginPage({
+    isRegistration: true,
+    onBtnClick: () => console.log("Регистрация"),
+    buttonText: "Зарегистрироваться",
+    title: "Регистрация",
+    linkText: "Вход",
+    page: "login",
+    buttonPage: "chat",
+  }),
+  // profile: [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: true }, Scripts.profilePageFunc],
+  // "profile-update": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: false }, Scripts.profilePageFunc],
+  // "profile-change-pass": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: true, isDisabled: false }, Scripts.profilePageFunc],
+  // error500: [Pages.errorPage, { text: "Мы уже фиксим", error: 500 }],
+  // error404: [Pages.errorPage, { text: "Не туда попали", error: 404 }],
+};
+
+type pageType = keyof typeof pages;
+
+function navigate(page: pageType) {
+  // const [source, context, func] = pages[page];
+  // const handlebarsFunct = Handlebars.compile(source);
+  // document.body.innerHTML = handlebarsFunct(context);
+
+  // if (typeof func === "function") {
+  //   func();
+  // }
+
+  const block = pages[page];
+  debugger;
+  // const block = new ProfilePage({ isPage: true, onBtnClick: () => console.log("Клик") });
+  const container = document.getElementById("app")!;
+  container.append(block.getContent()!);
+}
+
+document.addEventListener("DOMContentLoaded", () => navigate("login-registration"));
+
+document.addEventListener("click", e => {
+  const target = e.target as HTMLElement;
+  let page = target.getAttribute("page");
+  debugger;
+  if (!page && target.parentElement) {
+    page = (target.parentElement as HTMLElement).getAttribute("page");
+  }
+  debugger;
+  if (page && page in pages) {
+    navigate(page as pageType);
+    debugger;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+});
+
+// const block = new LoginPage({ onBtnClick: () => console.log("Клик"), buttonText: "Войти", title: "Вход", linkText: "Нет аккаунта?", page: "login-registration", buttonPage: "chat" });
+// // const block = new ProfilePage({ isPage: true, onBtnClick: () => console.log("Клик") });
+// const container = document.getElementById("app")!;
+// container.append(block.getContent()!);
+
+// button: new Button({ text: props.buttonText, onClick: props.onButtonClick, type: "button", isCircle: true }),
+// // inputLogin: new Input({
+// //   label: "input",
+// // }),
+// // inputPassword: new Input({
+// //   label: "input",
+// // }),
+// title: new Title({ title: props.title }),
+// link: new Link({ text: props.linkText }),

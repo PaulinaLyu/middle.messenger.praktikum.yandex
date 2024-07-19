@@ -1,4 +1,18 @@
+@import "../../../static/mixins";
+@import "../../../static/variables";
+
 .login-page {
+  @include centerElementWithPosition;
+}
+
+.login-page-card {
+  background: $primary-bgcolor;
+  box-shadow: $card-shadow;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.login-form {
   width: 280px;
   min-height: 390px;
   display: flex;
