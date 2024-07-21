@@ -183,7 +183,7 @@ const pages = {
     page: "login",
     buttonPage: "chat",
   }),
-  // profile: [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: true }, Scripts.profilePageFunc],
+  profile: new ProfilePage(),
   // "profile-update": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: false }, Scripts.profilePageFunc],
   // "profile-change-pass": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: true, isDisabled: false }, Scripts.profilePageFunc],
   // error500: [Pages.errorPage, { text: "Мы уже фиксим", error: 500 }],
