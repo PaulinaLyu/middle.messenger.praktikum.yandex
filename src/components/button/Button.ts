@@ -8,7 +8,10 @@ interface ButtonProps {
   text: string;
   page: string;
   type: string;
-  isCircle: boolean;
+  isCircle?: boolean;
+  isGhost?: boolean;
+  isWarning?: boolean;
+  underline?: boolean;
 }
 
 export class Button extends Block {
@@ -21,14 +24,13 @@ export class Button extends Block {
         },
       },
       attr: {
-        class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}`,
-        type: props.type,
+        class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}${props.isGhost ? " button--ghost" : ""}${props.isWarning ? "  button--ghost--warning" : ""}${props.underline ? "  button--underline" : ""}`,
+        type: props.type || "button",
         page: props.page,
       },
     });
   }
-
   render() {
-    return `<button>{{text}}</button>`;
+    return `<button>{{{text}}}</button>`;
   }
 }

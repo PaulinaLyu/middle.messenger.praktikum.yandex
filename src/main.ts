@@ -171,6 +171,15 @@ import { ProfilePage } from "./pages/profilePage";
 //   }
 // }
 
+const user = {
+  email: "test@gmail.com",
+  login: "login.login",
+  firstName: "Ваня",
+  secondName: "Иванов",
+  displayName: "login.login",
+  phone: "89155678990",
+};
+
 const pages = {
   // chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
   login: new LoginPage({ isRegistration: false, onBtnClick: () => console.log("Клик"), buttonText: "Войти", title: "Вход", linkText: "Нет аккаунта?", page: "login-registration", buttonPage: "chat" }),
@@ -183,7 +192,17 @@ const pages = {
     page: "login",
     buttonPage: "chat",
   }),
-  profile: new ProfilePage(),
+  profile: new ProfilePage({
+    user: user,
+    isChangePass: false,
+    disabled: true,
+    buttonArrowPage: "chat",
+    buttonSavePage: "login",
+    // buttonChangeData: "login",
+    // buttonChangePass: "login",
+    buttonExit: "login",
+  }),
+
   // "profile-update": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: false }, Scripts.profilePageFunc],
   // "profile-change-pass": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: true, isDisabled: false }, Scripts.profilePageFunc],
   // error500: [Pages.errorPage, { text: "Мы уже фиксим", error: 500 }],
@@ -202,13 +221,14 @@ function navigate(page: pageType) {
   // }
 
   const block = pages[page];
-  debugger;
-  // const block = new ProfilePage({ isPage: true, onBtnClick: () => console.log("Клик") });
   const container = document.getElementById("app")!;
-  container.append(block.getContent()!);
+  if (container) {
+    container.innerHTML = ``;
+    container.appendChild(block.getContent()!);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("login-registration"));
+document.addEventListener("DOMContentLoaded", () => navigate("profile"));
 
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;

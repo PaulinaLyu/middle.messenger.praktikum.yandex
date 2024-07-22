@@ -82,7 +82,7 @@ export class LoginPage extends Block {
           <form class="login-form">
             <div class="login-form__body">
               {{{title}}}
-              ${this.isRegistration ? "{{{inputEmail}}}{{{inputLogin}}}{{{inputFirstName}}}{{{inputSecondName}}}{{{inputPhone}}}{{{inputPassword}}}{{{inputPasswordRepeat}}} " : "<div>123</div>"}
+              ${this.props.isRegistration ? "{{{inputEmail}}}{{{inputLogin}}}{{{inputFirstName}}}{{{inputSecondName}}}{{{inputPhone}}}{{{inputPassword}}}{{{inputPasswordRepeat}}}" : "{{{inputLogin}}}{{{inputPassword}}}"}
             </div>
             <div>
               {{{button}}}
