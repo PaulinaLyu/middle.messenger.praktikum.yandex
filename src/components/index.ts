@@ -6,6 +6,7 @@ export { InputField } from "./inputField";
 export { InputFile } from "./inputFile";
 export { Title } from "./title";
 export { ChatItem } from "./chatItem";
+export type { IChat } from "./chatItem";
 export { ChatHeader } from "./chatHeader";
 export { ProfileItem } from "./profileItem";
 export { MessagesFeed } from "./messagesFeed";
