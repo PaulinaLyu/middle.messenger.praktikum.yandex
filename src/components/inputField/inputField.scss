@@ -5,4 +5,8 @@
     color: $secondary-text-color;
     font: $font-xs;
   }
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 }

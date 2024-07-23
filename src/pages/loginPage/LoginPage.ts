@@ -8,13 +8,18 @@ import { default as LoginPageTemplate } from "./loginPage.hbs?raw";
 
 export class LoginPage extends Block {
   constructor(props) {
-    debugger;
     super({
       ...props,
       isRegistration: props?.isRegistration,
       button: new Button({ text: props.buttonText, onClick: props.onBtnClick, type: "button", page: props.buttonPage }),
       title: new Title({ title: props.title }),
-      link: new Link({ text: props.linkText, page: props.page }),
+      link: new Link({
+        text: props.linkText,
+        page: props.linkPage,
+        // onClick: value => {
+        //   this.setProps({ isRegistration: true });
+        // },
+      }),
       inputLogin: new InputField({
         className: "login-form__input",
         title: "Логин",
@@ -76,13 +81,26 @@ export class LoginPage extends Block {
     });
   }
 
-  render() {
+  // componentDidUpdate(oldProps, newProps) {
+  //   if (oldProps.isRegistration !== newProps.isRegistration) {
+  //     debugger;
+  //     this.setProps({ isRegistration: newProps.isRegistration });
+  //   }
+  //   return true;
+  // }
+
+  override render() {
+    debugger;
     return `<main class="login-page">
         <div class="login-page-card">
           <form class="login-form">
             <div class="login-form__body">
               {{{title}}}
-              ${this.props.isRegistration ? "{{{inputEmail}}}{{{inputLogin}}}{{{inputFirstName}}}{{{inputSecondName}}}{{{inputPhone}}}{{{inputPassword}}}{{{inputPasswordRepeat}}}" : "{{{inputLogin}}}{{{inputPassword}}}"}
+              ${
+                this.props.isRegistration
+                  ? "{{{inputEmail}}}{{{inputLogin}}}{{{inputFirstName}}}{{{inputSecondName}}}{{{inputPhone}}}{{{inputPassword}}}{{{inputPasswordRepeat}}}"
+                  : "{{{inputLogin}}}{{{inputPassword}}}"
+              }
             </div>
             <div>
               {{{button}}}

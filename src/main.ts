@@ -182,14 +182,22 @@ const user = {
 
 const pages = {
   // chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
-  login: new LoginPage({ isRegistration: false, onBtnClick: () => console.log("Клик"), buttonText: "Войти", title: "Вход", linkText: "Нет аккаунта?", page: "login-registration", buttonPage: "chat" }),
+  login: new LoginPage({
+    isRegistration: false,
+    onBtnClick: () => console.log("Клик"),
+    buttonText: "Войти",
+    title: "Вход",
+    linkText: "Нет аккаунта?",
+    linkPage: "login-registration",
+    buttonPage: "chat",
+  }),
   "login-registration": new LoginPage({
     isRegistration: true,
     onBtnClick: () => console.log("Регистрация"),
     buttonText: "Зарегистрироваться",
     title: "Регистрация",
     linkText: "Вход",
-    page: "login",
+    linkPage: "login",
     buttonPage: "chat",
   }),
   profile: new ProfilePage({
@@ -228,7 +236,7 @@ function navigate(page: pageType) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("profile"));
+document.addEventListener("DOMContentLoaded", () => navigate("login"));
 
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;

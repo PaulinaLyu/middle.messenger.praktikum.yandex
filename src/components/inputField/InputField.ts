@@ -13,6 +13,7 @@ interface InputFieldProps {
   id: string;
   type?: string;
   isSearch?: boolean;
+  border?: boolean;
 }
 export class InputField extends Block {
   constructor(props: InputFieldProps) {
@@ -30,13 +31,12 @@ export class InputField extends Block {
         name: props.name,
         id: props.id,
         type: props.type,
+        border: props.border,
       }),
     });
   }
 
   render() {
-    return `<div>{{{label}}}{{{input}}}</div>`;
+    return `<div class="input-field">{{{label}}}{{{input}}}</div>`;
   }
 }
-
-// {{> Input id=inputId placeholder=placeholder name=name type=type}}

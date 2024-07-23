@@ -2,7 +2,7 @@ import Block from "../../tools/Block";
 
 interface InputProps {
   className?: string;
-  border?: string;
+  border?: boolean;
   nobg: boolean;
   isCircle?: boolean;
   placeholder?: string;
@@ -19,7 +19,7 @@ export class Input extends Block {
     super({
       ...props,
       attr: {
-        class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}`,
+        class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
         type: props.type || "text",
         id: props.id,
         placeholder: props.placeholder || "",
