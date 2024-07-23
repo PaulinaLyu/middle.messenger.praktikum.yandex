@@ -6,6 +6,7 @@ import * as Scripts from "./scripts";
 import "./main.scss";
 import { LoginPage } from "./pages/loginPage";
 import { ProfilePage } from "./pages/profilePage";
+import { ErrorPage } from "./pages/errorPage";
 
 // const pages = {
 //   chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
@@ -210,6 +211,18 @@ const pages = {
     // buttonChangePass: "login",
     buttonExit: "login",
   }),
+  error500: new ErrorPage({
+    title: "Мы уже фиксим",
+    error: "500",
+    linkPage: "chat",
+    linkText: "Назад к чатам",
+  }),
+  error400: new ErrorPage({
+    title: "Не туда попали",
+    error: "404",
+    linkPage: "chat",
+    linkText: "Назад к чатам",
+  }),
 
   // "profile-update": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: false }, Scripts.profilePageFunc],
   // "profile-change-pass": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: true, isDisabled: false }, Scripts.profilePageFunc],
@@ -236,7 +249,7 @@ function navigate(page: pageType) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("profile"));
+document.addEventListener("DOMContentLoaded", () => navigate("login"));
 
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;

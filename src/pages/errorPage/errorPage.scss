@@ -7,9 +7,6 @@
     margin-bottom: 26px;
   }
 
-  &__link {
-    margin-top: 70px;
-  }
-
+  @include centerElementWithPosition;
   @include displayFlex(center, center, column);
 }
