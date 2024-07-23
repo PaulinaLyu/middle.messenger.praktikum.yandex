@@ -18,6 +18,13 @@
   min-width: 160px;
   white-space: nowrap;
 
+  &-card {
+    background: $primary-bgcolor;
+    box-shadow: $card-shadow;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
   &--bottom {
     right: 0;
     top: 2.5rem;

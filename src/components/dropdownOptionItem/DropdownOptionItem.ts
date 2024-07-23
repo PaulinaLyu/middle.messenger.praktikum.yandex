@@ -1,6 +1,6 @@
 import Block from "../../tools/Block";
 
-interface DropdownOptionItemProps {
+export interface DropdownOptionItemProps {
   text: string;
   iconSrc: string;
 }
