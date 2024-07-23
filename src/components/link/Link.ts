@@ -1,12 +1,9 @@
 import Block from "../../tools/Block";
-import Handlebars from "handlebars";
-import { default as LinkTemplate } from "./link.hbs?raw";
 
 interface LinkProps {
   text: string;
   className?: string;
   secondary?: string;
-  type: string;
   page: string;
 }
 

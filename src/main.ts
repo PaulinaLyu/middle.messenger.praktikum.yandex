@@ -236,7 +236,7 @@ function navigate(page: pageType) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("login"));
+document.addEventListener("DOMContentLoaded", () => navigate("profile"));
 
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;

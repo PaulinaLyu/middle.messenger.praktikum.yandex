@@ -1,13 +1,11 @@
 import Block from "../../tools/Block";
-// import Handlebars from "handlebars";
-// import { default as ButtonTemplate } from "./button.hbs?raw";
 
 interface ButtonProps {
   onClick: (value: MouseEvent) => void;
-  className: string;
+  className?: string;
   text: string;
-  page: string;
-  type: string;
+  page?: string;
+  type?: string;
   isCircle?: boolean;
   isGhost?: boolean;
   isWarning?: boolean;
@@ -26,7 +24,7 @@ export class Button extends Block {
       attr: {
         class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}${props.isGhost ? " button--ghost" : ""}${props.isWarning ? "  button--ghost--warning" : ""}${props.underline ? "  button--underline" : ""}`,
         type: props.type || "button",
-        page: props.page,
+        page: props.page || "",
       },
     });
   }
