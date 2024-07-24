@@ -8,7 +8,7 @@
     "start": "tsc && vite build && node server.cjs",
     "build": "tsc && vite build",
     "format": "prettier --write .",
-    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "lint": "eslint --fix \"./src/**/*.{ts,tsx,json}\"",
     "preview": "vite preview",
     "clean": "rm -rf node_modules/.vite",
     "reinstall": "rm -rf node_modules && npm install",

@@ -30,7 +30,6 @@ export class ProfilePage extends Block {
         isGhost: true,
         text: `<div class="profile-page__main__avatar"><img width="40px" height="40px" alt="User avatar" src='/icons/img.svg'><img></div>`,
         onClick: () => {
-          debugger;
           this.setProps({ isShowModal: true });
         },
       }),
@@ -82,9 +81,8 @@ export class ProfilePage extends Block {
     if (oldProps.isChangePass !== newProps.isChangePass) {
       this.setProps({ isChangePass: newProps.isChangePass });
     }
-    debugger;
+
     if (oldProps.isShowModal !== newProps.isShowModal) {
-      debugger;
       this.setProps({ isShowModal: newProps.isShowModal });
     }
     return true;

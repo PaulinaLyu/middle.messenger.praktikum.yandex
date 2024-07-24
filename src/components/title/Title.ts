@@ -1,6 +1,4 @@
 import Block from "../../tools/Block";
-import Handlebars from "handlebars";
-import { default as TitleTemplate } from "./title.hbs?raw";
 
 interface TitleProps {
   title: string;
