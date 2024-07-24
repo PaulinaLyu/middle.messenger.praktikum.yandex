@@ -15,3 +15,4 @@ export { MessagesFeedFooter } from "./messagesFeedFooter";
 export { Modal } from "./modal";
 export { Dropdown } from "./dropdown";
 export { DropdownOptionItem } from "./dropdownOptionItem";
+export type { DropdownOptionItemProps } from "./dropdownOptionItem";

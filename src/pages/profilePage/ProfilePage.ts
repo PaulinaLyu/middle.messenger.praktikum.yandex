@@ -22,7 +22,6 @@ export class ProfilePage extends Block {
         text: "Изменить данные",
         isGhost: true,
         onClick: value => {
-          debugger;
           this.setProps({ disabled: false });
         },
       }),
@@ -30,7 +29,6 @@ export class ProfilePage extends Block {
         text: "Изменить пароль",
         isGhost: true,
         onClick: value => {
-          debugger;
           this.setProps({ isChangePass: true });
         },
       }),

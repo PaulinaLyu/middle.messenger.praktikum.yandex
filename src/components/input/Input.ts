@@ -3,7 +3,7 @@ import Block from "../../tools/Block";
 interface InputProps {
   className?: string;
   border?: boolean;
-  nobg: boolean;
+  nobg?: boolean;
   isCircle?: boolean;
   placeholder?: string;
   name: string;

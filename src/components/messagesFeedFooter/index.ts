@@ -1,2 +1,2 @@
 import "./messagesFeedFooter.scss";
-export { default as MessagesFeedFooter } from "./messagesFeedFooter.hbs?raw";
+export { MessagesFeedFooter } from "./MessagesFeedFooter";
