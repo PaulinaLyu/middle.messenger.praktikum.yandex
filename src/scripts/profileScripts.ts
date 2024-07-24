@@ -14,7 +14,7 @@ export function profilePageFunc() {
 
   const handleInputFileChange = function (this: HTMLInputElement) {
     if (this.files && this.files.length > 0) {
-      let file = this.files[0];
+      const file = this.files[0];
       this.nextElementSibling!.innerHTML = file.name;
     }
   };
