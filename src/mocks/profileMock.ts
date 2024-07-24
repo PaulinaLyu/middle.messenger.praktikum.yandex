@@ -1,4 +1,6 @@
-export const profileMock = {
+import { IUser } from "../types";
+
+export const profileMock: IUser = {
   email: "pochta@yandex.ru",
   login: "ivanivanov",
   firstName: "Иван",

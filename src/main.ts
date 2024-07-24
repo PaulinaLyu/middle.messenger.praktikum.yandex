@@ -30,8 +30,8 @@ const pages = {
     isChangePass: false,
     disabled: true,
     buttonArrowPage: "chat",
-    buttonSavePage: "login",
     buttonExit: "login",
+    isShowModal: false,
   }),
   error500: new ErrorPage({
     title: "Мы уже фиксим",

@@ -4,7 +4,7 @@ import Handlebars from "handlebars";
 interface Props {
   [key: string]: any;
   events?: { [key: string]: (event: any) => void };
-  attr?: { [key: string]: string };
+  attr?: { [key: string]: string | boolean };
 }
 
 interface Children {
@@ -105,7 +105,13 @@ export default class Block {
     const { attr = {} } = this.props;
 
     Object.entries(attr).forEach(([key, value]) => {
-      this._element?.setAttribute(key, String(value));
+      if (typeof value === "boolean") {
+        if (value) {
+          this._element?.setAttribute(key, String(value));
+        }
+      } else {
+        this._element?.setAttribute(key, String(value));
+      }
     });
   }
 

@@ -4,8 +4,8 @@ import Block from "../../tools/Block";
 interface ProfileItemProps<T> {
   label: string;
   name: string;
-  value: T;
-  type: string;
+  value?: T;
+  type?: string;
   disabled: boolean;
 }
 
