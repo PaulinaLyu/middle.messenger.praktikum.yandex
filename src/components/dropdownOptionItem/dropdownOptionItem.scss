@@ -11,5 +11,9 @@
     margin-right: 15px;
   }
 
+  &:hover {
+    color: $primary-color;
+  }
+
   @include displayFlex(flex-start, center);
 }

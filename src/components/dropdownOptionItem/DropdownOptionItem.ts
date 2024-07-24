@@ -3,6 +3,7 @@ import Block from "../../tools/Block";
 export interface DropdownOptionItemProps {
   text: string;
   iconSrc: string;
+  onClick: (value: MouseEvent) => void;
 }
 
 export class DropdownOptionItem extends Block {
@@ -11,6 +12,11 @@ export class DropdownOptionItem extends Block {
       ...props,
       text: props.text,
       iconSrc: props.iconSrc,
+      events: {
+        click: (e: MouseEvent) => {
+          props.onClick(e);
+        },
+      },
     });
   }
   render() {
