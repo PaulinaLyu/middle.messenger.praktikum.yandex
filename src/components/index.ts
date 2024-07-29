@@ -1,6 +1,7 @@
 export { Label } from "./label";
 export { Button } from "./button";
 export { Link } from "./link";
+export { Form } from "./form";
 export { Input } from "./input";
 export { InputField } from "./inputField";
 export { InputFile } from "./inputFile";
