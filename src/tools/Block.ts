@@ -1,12 +1,15 @@
 import EventBus from "./EventBus";
 import Handlebars from "handlebars";
 
+type EventHandlers = {
+  [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
+};
+
 interface Props {
-  [key: string]: any;
-  events?: { [key: string]: (event: any) => void };
+  [key: string]: unknown;
+  events?: EventHandlers;
   attr?: { [key: string]: string | boolean };
 }
-
 interface Children {
   [key: string]: Block;
 }
@@ -36,7 +39,7 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
     this.lists = lists;
-
+    debugger;
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -44,8 +47,12 @@ export default class Block {
 
   private _addEvents(): void {
     const { events = {} } = this.props;
+    debugger;
     Object.keys(events).forEach(eventName => {
-      this._element?.addEventListener(eventName, events[eventName]);
+      const eventKey = eventName as keyof HTMLElementEventMap;
+      debugger;
+      const handler = events[eventName] as (event: Event) => void;
+      this._element?.addEventListener(eventKey, handler);
     });
   }
 
@@ -80,6 +87,7 @@ export default class Block {
   }
 
   protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    console.log(oldProps, newProps);
     return true;
   }
 
@@ -103,23 +111,29 @@ export default class Block {
 
   private addAttributes(): void {
     const { attr = {} } = this.props;
-
+    debugger;
     Object.entries(attr).forEach(([key, value]) => {
+      debugger;
       if (typeof value === "boolean") {
         if (value) {
+          debugger;
           this._element?.setAttribute(key, String(value));
         }
       } else {
+        debugger;
         this._element?.setAttribute(key, String(value));
       }
     });
+    debugger;
   }
 
   public setProps = (nextProps: Props): void => {
+    debugger;
     if (!nextProps) {
+      debugger;
       return;
     }
-
+    debugger;
     Object.assign(this.props, nextProps);
   };
 
@@ -130,33 +144,35 @@ export default class Block {
   private _render(): void {
     const propsAndStubs = { ...this.props };
     const _tmpId = Math.floor(100000 + Math.random() * 900000);
-
+    debugger;
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
-    Object.entries(this.lists).forEach(([key, child]) => {
+    Object.entries(this.lists).forEach(([key]) => {
       propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
     });
-
+    debugger;
     const renderReturn = this.render();
 
     const template = Handlebars.compile(renderReturn);
     const fragment = this._createDocumentElement("template");
 
     fragment.innerHTML = template(propsAndStubs);
-
+    debugger;
     Object.values(this.children).forEach(child => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       const childContent = child.getContent();
+      debugger;
       if (stub && childContent) {
+        debugger;
         stub.replaceWith(childContent);
       }
     });
 
-    Object.entries(this.lists).forEach(([key, list]) => {
+    Object.entries(this.lists).forEach(list => {
       const listCont = this._createDocumentElement("template");
-      list.forEach(item => {
+      list[1].forEach(item => {
         if (item instanceof Block) {
           const content = item.getContent();
           if (content) {
@@ -171,13 +187,13 @@ export default class Block {
         stub.replaceWith(listCont.content);
       }
     });
-
+    debugger;
     const newElement = fragment.content.firstElementChild as HTMLElement;
     if (this._element) {
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
-
+    debugger;
     this._addEvents();
     this.addAttributes();
   }

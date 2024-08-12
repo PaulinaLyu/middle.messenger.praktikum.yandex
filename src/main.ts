@@ -10,17 +10,6 @@ const pages = {
   login: () =>
     new LoginPage({
       isRegistration: false,
-      onBtnClick: e => {
-        e.preventDefault();
-        // debugger;
-        // console.log(e);
-        // const form = e.target;
-        // debugger;
-        // const login = form.login.value;
-        // const password = form.password.value;
-        // debugger;
-        // console.log(login, password);
-      },
       buttonText: "Войти",
       title: "Вход",
       linkText: "Нет аккаунта?",
@@ -77,7 +66,7 @@ function navigate(page: pageType) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("login"));
+document.addEventListener("DOMContentLoaded", () => navigate("chat"));
 
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;

@@ -43,6 +43,10 @@
     width: 1rem;
     height: 1rem;
   }
+
+  &--invalid {
+    border: 1px solid red;
+  }
 }
 
 .input__element[type="search"] {
