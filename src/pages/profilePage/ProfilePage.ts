@@ -73,21 +73,6 @@ export class ProfilePage extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: ProfilePageProps, newProps: ProfilePageProps) {
-    if (oldProps.disabled !== newProps.disabled) {
-      this.setProps({ disabled: newProps.disabled });
-    }
-
-    if (oldProps.isChangePass !== newProps.isChangePass) {
-      this.setProps({ isChangePass: newProps.isChangePass });
-    }
-
-    if (oldProps.isShowModal !== newProps.isShowModal) {
-      this.setProps({ isShowModal: newProps.isShowModal });
-    }
-    return true;
-  }
-
   override render() {
     return `<div class="profile-page">
       {{{modal}}}

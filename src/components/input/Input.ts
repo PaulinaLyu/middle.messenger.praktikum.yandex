@@ -1,6 +1,6 @@
 import Block from "../../tools/Block";
 
-interface InputProps {
+interface InputProps<T> {
   className?: string;
   border?: boolean;
   nobg?: boolean;
@@ -12,14 +12,36 @@ interface InputProps {
   isSearch?: boolean;
   value?: unknown;
   disabled?: boolean;
+  validate?: (value: T) => void;
+  isValid?: boolean;
 }
 
-export class Input extends Block {
-  constructor(props: InputProps) {
+interface InputState {
+  isValid: boolean;
+}
+
+export class Input<T> extends Block {
+  constructor(props: InputProps<T>) {
+    debugger;
+    const events = props.validate
+      ? {
+          blur: (event: FocusEvent) => {
+            const target = event.target as HTMLInputElement;
+            const test = props.validate?.(target.value as unknown as T);
+            console.log(test);
+            debugger;
+            this.setProps({ isValid: props.validate?.(target.value as unknown as T) });
+          },
+        }
+      : {};
+
     super({
       ...props,
+      events,
+      isValid: props.isValid,
+
       attr: {
-        class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
+        class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}${props.isValid ? "" : " input--invalid"}`,
         type: props.type || "text",
         id: String(props.id),
         placeholder: props.placeholder || "",

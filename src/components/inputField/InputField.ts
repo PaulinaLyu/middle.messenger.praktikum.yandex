@@ -2,7 +2,7 @@ import Block from "../../tools/Block";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
 
-interface InputFieldProps {
+interface InputFieldProps<T> {
   className?: string;
   inputClassName?: string;
   isCircle?: boolean;
@@ -14,9 +14,11 @@ interface InputFieldProps {
   type?: string;
   isSearch?: boolean;
   border?: boolean;
+  isValid?: boolean;
+  validate?: (value: T) => void;
 }
-export class InputField extends Block {
-  constructor(props: InputFieldProps) {
+export class InputField<T> extends Block {
+  constructor(props: InputFieldProps<T>) {
     super({
       ...props,
       attr: {
@@ -32,6 +34,8 @@ export class InputField extends Block {
         id: props.id,
         type: props.type,
         border: props.border,
+        validate: props.validate,
+        isValid: props.isValid ?? true,
       }),
     });
   }

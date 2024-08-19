@@ -1,7 +1,7 @@
 import Block from "../../tools/Block";
 
 interface ButtonProps {
-  onClick: (value: MouseEvent) => void;
+  onClick?: (value: MouseEvent) => void;
   className?: string;
   text: string;
   page?: string;
@@ -14,13 +14,16 @@ interface ButtonProps {
 
 export class Button extends Block {
   constructor(props: ButtonProps) {
+    const events = props.onClick
+      ? {
+          click: (e: MouseEvent) => {
+            props?.onClick(e);
+          },
+        }
+      : {};
     super({
       ...props,
-      events: {
-        click: (e: MouseEvent) => {
-          props.onClick(e);
-        },
-      },
+      events,
       attr: {
         class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}${props.isGhost ? " button--ghost" : ""}${props.isWarning ? "  button--ghost--warning" : ""}${props.underline ? "  button--underline" : ""}`,
         type: props.type || "button",
