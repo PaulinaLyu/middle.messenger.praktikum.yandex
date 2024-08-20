@@ -22,7 +22,7 @@ interface InputState {
 
 export class Input<T> extends Block {
   constructor(props: InputProps<T>) {
-    debugger;
+
     const events = props.validate
       ? {
           blur: (event: FocusEvent) => {

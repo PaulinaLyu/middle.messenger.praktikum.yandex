@@ -1,5 +1,5 @@
-@import "../static/variables.scss";
-@import "../static/mixins.scss";
+@import "../static/variables";
+@import "../static/mixins";
 
 html,
 body {
@@ -12,6 +12,7 @@ body {
 body {
   font: $font-regular;
   color: $primary-text-color;
+
   @include displayFlex(center, center);
 }
 

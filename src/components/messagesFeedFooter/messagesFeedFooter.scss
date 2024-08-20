@@ -3,11 +3,9 @@
 .messages-feed-footer {
   border-top: $divider;
   height: $messages-footer;
-
   display: grid;
   grid-template-columns: 1fr 40fr 1fr;
   grid-gap: 14px;
   align-items: center;
-
-  padding: 10px 0 15px 0;
+  padding: 10px 0 15px;
 }
