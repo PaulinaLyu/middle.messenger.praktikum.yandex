@@ -14,8 +14,7 @@ interface InputProps<T> {
   disabled?: boolean;
   validationName?: string;
   validate?: (name: string, value: string) => boolean;
-  onChange?: (value: unknown) => void;
-  isValid?: boolean;
+  onChange?: (value: KeyboardEvent) => void;
 }
 
 export class Input<T> extends Block {
@@ -24,29 +23,35 @@ export class Input<T> extends Block {
       ? {
           blur: (event: FocusEvent) => {
             const target = event.target as HTMLInputElement;
-            const test = props.validate?.(props.validationName || "", target.value as string);
-            console.log(test);
+            const isValid = props.validate?.(props.validationName || "", target.value as string);
+            console.log(isValid);
+
+            // this.setProps({ isValid: props.validate?.(props.validationName || "", target.value as string) });
+            const classLine = {
+              class: isValid
+                ? event?.target?.className.split(" input--invalid").join("")
+                : event?.target?.className.includes("input--invalid")
+                  ? event?.target?.className
+                  : event?.target?.className + " input--invalid",
+            };
             debugger;
-            this.setProps({ isValid: props.validate?.(props.validationName || "", target.value as string) });
+            this.setProps(classLine);
           },
         }
       : {};
-    debugger;
     super({
       ...props,
       events: {
         ...events,
-        change: e => {
-          // this.setProps({ attr: { value: e.target.value } });
-          debugger;
-          this.setProps({ value: e.target.value });
-          debugger;
+        change: (e: KeyboardEvent) => {
+          const target = e.target as HTMLInputElement;
+          this.setProps({ value: target.value });
         },
       },
-      isValid: props.isValid ?? true,
+
       value: String(props.value || ""),
+      class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
       attr: {
-        class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}${props.isValid ? "" : " input--invalid"}`,
         type: props.type || "text",
         id: String(props.id),
         placeholder: props.placeholder || "",
@@ -62,7 +67,7 @@ export class Input<T> extends Block {
 
   render() {
     return `
-      <input value={{value}} />
+      <input class="{{class}}" value="{{value}}" />
       {{{search}}}
     `;
   }

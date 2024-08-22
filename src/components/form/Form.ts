@@ -32,6 +32,11 @@ export class Form extends Block {
             page: props.linkPage || "",
           })
         : "",
+      linkReturn: new Link({
+        text: "Вернуться к стр чатов",
+        page: "chat",
+      }),
+
       children: props.children,
     });
   }
@@ -45,6 +50,7 @@ export class Form extends Block {
               <div>
                 {{{button}}}
                 {{{link}}}
+                {{{linkReturn}}}
               </div>
             </form>`;
   }

@@ -1,10 +1,11 @@
 import { Button, Dropdown, Input } from "..";
 import Block from "../../tools/Block";
+import { validation } from "../../utils";
 
 export class MessagesFeedFooter extends Block {
   constructor() {
     super({
-      input: new Input({ className: "input__element", isCircle: true, id: "message-input", placeholder: "Сообщение", name: "message" }),
+      input: new Input({ className: "input__element", isCircle: true, id: "message-input", placeholder: "Сообщение", name: "message", validate: validation, validationName: "not_empty" }),
       button: new Button({ isCircle: true, text: '<img src="/icons/arrow-right.svg" alt="Arrow right icon"><img>', onClick: () => console.log("Отправить") }),
       dropdown: new Dropdown({
         isOpen: false,

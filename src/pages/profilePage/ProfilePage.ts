@@ -1,6 +1,7 @@
 import Block from "../../tools/Block";
 import { IUser } from "../../types";
 import { InputFile, Modal, Button, ProfileItem } from "../../components";
+import { validation } from "../../utils";
 
 interface ProfilePageProps {
   isChangePass: boolean;
@@ -61,15 +62,22 @@ export class ProfilePage extends Block {
         },
       }),
       buttonExit: new Button({ page: props.buttonExit, text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => console.log("Выход") }),
-      profileItemEmail: new ProfileItem<string>({ name: "email", label: "Почта", disabled: props.disabled, value: props.user.email }),
-      profileItemLogin: new ProfileItem<string>({ name: "login", label: "Логин", disabled: props.disabled, value: props.user.login }),
-      profileItemFirstName: new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: props.disabled, value: props.user.firstName }),
-      profileItemSecondName: new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: props.disabled, value: props.user.secondName }),
+      profileItemEmail: new ProfileItem<string>({ name: "email", label: "Почта", disabled: props.disabled, value: props.user.email, validate: validation, validationName: "email" }),
+      profileItemLogin: new ProfileItem<string>({ name: "login", label: "Логин", disabled: props.disabled, value: props.user.login, validate: validation, validationName: "login" }),
+      profileItemFirstName: new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: props.disabled, value: props.user.firstName, validate: validation, validationName: "name" }),
+      profileItemSecondName: new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: props.disabled, value: props.user.secondName, validate: validation, validationName: "name" }),
       profileItemDisplayName: new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: props.disabled, value: props.user.displayName }),
-      profileItemPhone: new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: props.disabled, value: props.user.phone }),
-      profileOldPassword: new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false }),
-      profileNewPassword: new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false }),
-      profileRepeatNewPassword: new ProfileItem<string>({ name: "repeatNewPassword", label: "Повторите новый пароль", type: "password", disabled: false }),
+      profileItemPhone: new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: props.disabled, value: props.user.phone, validate: validation, validationName: "phone" }),
+      profileOldPassword: new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+      profileNewPassword: new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+      profileRepeatNewPassword: new ProfileItem<string>({
+        name: "repeatNewPassword",
+        label: "Повторите новый пароль",
+        type: "password",
+        disabled: false,
+        validate: validation,
+        validationName: "password",
+      }),
     });
   }
 

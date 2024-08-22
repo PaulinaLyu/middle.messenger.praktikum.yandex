@@ -57,7 +57,6 @@ export class LoginPage extends Block {
                 id: "login-login",
                 nobg: true,
                 border: true,
-                isValid: true,
                 validate: validation,
                 validationName: "login",
               }),
@@ -78,6 +77,8 @@ export class LoginPage extends Block {
                 id: "reg-first_name",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "name",
               }),
               new InputField({
                 className: "login-form__input",
@@ -86,6 +87,8 @@ export class LoginPage extends Block {
                 id: "reg-second_name",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "name",
               }),
               new InputField({
                 className: "login-form__input",
@@ -94,6 +97,8 @@ export class LoginPage extends Block {
                 id: "reg-phone",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "phone",
               }),
               new InputField({
                 className: "login-form__input",
@@ -103,6 +108,8 @@ export class LoginPage extends Block {
                 type: "password",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "password",
               }),
               new InputField({
                 className: "login-form__input",
@@ -112,6 +119,8 @@ export class LoginPage extends Block {
                 type: "password",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "password",
               }),
             ]
           : [
@@ -122,7 +131,6 @@ export class LoginPage extends Block {
                 id: "login-login",
                 nobg: true,
                 border: true,
-                isValid: true,
                 validate: validation,
                 validationName: "login",
               }),
@@ -134,9 +142,8 @@ export class LoginPage extends Block {
                 type: "password",
                 border: true,
                 nobg: true,
-                // isValid: true,
-                // validate: validation,
-                // validationName: "password",
+                validate: validation,
+                validationName: "password",
               }),
             ],
       }),

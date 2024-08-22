@@ -7,6 +7,8 @@ interface ProfileItemProps<T> {
   value?: T;
   type?: string;
   disabled: boolean;
+  validationName?: string;
+  validate?: (name: string, value: string) => boolean;
 }
 
 export class ProfileItem<T> extends Block {
@@ -21,6 +23,8 @@ export class ProfileItem<T> extends Block {
         value: props.value,
         type: props.type,
         nobg: true,
+        validationName: props.validationName,
+        validate: props.validate,
       }),
     });
   }

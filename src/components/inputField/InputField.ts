@@ -15,7 +15,6 @@ interface InputFieldProps<T> {
   value?: T;
   isSearch?: boolean;
   border?: boolean;
-  isValid?: boolean;
   validationName?: string;
   validate?: (name: string, value: string) => boolean;
 }
@@ -39,7 +38,6 @@ export class InputField<T> extends Block {
         border: props.border,
         validate: props.validate,
         validationName: props.validationName,
-        isValid: props.isValid ?? true,
       }),
     });
   }

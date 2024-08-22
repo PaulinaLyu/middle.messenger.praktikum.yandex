@@ -33,7 +33,7 @@ export const validation = (name: string, value: string) => {
 
     case "name": {
       const pattern = /^[A-ZА-Я][a-zа-яA-ZА-Я-]*$/;
-      return pattern.test(name);
+      return pattern.test(value);
     }
 
     case "email": {
