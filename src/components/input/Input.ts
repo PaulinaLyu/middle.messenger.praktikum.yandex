@@ -10,43 +10,48 @@ interface InputProps<T> {
   id: string | number;
   type?: string;
   isSearch?: boolean;
-  value?: unknown;
+  value?: T;
   disabled?: boolean;
-  validate?: (value: T) => void;
+  validationName?: string;
+  validate?: (name: string, value: string) => boolean;
+  onChange?: (value: unknown) => void;
   isValid?: boolean;
-}
-
-interface InputState {
-  isValid: boolean;
 }
 
 export class Input<T> extends Block {
   constructor(props: InputProps<T>) {
-
     const events = props.validate
       ? {
           blur: (event: FocusEvent) => {
             const target = event.target as HTMLInputElement;
-            const test = props.validate?.(target.value as unknown as T);
+            const test = props.validate?.(props.validationName || "", target.value as string);
             console.log(test);
             debugger;
-            this.setProps({ isValid: props.validate?.(target.value as unknown as T) });
+            this.setProps({ isValid: props.validate?.(props.validationName || "", target.value as string) });
           },
         }
       : {};
-
+    debugger;
     super({
       ...props,
-      events,
-      isValid: props.isValid,
-
+      events: {
+        ...events,
+        change: e => {
+          // this.setProps({ attr: { value: e.target.value } });
+          debugger;
+          this.setProps({ value: e.target.value });
+          debugger;
+        },
+      },
+      isValid: props.isValid ?? true,
+      value: String(props.value || ""),
       attr: {
         class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}${props.isValid ? "" : " input--invalid"}`,
         type: props.type || "text",
         id: String(props.id),
         placeholder: props.placeholder || "",
         name: props.name,
-        value: String(props.value || ""),
+        // value: String(props.value || ""),
         disabled: props.disabled || false,
       },
       search: props.isSearch
@@ -57,7 +62,7 @@ export class Input<T> extends Block {
 
   render() {
     return `
-      <input />
+      <input value={{value}} />
       {{{search}}}
     `;
   }

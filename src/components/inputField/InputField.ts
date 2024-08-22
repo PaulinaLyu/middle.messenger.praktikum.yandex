@@ -12,10 +12,12 @@ interface InputFieldProps<T> {
   title: string;
   id: string;
   type?: string;
+  value?: T;
   isSearch?: boolean;
   border?: boolean;
   isValid?: boolean;
-  validate?: (value: T) => void;
+  validationName?: string;
+  validate?: (name: string, value: string) => boolean;
 }
 export class InputField<T> extends Block {
   constructor(props: InputFieldProps<T>) {
@@ -32,9 +34,11 @@ export class InputField<T> extends Block {
         placeholder: props.placeholder,
         name: props.name,
         id: props.id,
+        value: props?.value,
         type: props.type,
         border: props.border,
         validate: props.validate,
+        validationName: props.validationName,
         isValid: props.isValid ?? true,
       }),
     });

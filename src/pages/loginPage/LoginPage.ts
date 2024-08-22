@@ -1,6 +1,6 @@
 import Block from "../../tools/Block";
 import { Form, InputField } from "../../components";
-import { getFormFieldValue } from "../../utils";
+import { getFormFieldValue, validation } from "../../utils";
 
 interface LoginPageProps {
   isRegistration: boolean;
@@ -10,37 +10,6 @@ interface LoginPageProps {
   title: string;
   linkText: string;
   linkPage: string;
-}
-
-function validateLogin(login: string) {
-  const loginRegex = /^(?=.*[a-zA-Z])([a-zA-Z0-9_-]{3,20})$/;
-
-  if (loginRegex.test(login)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function validatePassword(password: string) {
-  const minLength = 8;
-  const maxLength = 40;
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasDigit = /\d/.test(password);
-
-  if (password.length < minLength || password.length > maxLength) {
-    return false;
-  }
-
-  if (!hasUpperCase) {
-    return false;
-  }
-
-  if (!hasDigit) {
-    return false;
-  }
-
-  return true;
 }
 
 export class LoginPage extends Block {
@@ -81,7 +50,7 @@ export class LoginPage extends Block {
         },
         children: props.isRegistration
           ? [
-              new InputField<string>({
+              new InputField({
                 className: "login-form__input",
                 title: "Логин",
                 name: "login",
@@ -89,7 +58,8 @@ export class LoginPage extends Block {
                 nobg: true,
                 border: true,
                 isValid: true,
-                validate: validateLogin,
+                validate: validation,
+                validationName: "login",
               }),
               new InputField({
                 className: "login-form__input",
@@ -98,6 +68,8 @@ export class LoginPage extends Block {
                 id: "reg-email",
                 border: true,
                 nobg: true,
+                validate: validation,
+                validationName: "email",
               }),
               new InputField({
                 className: "login-form__input",
@@ -151,7 +123,8 @@ export class LoginPage extends Block {
                 nobg: true,
                 border: true,
                 isValid: true,
-                validate: validateLogin,
+                validate: validation,
+                validationName: "login",
               }),
               new InputField({
                 className: "login-form__input",
@@ -161,8 +134,9 @@ export class LoginPage extends Block {
                 type: "password",
                 border: true,
                 nobg: true,
-                isValid: true,
-                validate: validatePassword,
+                // isValid: true,
+                // validate: validation,
+                // validationName: "password",
               }),
             ],
       }),
