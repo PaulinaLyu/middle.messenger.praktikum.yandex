@@ -39,7 +39,7 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
     this.lists = lists;
-    debugger;
+
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -80,7 +80,7 @@ export default class Block {
 
   private _componentDidUpdate(oldProps: Props, newProps: Props): void {
     const response = this.componentDidUpdate(oldProps, newProps);
-    debugger;
+
     if (!response) {
       return;
     }
@@ -112,7 +112,7 @@ export default class Block {
 
   private addAttributes(): void {
     const { attr = {} } = this.props;
-    debugger;
+
     Object.entries(attr).forEach(([key, value]) => {
       if (typeof value === "boolean") {
         if (value) {
@@ -122,14 +122,13 @@ export default class Block {
         this._element?.setAttribute(key, String(value));
       }
     });
-    debugger;
   }
 
   public setProps = (nextProps: Props): void => {
     if (!nextProps) {
       return;
     }
-    debugger;
+
     Object.assign(this.props, nextProps);
   };
 
@@ -140,7 +139,7 @@ export default class Block {
   private _render(): void {
     const propsAndStubs = { ...this.props };
     const _tmpId = Math.floor(100000 + Math.random() * 900000);
-    debugger;
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
@@ -188,7 +187,7 @@ export default class Block {
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
-    debugger;
+
     this._addEvents();
     this.addAttributes();
   }

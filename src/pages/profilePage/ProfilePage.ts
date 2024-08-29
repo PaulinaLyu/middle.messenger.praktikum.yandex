@@ -51,6 +51,14 @@ export class ProfilePage extends Block {
         text: "Изменить данные",
         isGhost: true,
         onClick: () => {
+          console.log(this.children);
+          debugger;
+          Object.values(this.children).forEach((child, index) => {
+            debugger;
+            if (index > 6) {
+              child.setProps({ disabled: false });
+            }
+          });
           this.setProps({ disabled: false });
         },
       }),
@@ -127,7 +135,3 @@ export class ProfilePage extends Block {
     </div>`;
   }
 }
-// <div class="profile-page__main__avatar">
-//   <img width="40px" height="40px" alt="User avatar" src='/icons/img.svg'><img>
-// </div>
-// <div><span class="profile-page__main__name-text">{{ user.name }}</span></div>

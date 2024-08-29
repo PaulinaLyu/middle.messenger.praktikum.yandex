@@ -6,11 +6,12 @@ import { Title } from "../title";
 interface FormProps {
   className?: string;
   formTitle?: string;
-  buttonText: string;
+  buttonText?: string;
   buttonPage?: string;
   children: Block[];
   linkText?: string;
   linkPage?: string;
+  isFooter?: boolean;
   onSubmit: (e: Event) => void;
 }
 
@@ -24,7 +25,8 @@ export class Form extends Block {
       attr: {
         class: props.className || "",
       },
-      button: new Button({ text: props.buttonText, type: "submit", onClick: () => console.log("123") }),
+      isFooter: props.isFooter ?? true,
+      button: new Button({ text: props.buttonText || "", type: "submit" }),
       title: new Title({ title: props.formTitle || "" }),
       link: props.linkText
         ? new Link({
@@ -43,15 +45,18 @@ export class Form extends Block {
 
   render() {
     return `<form>
-              <div class="login-form__body">
-                {{{title}}}
+              ${this.props.formTitle ? `{{{title}}}` : ""}
                 {{{children}}}
-              </div>
-              <div>
+              ${
+                this.props.isFooter
+                  ? `<div class="form__footer">
                 {{{button}}}
                 {{{link}}}
                 {{{linkReturn}}}
-              </div>
+              </div>`
+                  : ""
+              }
+     
             </form>`;
   }
 }

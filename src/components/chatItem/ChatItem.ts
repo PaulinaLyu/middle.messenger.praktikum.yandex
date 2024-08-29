@@ -20,12 +20,11 @@ export class ChatItem extends Block {
       isCurrent: props?.isCurrent || false,
       chat: props.chat,
     });
-    debugger;
   }
 
   render() {
     console.log(this?.props);
-    debugger;
+
     return `<li class="chat-item">
     <div class='chat-item__container${this.props.isCurrent ? ` chat-item__container--current` : ""}'>
         <div class="chat-item__main">

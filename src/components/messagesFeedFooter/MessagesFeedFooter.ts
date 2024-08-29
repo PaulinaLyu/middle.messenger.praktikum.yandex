@@ -1,12 +1,38 @@
-import { Button, Dropdown, Input } from "..";
+import { Button, Dropdown, Form, Input } from "..";
 import Block from "../../tools/Block";
-import { validation } from "../../utils";
+import { getFormFieldValue, validation } from "../../utils";
 
 export class MessagesFeedFooter extends Block {
   constructor() {
     super({
-      input: new Input({ className: "input__element", isCircle: true, id: "message-input", placeholder: "Сообщение", name: "message", validate: validation, validationName: "not_empty" }),
-      button: new Button({ isCircle: true, text: '<img src="/icons/arrow-right.svg" alt="Arrow right icon"><img>', onClick: () => console.log("Отправить") }),
+      form: new Form({
+        isFooter: false,
+        className: "messages-feed-footer__form",
+        onSubmit: (e: Event) => {
+          e.preventDefault();
+
+          const form = e.target as HTMLFormElement;
+          const message = getFormFieldValue(form, "message");
+
+          console.log("Сообщение: ", message);
+        },
+        children: [
+          new Input({
+            className: "input__element messages-feed-footer__input",
+            isCircle: true,
+            id: "message-input",
+            placeholder: "Сообщение",
+            name: "message",
+            validate: validation,
+            validationName: "not_empty",
+          }),
+          new Button({
+            isCircle: true,
+            type: "submit",
+            text: '<img src="/icons/arrow-right.svg" alt="Arrow right icon"><img>',
+          }),
+        ],
+      }),
       dropdown: new Dropdown({
         isOpen: false,
         iconSrc: "/icons/clip.svg",
@@ -23,8 +49,7 @@ export class MessagesFeedFooter extends Block {
   override render() {
     return `<footer class="messages-feed-footer">
         {{{dropdown}}}
-        {{{input}}}
-        {{{button}}}
+        {{{form}}}
     </footer>`;
   }
 }

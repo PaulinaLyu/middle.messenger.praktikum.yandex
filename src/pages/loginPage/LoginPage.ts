@@ -26,7 +26,6 @@ export class LoginPage extends Block {
         linkPage: props.linkPage,
         onSubmit: (e: Event) => {
           e.preventDefault();
-
           const form = e.target as HTMLFormElement;
           const login = getFormFieldValue(form, "login");
           const password = getFormFieldValue(form, "password");

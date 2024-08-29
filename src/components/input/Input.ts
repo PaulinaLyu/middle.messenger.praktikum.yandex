@@ -24,9 +24,6 @@ export class Input<T> extends Block {
           blur: (event: FocusEvent) => {
             const target = event.target as HTMLInputElement;
             const isValid = props.validate?.(props.validationName || "", target.value as string);
-            console.log(isValid);
-
-            // this.setProps({ isValid: props.validate?.(props.validationName || "", target.value as string) });
             const classLine = {
               class: isValid
                 ? event?.target?.className.split(" input--invalid").join("")
@@ -34,7 +31,6 @@ export class Input<T> extends Block {
                   ? event?.target?.className
                   : event?.target?.className + " input--invalid",
             };
-            debugger;
             this.setProps(classLine);
           },
         }
@@ -56,7 +52,6 @@ export class Input<T> extends Block {
         id: String(props.id),
         placeholder: props.placeholder || "",
         name: props.name,
-        // value: String(props.value || ""),
         disabled: props.disabled || false,
       },
       search: props.isSearch
