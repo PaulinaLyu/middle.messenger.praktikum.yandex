@@ -1,6 +1,7 @@
 import Block from "../../tools/Block";
 import { Form, InputField } from "../../components";
 import { validation } from "../../utils";
+import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
 
 interface LoginPageProps {
   isRegistration: boolean;
@@ -27,23 +28,8 @@ export class LoginPage extends Block {
         onSubmit: (e: Event) => {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
-          let isValid = true;
-          const formData: { [key: string]: string } = {};
 
-          Array.from(form.elements).forEach(element => {
-            if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-              const fieldName = element.name;
-
-              const hasClass = String(element.classList).includes("input--invalid");
-
-              if (hasClass) {
-                isValid = false;
-                console.log(`Ошибка валидации поля ${fieldName}`);
-              } else {
-                formData[fieldName] = element.value;
-              }
-            }
-          });
+          const { isValid, formData } = validateAndCollectFormData(form);
 
           if (!isValid) {
             console.log("Форма содержит ошибки валидации");
