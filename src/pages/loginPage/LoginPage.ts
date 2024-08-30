@@ -1,6 +1,6 @@
 import Block from "../../tools/Block";
 import { Form, InputField } from "../../components";
-import { getFormFieldValue, validation } from "../../utils";
+import { validation } from "../../utils";
 
 interface LoginPageProps {
   isRegistration: boolean;
@@ -27,25 +27,30 @@ export class LoginPage extends Block {
         onSubmit: (e: Event) => {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
-          const login = getFormFieldValue(form, "login");
-          const password = getFormFieldValue(form, "password");
+          let isValid = true;
+          const formData: { [key: string]: string } = {};
 
-          console.log("Логин: ", login);
-          console.log("Пароль: ", password);
+          Array.from(form.elements).forEach(element => {
+            if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+              const fieldName = element.name;
 
-          if (props?.isRegistration) {
-            const email = getFormFieldValue(form, "email");
-            const first_name = getFormFieldValue(form, "first_name");
-            const second_name = getFormFieldValue(form, "second_name");
-            const phone = getFormFieldValue(form, "phone");
-            const password_repeat = getFormFieldValue(form, "password_repeat");
+              const hasClass = String(element.classList).includes("input--invalid");
 
-            console.log("Пароль(повтор): ", password_repeat);
-            console.log("Почта: ", email);
-            console.log("Имя: ", first_name);
-            console.log("Фамилия: ", second_name);
-            console.log("Телефон: ", phone);
+              if (hasClass) {
+                isValid = false;
+                console.log(`Ошибка валидации поля ${fieldName}`);
+              } else {
+                formData[fieldName] = element.value;
+              }
+            }
+          });
+
+          if (!isValid) {
+            console.log("Форма содержит ошибки валидации");
+            return;
           }
+
+          console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
         },
         children: props.isRegistration
           ? [
