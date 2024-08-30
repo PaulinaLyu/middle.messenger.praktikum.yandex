@@ -1,6 +1,7 @@
 import { Button, Dropdown, Form, Input } from "..";
 import Block from "../../tools/Block";
-import { getFormFieldValue, validation } from "../../utils";
+import { validation } from "../../utils";
+import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
 
 export class MessagesFeedFooter extends Block {
   constructor() {
@@ -12,9 +13,15 @@ export class MessagesFeedFooter extends Block {
           e.preventDefault();
 
           const form = e.target as HTMLFormElement;
-          const message = getFormFieldValue(form, "message");
 
-          console.log("Сообщение: ", message);
+          const { isValid, formData } = validateAndCollectFormData(form);
+
+          if (!isValid) {
+            console.log("Форма содержит ошибки валидации");
+            return;
+          }
+
+          console.log(`Данные формы отправки сообщения: `, formData);
         },
         children: [
           new Input({
