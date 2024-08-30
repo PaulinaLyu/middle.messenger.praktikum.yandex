@@ -35,6 +35,24 @@ const pages = {
       buttonExit: "login",
       isShowModal: false,
     }),
+  "profile-edit": () =>
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: false,
+      disabled: false,
+      buttonArrowPage: "profile",
+      buttonExit: "login",
+      isShowModal: false,
+    }),
+  "profile-change-pass": () =>
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: true,
+      disabled: false,
+      buttonArrowPage: "profile",
+      buttonExit: "login",
+      isShowModal: false,
+    }),
   error500: () =>
     new ErrorPage({
       title: "Мы уже фиксим",
@@ -71,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => navigate("chat"));
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;
   let page = target.getAttribute("page");
-
   if (!page && target.parentElement) {
     page = (target.parentElement as HTMLElement).getAttribute("page");
   }

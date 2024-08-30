@@ -5,7 +5,7 @@ type EventHandlers = {
   [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
 };
 
-interface Props {
+export interface Props {
   [key: string]: unknown;
   events?: EventHandlers;
   attr?: { [key: string]: string | boolean };
@@ -84,6 +84,7 @@ export default class Block {
     if (!response) {
       return;
     }
+
     this._render();
   }
 
