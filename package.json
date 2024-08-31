@@ -11,6 +11,7 @@
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx,json}\"",
     "stylelint": "stylelint './src/**/*.{css,scss}'",
     "stylelint:fix": "stylelint './src/**/*.{css,scss}' --fix",
+    "format": "prettier --write .",
     "preview": "vite preview",
     "clean": "rm -rf node_modules/.vite",
     "reinstall": "rm -rf node_modules && npm install",
