@@ -13,7 +13,7 @@ body {
   font: $font-regular;
   color: $primary-text-color;
 
-  @include displayFlex(center, center);
+  @include display-flex(center, center);
 }
 
 * {

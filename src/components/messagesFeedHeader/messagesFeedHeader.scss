@@ -7,7 +7,7 @@
   height: $messages-header;
 
   &__user {
-    @include displayFlex(flex-start, center);
+    @include display-flex(flex-start, center);
   }
 
   &__avatar {
@@ -23,5 +23,5 @@
     font-weight: $font-weight-semibold;
   }
 
-  @include displayFlex(space-between, center);
+  @include display-flex(space-between, center);
 }

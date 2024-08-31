@@ -15,5 +15,5 @@
     color: $primary-color;
   }
 
-  @include displayFlex(flex-start, center);
+  @include display-flex(flex-start, center);
 }

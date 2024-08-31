@@ -20,5 +20,5 @@
     font-weight: $font-weight-medium;
   }
 
-  @include displayFlex(space-between);
+  @include display-flex(space-between);
 }

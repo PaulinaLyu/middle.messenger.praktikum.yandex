@@ -24,8 +24,8 @@
     padding: 40px 30px;
     z-index: $modal-zindex;
 
-    @include centerElementWithPosition;
-    @include displayFlex(center, center, column);
+    @include center-element-with-position;
+    @include display-flex(center, center, column);
 
     &__title {
       margin-bottom: 48px;
