@@ -10,11 +10,11 @@ type Methods = (typeof METHODS)[keyof typeof METHODS];
 interface RequestOptions {
   headers?: Record<string, string>;
   method?: Methods;
-  data?: Record<string, any> | null;
+  data?: Record<string, unknown> | null;
   timeout?: number;
 }
 
-function queryStringify(data: Record<string, any>) {
+function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
   }
@@ -25,7 +25,7 @@ function queryStringify(data: Record<string, any>) {
   }, "?");
 }
 
-class HTTPTransport {
+export class HTTPTransport {
   get = (url: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   };

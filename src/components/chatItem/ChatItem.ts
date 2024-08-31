@@ -18,18 +18,18 @@ export class ChatItem extends Block {
   constructor(props: ChatItemProps) {
     super({
       isCurrent: props?.isCurrent || false,
-      chat: props.chat,
+      chat: props?.chat,
+      avatar: props?.chat?.avatar || null,
+      unread: props?.chat?.unread,
     });
   }
 
   render() {
-    console.log(this?.props);
-
     return `<li class="chat-item">
     <div class='chat-item__container${this.props.isCurrent ? ` chat-item__container--current` : ""}'>
         <div class="chat-item__main">
         ${
-          this?.props?.chat?.avatar
+          this.props.avatar
             ? `<div class="chat-item__avatar">
                     <img class="chat-item__avatar" alt="avatar" src={{ avatar }}><img>
                 </div>`
@@ -43,7 +43,7 @@ export class ChatItem extends Block {
     
         <div class="chat-item__info">
             <div class="chat-item__date">{{ chat.date }}</div>
-            ${this.props.chat.unread ? `<div class="chat-item__unread">{{ chat.unread }}</div>` : ""}
+            ${this.props.unread ? `<div class="chat-item__unread">{{ chat.unread }}</div>` : ""}
         </div>
   </div>
 </li>`;

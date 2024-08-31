@@ -1,12 +1,14 @@
 import Block from "../../tools/Block";
 import { MessagesFeedFooter, MessagesFeedHeader } from "..";
-import { chatMock } from "../../mocks";
 
 interface MessagesFeedProps {
   chatAvatar: string;
   chatName: string;
   chatDate: string;
-  chat: typeof chatMock;
+  chat: {
+    user_1: { message: string; time: string }[];
+    user_2: { message: string; time: string }[];
+  };
 }
 
 export class MessagesFeed extends Block {

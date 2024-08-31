@@ -7,7 +7,10 @@ interface ChatPageProps {
   chatAvatar: string;
   chatName: string;
   chatDate: string;
-  chat: unknown;
+  chat: {
+    user_1: { message: string; time: string }[];
+    user_2: { message: string; time: string }[];
+  };
 }
 
 export class ChatPage extends Block {

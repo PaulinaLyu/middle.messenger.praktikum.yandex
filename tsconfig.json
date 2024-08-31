@@ -19,8 +19,8 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "strictNullChecks": true ,
-    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }

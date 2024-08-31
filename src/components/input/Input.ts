@@ -25,11 +25,7 @@ export class Input<T> extends Block {
             const target = event.target as HTMLInputElement;
             const isValid = props.validate?.(props.validationName || "", target.value as string);
             const classLine = {
-              class: isValid
-                ? event?.target?.className.split(" input--invalid").join("")
-                : event?.target?.className.includes("input--invalid")
-                  ? event?.target?.className
-                  : event?.target?.className + " input--invalid",
+              class: isValid ? target?.className.split(" input--invalid").join("") : target?.className.includes("input--invalid") ? target?.className : target?.className + " input--invalid",
             };
             this.setProps(classLine);
           },
@@ -39,7 +35,7 @@ export class Input<T> extends Block {
       ...props,
       events: {
         ...events,
-        change: (e: KeyboardEvent) => {
+        change: (e: Event) => {
           const target = e.target as HTMLInputElement;
           this.setProps({ value: target.value });
         },
