@@ -28,14 +28,11 @@ export class LoginPage extends Block {
         onSubmit: (e: Event) => {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
-
           const { isValid, formData } = validateAndCollectFormData(form);
-
           if (!isValid) {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
         },
         children: props.isRegistration

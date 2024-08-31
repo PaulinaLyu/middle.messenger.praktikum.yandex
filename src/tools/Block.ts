@@ -51,7 +51,7 @@ export default class Block {
     Object.keys(events).forEach(eventName => {
       const eventKey = eventName as keyof HTMLElementEventMap;
 
-      const handler = events[eventName] as (event: Event) => void;
+      const handler = events[eventKey] as (event: Event) => void;
       this._element?.addEventListener(eventKey, handler);
     });
   }
@@ -78,7 +78,8 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
+  private _componentDidUpdate(...args: unknown[]): void {
+    const [oldProps, newProps] = args as [Props, Props];
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (!response) {

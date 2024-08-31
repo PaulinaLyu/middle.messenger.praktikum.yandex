@@ -54,25 +54,11 @@ export class ProfilePage extends Block {
         text: "Изменить данные",
         isGhost: true,
         page: "profile-edit",
-        // onClick: () => {
-        //   console.log(this.children);
-        //   debugger;
-        //   Object.values(this.children).forEach((child, index) => {
-        //     debugger;
-        //     if (index > 6) {
-        //       child.setProps({ disabled: false });
-        //     }
-        //   });
-        //   this.setProps({ disabled: false });
-        // },
       }),
       buttonChangePass: new Button({
         text: "Изменить пароль",
         isGhost: true,
         page: "profile-change-pass",
-        // onClick: () => {
-        //   this.setProps({ isChangePass: true });
-        // },
       }),
       form: new Form({
         className: "profile-page__main__body",
@@ -103,13 +89,6 @@ export class ProfilePage extends Block {
                 validate: validation,
                 validationName: "password",
               }),
-              // new Button({
-              //   text: "Сохранить",
-              //   onClick: () => {
-              //     this.setProps({ disabled: true, isChangePass: false });
-              //   },
-              //   type: "submit",
-              // }),
             ]
           : [
               new ProfileItem<string>({ name: "email", label: "Почта", disabled: props.disabled, value: props.user.email, validate: validation, validationName: "email" }),
@@ -118,13 +97,6 @@ export class ProfilePage extends Block {
               new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: props.disabled, value: props.user.secondName, validate: validation, validationName: "name" }),
               new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: props.disabled, value: props.user.displayName }),
               new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: props.disabled, value: props.user.phone, validate: validation, validationName: "phone" }),
-              // new Button({
-              //   text: "Сохранить",
-              //   onClick: () => {
-              //     this.setProps({ disabled: true, isChangePass: false });
-              //   },
-              //   type: "submit",
-              // }),
             ],
       }),
     });
