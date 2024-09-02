@@ -1,4 +1,4 @@
-export { chatPage } from "./chatPage";
-export { loginPage } from "./loginPage";
-export { profilePage } from "./profilePage";
-export { errorPage } from "./errorPage";
+export { ChatPage } from "./chatPage";
+export { LoginPage } from "./loginPage";
+export { ProfilePage } from "./profilePage";
+export { ErrorPage } from "./errorPage";

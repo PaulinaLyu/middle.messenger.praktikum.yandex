@@ -1,34 +1,86 @@
-import Handlebars from "handlebars";
-import * as Pages from "./pages";
-import * as Components from "./components";
 import * as Mocks from "./mocks";
-import * as Scripts from "./scripts";
 import "./main.scss";
+import { LoginPage } from "./pages/loginPage";
+import { ProfilePage } from "./pages/profilePage";
+import { ErrorPage } from "./pages/errorPage";
+import { ChatPage } from "./pages/chatPage";
 
 const pages = {
-  chat: [Pages.chatPage, Mocks.chatMock, Scripts.chatPageFunc],
-  login: [Pages.loginPage, { isRegistration: false }],
-  "login-registration": [Pages.loginPage, { isRegistration: true }],
-  profile: [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: true }, Scripts.profilePageFunc],
-  "profile-update": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: false, isDisabled: false }, Scripts.profilePageFunc],
-  "profile-change-pass": [Pages.profilePage, { ...Mocks.profileMock, isChangePass: true, isDisabled: false }, Scripts.profilePageFunc],
-  error500: [Pages.errorPage, { text: "Мы уже фиксим", error: 500 }],
-  error404: [Pages.errorPage, { text: "Не туда попали", error: 404 }],
+  chat: () => new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
+  login: () =>
+    new LoginPage({
+      isRegistration: false,
+      buttonText: "Войти",
+      title: "Вход",
+      linkText: "Нет аккаунта?",
+      linkPage: "login-registration",
+      buttonPage: "chat",
+    }),
+  "login-registration": () =>
+    new LoginPage({
+      isRegistration: true,
+      onBtnClick: () => console.log("Регистрация"),
+      buttonText: "Зарегистрироваться",
+      title: "Регистрация",
+      linkText: "Вход",
+      linkPage: "login",
+      buttonPage: "chat",
+    }),
+  profile: () =>
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: false,
+      disabled: true,
+      buttonArrowPage: "chat",
+      buttonExit: "login",
+      isShowModal: false,
+    }),
+  "profile-edit": () =>
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: false,
+      disabled: false,
+      buttonArrowPage: "profile",
+      buttonExit: "login",
+      isShowModal: false,
+    }),
+  "profile-change-pass": () =>
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: true,
+      disabled: false,
+      buttonArrowPage: "profile",
+      buttonExit: "login",
+      isShowModal: false,
+    }),
+  error500: () =>
+    new ErrorPage({
+      title: "Мы уже фиксим",
+      error: "500",
+      linkPage: "chat",
+      linkText: "Назад к чатам",
+    }),
+  error404: () =>
+    new ErrorPage({
+      title: "Не туда попали",
+      error: "404",
+      linkPage: "chat",
+      linkText: "Назад к чатам",
+    }),
 };
+
+function returnPage(page: pageType) {
+  return pages[page]();
+}
 
 type pageType = keyof typeof pages;
 
-Object.entries(Components).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component);
-});
-
 function navigate(page: pageType) {
-  const [source, context, func] = pages[page];
-  const handlebarsFunct = Handlebars.compile(source);
-  document.body.innerHTML = handlebarsFunct(context);
-
-  if (typeof func === "function") {
-    func();
+  const block = returnPage(page);
+  const container = document.getElementById("app")!;
+  if (container) {
+    container.innerHTML = ``;
+    container.appendChild(block.getContent()!);
   }
 }
 
@@ -37,14 +89,12 @@ document.addEventListener("DOMContentLoaded", () => navigate("chat"));
 document.addEventListener("click", e => {
   const target = e.target as HTMLElement;
   let page = target.getAttribute("page");
-
   if (!page && target.parentElement) {
     page = (target.parentElement as HTMLElement).getAttribute("page");
   }
 
   if (page && page in pages) {
     navigate(page as pageType);
-
     e.preventDefault();
     e.stopImmediatePropagation();
   }

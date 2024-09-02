@@ -16,7 +16,7 @@
     height: $circle-button-size;
     border-radius: 50%;
 
-    @include displayFlex(center, center);
+    @include display-flex(center, center);
   }
 
   &--ghost {

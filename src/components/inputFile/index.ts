@@ -1,2 +1,2 @@
 import "./inputFile.scss";
-export { default as InputFile } from "./inputFile.hbs?raw";
+export { InputFile } from "./InputFile";

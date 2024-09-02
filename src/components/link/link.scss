@@ -18,5 +18,5 @@
     text-decoration: underline;
   }
 
-  @include displayFlex(center, stretch, column);
+  @include display-flex(center, stretch, column);
 }

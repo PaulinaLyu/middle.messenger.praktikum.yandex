@@ -1,8 +1,10 @@
-export const profileMock = {
+import { IUser } from "../types";
+
+export const profileMock: IUser = {
   email: "pochta@yandex.ru",
   login: "ivanivanov",
-  first_name: "Иван",
-  second_name: "Иванов",
-  display_name: "Иван",
+  firstName: "Иван",
+  secondName: "Иванов",
+  displayName: "Иван",
   phone: "+7 (909) 967 30 30",
 };

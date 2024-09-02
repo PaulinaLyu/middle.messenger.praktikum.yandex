@@ -10,7 +10,6 @@
   &__element {
     border-radius: $input-border-radius;
     border: transparent;
-    line-height: 28px;
     padding: $input-padding;
     width: 100%;
     height: 100%;
@@ -23,6 +22,7 @@
   }
 
   &--border {
+    border: none;
     border-bottom: 1px solid $primary-color;
     height: 26px;
   }
@@ -35,6 +35,10 @@
     border-radius: 30px;
   }
 
+  &--w100 {
+    width: 100%;
+  }
+
   &__icon {
     position: absolute;
     left: 1rem;
@@ -42,6 +46,21 @@
     width: 1rem;
     height: 1rem;
   }
+
+  &--invalid {
+    background-color: #ffe4e1;
+  }
+
+  &__error {
+    color: $warning-color;
+    font-size: 8px;
+    font-weight: 400;
+    display: block;
+  }
+}
+
+.input__error__container {
+  width: 100%;
 }
 
 .input__element[type="search"] {

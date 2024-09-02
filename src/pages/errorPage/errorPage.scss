@@ -1,5 +1,5 @@
-@import "../../../static/mixins.scss";
-@import "../../../static/variables.scss";
+@import "../../../static/mixins";
+@import "../../../static/variables";
 
 .error-page {
   &__error {
@@ -7,9 +7,6 @@
     margin-bottom: 26px;
   }
 
-  &__link {
-    margin-top: 70px;
-  }
-
-  @include displayFlex(center, center, column);
+  @include center-element-with-position;
+  @include display-flex(center, center, column);
 }

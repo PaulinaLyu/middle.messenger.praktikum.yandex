@@ -11,5 +11,9 @@
     margin-right: 15px;
   }
 
-  @include displayFlex(flex-start, center);
+  &:hover {
+    color: $primary-color;
+  }
+
+  @include display-flex(flex-start, center);
 }

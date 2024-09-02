@@ -1,2 +1,3 @@
 import "./dropdownOptionItem.scss";
-export { default as DropdownOptionItem } from "./dropdownOptionItem.hbs?raw";
+export { DropdownOptionItem } from "./DropdownOptionItem";
+export type { DropdownOptionItemProps } from "./DropdownOptionItem";

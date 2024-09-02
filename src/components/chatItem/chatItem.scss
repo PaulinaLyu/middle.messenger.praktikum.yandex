@@ -5,9 +5,7 @@
   &__container {
     height: 70px;
     width: 100%;
-
     border-top: $divider;
-
     padding: 12px;
     cursor: pointer;
 
@@ -20,21 +18,21 @@
       background: #d5d5d5;
     }
 
-    @include displayFlex(space-between);
+    @include display-flex(space-between);
   }
 
   &__info {
-    @include displayFlex(space-between, stretch, column);
+    @include display-flex(space-between, stretch, column);
   }
 
   &__main {
-    @include displayFlex;
+    @include display-flex;
   }
 
   &__avatar {
     background: $additional-elements-bgcolor;
-    min-height: $chatList-avatar-size;
-    min-width: $chatList-avatar-size;
+    min-height: $chat-list-avatar-size;
+    min-width: $chat-list-avatar-size;
     border-radius: 50%;
     margin-right: 10px;
   }
@@ -70,6 +68,6 @@
     place-self: end;
     border-radius: 50%;
 
-    @include displayFlex(center, center);
+    @include display-flex(center, center);
   }
 }

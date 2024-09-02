@@ -1,2 +1,2 @@
 import "./dropdown.scss";
-export { default as Dropdown } from "./dropdown.hbs?raw";
+export { Dropdown } from "./Dropdown";

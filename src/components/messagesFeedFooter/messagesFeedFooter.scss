@@ -3,9 +3,19 @@
 .messages-feed-footer {
   border-top: $divider;
   height: $messages-footer;
-
   display: grid;
-  grid-template-columns: 1fr 40fr 1fr;
+  grid-template-columns: 1fr 40fr;
   grid-gap: 14px;
   align-items: center;
+  padding: 10px 0 15px;
+}
+
+.messages-feed-footer__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messages-feed-footer__btn {
+  margin-left: 20px;
 }
