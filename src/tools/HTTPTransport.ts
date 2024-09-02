@@ -6,6 +6,7 @@ const METHODS = {
 };
 
 type Methods = (typeof METHODS)[keyof typeof METHODS];
+type HTTPMethod = (url: string, options?: RequestOptions) => Promise<unknown>;
 
 interface RequestOptions {
   headers?: Record<string, string>;
@@ -26,21 +27,10 @@ function queryStringify(data: Record<string, unknown>) {
 }
 
 export class HTTPTransport {
-  get = (url: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
-  };
-
-  post = (url: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-  };
-
-  put = (url: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-  };
-
-  delete = (url: string, options: RequestOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
+  get: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+  put: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  post: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  delete: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: RequestOptions = {}, timeout: number = 5000): Promise<XMLHttpRequest> => {
     const { headers = {}, method, data } = options;
