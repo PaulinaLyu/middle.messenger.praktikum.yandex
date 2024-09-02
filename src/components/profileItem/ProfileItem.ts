@@ -1,5 +1,6 @@
-import { Input } from "..";
+import { InputElement } from "..";
 import Block from "../../tools/Block";
+import { IValidationReturn } from "../../utils";
 
 interface ProfileItemProps<T> {
   label: string;
@@ -8,14 +9,14 @@ interface ProfileItemProps<T> {
   type?: string;
   disabled: boolean;
   validationName?: string;
-  validate?: (name: string, value: string) => boolean;
+  validate?: (name: string, value: string) => IValidationReturn;
 }
 
 export class ProfileItem<T> extends Block {
   constructor(props: ProfileItemProps<T>) {
     super({
       ...props,
-      input: new Input({
+      input: new InputElement({
         className: "profileItem__value",
         disabled: props.disabled,
         name: props.name,

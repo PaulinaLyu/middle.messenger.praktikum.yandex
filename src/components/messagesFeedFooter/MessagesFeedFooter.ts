@@ -1,4 +1,4 @@
-import { Button, Dropdown, Form, Input } from "..";
+import { Button, Dropdown, Form, InputElement } from "..";
 import Block from "../../tools/Block";
 import { validation } from "../../utils";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
@@ -24,8 +24,8 @@ export class MessagesFeedFooter extends Block {
           console.log(`Данные формы отправки сообщения: `, formData);
         },
         children: [
-          new Input({
-            className: "input__element messages-feed-footer__input",
+          new InputElement({
+            className: "input__element",
             isCircle: true,
             id: "message-input",
             placeholder: "Сообщение",
@@ -34,6 +34,7 @@ export class MessagesFeedFooter extends Block {
             validationName: "not_empty",
           }),
           new Button({
+            className: "messages-feed-footer__btn",
             isCircle: true,
             type: "submit",
             text: '<img src="/icons/arrow-right.svg" alt="Arrow right icon"><img>',

@@ -12,29 +12,16 @@ interface InputProps<T> {
   isSearch?: boolean;
   value?: T;
   disabled?: boolean;
-  validationName?: string;
-  validate?: (name: string, value: string) => boolean;
   onChange?: (value: KeyboardEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
 }
 
 export class Input<T> extends Block {
   constructor(props: InputProps<T>) {
-    const events = props.validate
-      ? {
-          blur: (event: FocusEvent) => {
-            const target = event.target as HTMLInputElement;
-            const isValid = props.validate?.(props.validationName || "", target.value as string);
-            const classLine = {
-              class: isValid ? target?.className.split(" input--invalid").join("") : target?.className.includes("input--invalid") ? target?.className : target?.className + " input--invalid",
-            };
-            this.setProps(classLine);
-          },
-        }
-      : {};
     super({
       ...props,
       events: {
-        ...events,
+        blur: props.onBlur,
         change: (e: Event) => {
           const target = e.target as HTMLInputElement;
           this.setProps({ value: target.value });
@@ -42,7 +29,7 @@ export class Input<T> extends Block {
       },
 
       value: String(props.value || ""),
-      class: `${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
+      className: `input--w100 ${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
       attr: {
         type: props.type || "text",
         id: String(props.id),
@@ -58,7 +45,7 @@ export class Input<T> extends Block {
 
   render() {
     return `
-      <input class="{{class}}" value="{{value}}" />
+      <input class="{{className}}" value="{{value}}" />
       {{{search}}}
     `;
   }

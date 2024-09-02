@@ -1,6 +1,7 @@
 import Block from "../../tools/Block";
 import { Label } from "../../components/label";
-import { Input } from "../../components/input";
+import { InputElement } from "../../components/input";
+import { IValidationReturn } from "../../utils";
 
 interface InputFieldProps<T> {
   className?: string;
@@ -16,7 +17,8 @@ interface InputFieldProps<T> {
   isSearch?: boolean;
   border?: boolean;
   validationName?: string;
-  validate?: (name: string, value: string) => boolean;
+  validate?: (name: string, value: string) => IValidationReturn;
+  error?: string;
 }
 export class InputField<T> extends Block {
   constructor(props: InputFieldProps<T>) {
@@ -26,7 +28,7 @@ export class InputField<T> extends Block {
         class: `input-field ${props.className || ""}`,
       },
       label: new Label({ inputId: props.id, title: props.title }),
-      input: new Input({
+      input: new InputElement({
         className: props.inputClassName,
         isCircle: props.isCircle,
         nobg: props.nobg,
