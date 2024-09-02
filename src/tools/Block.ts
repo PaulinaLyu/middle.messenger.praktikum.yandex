@@ -56,6 +56,16 @@ export default class Block {
     });
   }
 
+  private _removeEvents(): void {
+    const { events = {} } = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      const eventKey = eventName as keyof HTMLElementEventMap;
+      const handler = events[eventKey] as (event: Event) => void;
+      this._element?.removeEventListener(eventKey, handler);
+    });
+  }
+
   private _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
@@ -130,6 +140,7 @@ export default class Block {
     if (!nextProps) {
       return;
     }
+
     Object.assign(this.props, nextProps);
   };
 
@@ -138,6 +149,8 @@ export default class Block {
   }
 
   private _render(): void {
+    this._removeEvents();
+
     const propsAndStubs = { ...this.props };
     const _tmpId = Math.floor(100000 + Math.random() * 900000);
 

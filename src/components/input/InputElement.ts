@@ -39,13 +39,16 @@ export class InputElement<T> extends Block {
         border: props.border,
         onBlur: (event: FocusEvent) => {
           const target = event.target as HTMLInputElement;
+
           if (props.validate) {
             const { isValid, errorMessage } = props.validate(props.validationName || "", target.value as string);
             const classLine = {
               className: isValid ? target?.className.split(" input--invalid").join("") : target?.className.includes("input--invalid") ? target?.className : target?.className + " input--invalid",
             };
-            this.setProps(classLine);
-            this.setProps({ error: errorMessage });
+
+            this.setProps({ error: errorMessage, value: target.value, ...classLine });
+          } else {
+            this.setProps({ value: target.value });
           }
         },
       }),
@@ -56,12 +59,16 @@ export class InputElement<T> extends Block {
     if (oldProps === newProps) {
       return false;
     }
+
     if (oldProps.error !== newProps.error) {
       this.children.errorLine.setProps({ error: newProps.error });
     }
 
     if (oldProps.className !== newProps.className) {
       this.children.input.setProps({ className: newProps.className });
+    }
+    if (oldProps.value !== newProps.value) {
+      this.children.input.setProps({ value: newProps.value });
     }
     return true;
   }

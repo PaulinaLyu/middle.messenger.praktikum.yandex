@@ -118,8 +118,8 @@ export class LoginPage extends Block {
                 id: "login-login",
                 nobg: true,
                 border: true,
-                validate: validation,
-                validationName: "login",
+                // validate: validation,
+                // validationName: "login",
               }),
               new InputField({
                 className: "login-form__input",

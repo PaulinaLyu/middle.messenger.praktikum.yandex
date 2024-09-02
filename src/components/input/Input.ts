@@ -22,10 +22,6 @@ export class Input<T> extends Block {
       ...props,
       events: {
         blur: props.onBlur,
-        change: (e: Event) => {
-          const target = e.target as HTMLInputElement;
-          this.setProps({ value: target.value });
-        },
       },
 
       value: String(props.value || ""),
