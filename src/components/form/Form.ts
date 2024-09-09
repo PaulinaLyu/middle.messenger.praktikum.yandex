@@ -7,7 +7,6 @@ interface FormProps {
   className?: string;
   formTitle?: string;
   buttonText?: string;
-  buttonPage?: string;
   children: Block[];
   linkText?: string;
   linkPage?: string;
@@ -31,16 +30,9 @@ export class Form extends Block {
       link: props.linkText
         ? new Link({
             text: props.linkText,
-            page: props.linkPage || "",
+            url: props.linkPage || "",
           })
         : "",
-      linkReturn: props.linkText
-        ? new Link({
-            text: "Вернуться к стр чатов",
-            page: "chat",
-          })
-        : "",
-
       children: props.children,
     });
   }

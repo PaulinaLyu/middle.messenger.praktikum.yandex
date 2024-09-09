@@ -2,12 +2,12 @@ import Block from "../../tools/Block";
 import { Form, InputField } from "../../components";
 import { validation } from "../../utils";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
+import { router } from "../../main";
 
 interface LoginPageProps {
   isRegistration: boolean;
   buttonText: string;
   onBtnClick?: () => void;
-  buttonPage: string;
   title: string;
   linkText: string;
   linkPage: string;
@@ -22,7 +22,6 @@ export class LoginPage extends Block {
         className: "login-form",
         formTitle: props.title,
         buttonText: props.buttonText,
-        buttonPage: props.buttonPage,
         linkText: props.linkText,
         linkPage: props.linkPage,
         onSubmit: (e: Event) => {
@@ -34,6 +33,7 @@ export class LoginPage extends Block {
             return;
           }
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
+          router.go("/messenger");
         },
         children: props.isRegistration
           ? [

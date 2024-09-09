@@ -1,4 +1,16 @@
+import { isEqual } from "../utils/isEqual";
 import Block from "./Block";
+
+function render(query: string, block: Block): HTMLElement | null {
+  const root = document.querySelector(query) as HTMLElement | null;
+  debugger;
+  if (root) {
+    root.innerHTML = ``;
+    root.appendChild(block.getContent()!);
+  }
+
+  return root;
+}
 
 type Props = {
   rootQuery: string;
@@ -6,11 +18,12 @@ type Props = {
 
 class Route {
   private _pathname: string;
-  private _blockClass: typeof Block;
+  private _blockClass: Block;
   private _block: Block | null;
   private _props: Props;
 
-  constructor(pathname: string, view: typeof Block, props: Props) {
+  constructor(pathname: string, view: Block, props: Props) {
+    debugger;
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -35,9 +48,13 @@ class Route {
   }
 
   render(): void {
+    debugger;
     if (!this._block) {
-      this._block = new this._blockClass();
+      debugger;
+      this._block = new this._blockClass(this._props);
+      debugger;
       render(this._props.rootQuery, this._block);
+      debugger;
       return;
     }
 
@@ -61,16 +78,18 @@ export class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: Block): this {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+  public use(pathname: string, block: Block, props): this {
+    debugger;
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery, ...props });
     this.routes.push(route);
-
+    debugger;
     return this;
   }
 
   public start(): void {
     window.onpopstate = (event: PopStateEvent) => {
-      this._onRoute(event.currentTarget?.location.pathname || "/");
+      const target = event.currentTarget as Window;
+      this._onRoute(target?.location.pathname || "/");
     };
 
     this._onRoute(window.location.pathname);
@@ -86,7 +105,9 @@ export class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
+    debugger;
     route.render(route, pathname);
+    debugger;
   }
 
   public go(pathname: string): void {
