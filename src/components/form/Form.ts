@@ -1,4 +1,4 @@
-import Block from "../../tools/Block";
+import Block, { Props } from "../../tools/Block";
 import { Button } from "../button";
 import { Link } from "../link";
 import { Title } from "../title";
@@ -35,6 +35,18 @@ export class Form extends Block {
         : "",
       children: props.children,
     });
+  }
+
+  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    if (oldProps === newProps) {
+      return false;
+    }
+
+    if (oldProps.children !== newProps.children) {
+      this.setProps({ children: newProps.children });
+    }
+
+    return true;
   }
 
   render() {

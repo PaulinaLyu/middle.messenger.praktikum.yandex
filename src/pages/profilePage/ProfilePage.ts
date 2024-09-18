@@ -1,4 +1,4 @@
-import Block from "../../tools/Block";
+import Block, { Props } from "../../tools/Block";
 import { IUser } from "../../types";
 import { InputFile, Modal, Button, ProfileItem, Form } from "../../components";
 import { validation } from "../../utils";
@@ -8,8 +8,6 @@ interface ProfilePageProps {
   isChangePass: boolean;
   user: IUser;
   disabled: boolean;
-  buttonArrowPage?: string;
-  buttonExit?: string;
   isShowModal: boolean;
 }
 
@@ -38,27 +36,34 @@ export class ProfilePage extends Block {
       }),
 
       buttonArrow: new Button({
-        page: props.buttonArrowPage,
         isCircle: true,
-        text: `<img src='/icons/arrow-left.svg' page='${props.buttonArrowPage}' alt="Arrow left icon"><img>`,
-        onClick: () => console.log("Клик стрелка"),
+        text: `<img src='/icons/arrow-left.svg' alt="Arrow left icon"><img>`,
+        onClick: () => window.router.back(),
       }),
+
       buttonSave: new Button({
         text: "Сохранить",
         onClick: () => {
           this.setProps({ disabled: true, isChangePass: false });
         },
       }),
-      buttonExit: new Button({ page: props.buttonExit, text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => console.log("Выход") }),
+
+      buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => router.go("/") }),
+
       buttonChangeData: new Button({
         text: "Изменить данные",
         isGhost: true,
-        page: "profile-edit",
+        onClick: () => {
+          this.setProps({ disabled: false });
+        },
       }),
+
       buttonChangePass: new Button({
         text: "Изменить пароль",
         isGhost: true,
-        page: "profile-change-pass",
+        onClick: () => {
+          this.setProps({ isChangePass: true });
+        },
       }),
       form: new Form({
         className: "profile-page__main__body",
@@ -102,6 +107,73 @@ export class ProfilePage extends Block {
     });
   }
 
+  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    if (oldProps === newProps) {
+      return false;
+    }
+
+    if (oldProps.disabled !== newProps.disabled) {
+      const lists = this.children.form.lists.children;
+      lists.forEach(element => element.setProps({ disabled: newProps.disabled }));
+      this.setProps({ disabled: newProps.disabled });
+    }
+    if (oldProps.isChangePass !== newProps.isChangePass) {
+      if (newProps.isChangePass) {
+        console.log(this);
+        this.children.form.lists.children = [
+          new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+          new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+          new ProfileItem<string>({
+            name: "repeatNewPassword",
+            label: "Повторите новый пароль",
+            type: "password",
+            disabled: false,
+            validate: validation,
+            validationName: "password",
+          }),
+        ];
+        // debugger;
+        // this.children.form.setProps({
+        //   children: [
+        //     new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+        //     new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+        //     new ProfileItem<string>({
+        //       name: "repeatNewPassword",
+        //       label: "Повторите новый пароль",
+        //       type: "password",
+        //       disabled: false,
+        //       validate: validation,
+        //       validationName: "password",
+        //     }),
+        //   ],
+        // });
+      } else {
+        console.log(this);
+        this.children.form.lists.children = [
+          new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user.email, validate: validation, validationName: "email" }),
+          new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user.login, validate: validation, validationName: "login" }),
+          new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user.firstName, validate: validation, validationName: "name" }),
+          new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user.secondName, validate: validation, validationName: "name" }),
+          new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user.displayName }),
+          new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user.phone, validate: validation, validationName: "phone" }),
+        ];
+        // this.children.form.setProps({
+        //   children: [
+        //     new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user.email, validate: validation, validationName: "email" }),
+        //     new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user.login, validate: validation, validationName: "login" }),
+        //     new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user.firstName, validate: validation, validationName: "name" }),
+        //     new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user.secondName, validate: validation, validationName: "name" }),
+        //     new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user.displayName }),
+        //     new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user.phone, validate: validation, validationName: "phone" }),
+        //   ],
+        // });
+      }
+      this.setProps({ isChangePass: newProps.isChangePass });
+    }
+
+    return true;
+  }
+
   override render() {
     return `<div class="profile-page">
       {{{modal}}}
@@ -113,11 +185,13 @@ export class ProfilePage extends Block {
           <div><span class="profile-page__main__name-text">{{ user.name }}</span></div>
           {{{buttonAvatar}}}
           {{{form}}}
+          <div class="profile-page__footer">
           ${
             this.props.isChangePass || !this.props.disabled
-              ? ""
+              ? `<div class="profile-page__footer__item">
+                  {{{buttonSave}}}
+                </div>`
               : `
-              <div class="profile-page__footer">
                 <div class="profile-page__footer__item">
                   {{{buttonChangeData}}}
                 </div>
@@ -126,9 +200,9 @@ export class ProfilePage extends Block {
                 </div>
                 <div class="profile-page__footer__item">
                   {{{buttonExit}}}
-                </div>
-              </div>`
+                </div>`
           }
+          </div>
         </div>
       </main>
     </div>`;

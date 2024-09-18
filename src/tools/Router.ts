@@ -3,7 +3,6 @@ import Block from "./Block";
 
 function render(query: string, block: Block): HTMLElement | null {
   const root = document.querySelector(query) as HTMLElement | null;
-  debugger;
   if (root) {
     root.innerHTML = ``;
     root.appendChild(block.getContent()!);
@@ -23,7 +22,6 @@ class Route {
   private _props: Props;
 
   constructor(pathname: string, view: Block, props: Props) {
-    debugger;
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -48,13 +46,11 @@ class Route {
   }
 
   render(): void {
-    debugger;
     if (!this._block) {
-      debugger;
       this._block = new this._blockClass(this._props);
-      debugger;
+
       render(this._props.rootQuery, this._block);
-      debugger;
+
       return;
     }
 
@@ -79,10 +75,8 @@ export class Router {
   }
 
   public use(pathname: string, block: Block, props): this {
-    debugger;
     const route = new Route(pathname, block, { rootQuery: this._rootQuery, ...props });
     this.routes.push(route);
-    debugger;
     return this;
   }
 
@@ -105,9 +99,8 @@ export class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    debugger;
+
     route.render(route, pathname);
-    debugger;
   }
 
   public go(pathname: string): void {
@@ -124,6 +117,10 @@ export class Router {
   }
 
   private getRoute(pathname: string): Route | undefined {
-    return this.routes.find(route => route.match(pathname));
+    const foundRoute = this.routes.find(route => route.match(pathname));
+    if (!foundRoute) {
+      return this.routes.find(route => route.match("*"));
+    }
+    return foundRoute;
   }
 }

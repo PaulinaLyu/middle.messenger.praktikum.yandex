@@ -1,8 +1,8 @@
 import Block from "../../tools/Block";
 import { Form, InputField } from "../../components";
 import { validation } from "../../utils";
+import { login } from "../../services/auth";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
-import { router } from "../../main";
 
 interface LoginPageProps {
   isRegistration: boolean;
@@ -32,8 +32,9 @@ export class LoginPage extends Block {
             console.log("Форма содержит ошибки валидации");
             return;
           }
+          login({ login: this.props.loginField, password: "" });
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
-          router.go("/messenger");
+          window.router.go("/messenger");
         },
         children: props.isRegistration
           ? [

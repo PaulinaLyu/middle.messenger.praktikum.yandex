@@ -1,11 +1,18 @@
 import * as Mocks from "./mocks";
 import "./main.scss";
-import { LoginPage } from "./pages/loginPage";
-import { ProfilePage } from "./pages/profilePage";
-import { ChatPage } from "./pages/chatPage";
 import { Router } from "./tools/Router";
+import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
+import { Store } from "./tools/Store";
 
-export const router = new Router("#app");
+const router = new Router("#app");
+window.router = router;
+
+window.store = new Store({
+  user: {
+    isLoading: false,
+    userLogin: null,
+  },
+});
 
 router
   .use("/", LoginPage, {
@@ -27,9 +34,13 @@ router
     user: Mocks.profileMock,
     isChangePass: false,
     disabled: true,
-    buttonArrowPage: "chat",
-    buttonExit: "login",
     isShowModal: false,
+  })
+  .use("*", ErrorPage, {
+    title: "Не туда попали",
+    error: "404",
+    linkPage: "messenger",
+    linkText: "Назад к чатам",
   })
   .start();
 
