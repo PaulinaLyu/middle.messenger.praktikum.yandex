@@ -4,30 +4,32 @@ export enum StoreEvents {
   Updated = "Updated",
 }
 
-export class Store extends EventBus {
-  private state = {};
+export class Store<T extends Record<string, unknown>> extends EventBus {
+  private static __instance: Store<any> | null = null;
+  private state!: T;
 
-  constructor(defaultState) {
+  constructor(defaultState: T) {
     if (Store.__instance) {
       return Store.__instance;
     }
     super();
 
     this.state = defaultState;
-    this.set(defaultState);
-
+    this.set(defaultState, false);
     Store.__instance = this;
   }
 
-  public getState() {
+  public getState(): T {
     return this.state;
   }
 
-  public set(nextState) {
+  public set(nextState: Partial<T>, emitUpdate: boolean = true): void {
     const prevState = { ...this.state };
-
+    debugger;
     this.state = { ...this.state, ...nextState };
-
-    this.emit(StoreEvents.Updated, prevState, nextState);
+    debugger;
+    if (emitUpdate) {
+      this.emit(StoreEvents.Updated, prevState, nextState);
+    }
   }
 }

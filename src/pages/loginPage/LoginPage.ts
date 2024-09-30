@@ -3,14 +3,17 @@ import { Form, InputField } from "../../components";
 import { validation } from "../../utils";
 import { login } from "../../services/auth";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
+import { Router } from "../../tools/Router";
+import { connect } from "../../utils/connect";
 
-interface LoginPageProps {
+export interface LoginPageProps {
   isRegistration: boolean;
   buttonText: string;
   onBtnClick?: () => void;
   title: string;
   linkText: string;
   linkPage: string;
+  router?: Router;
 }
 
 export class LoginPage extends Block {
@@ -28,13 +31,15 @@ export class LoginPage extends Block {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
           const { isValid, formData } = validateAndCollectFormData(form);
+          debugger;
           if (!isValid) {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-          login({ login: this.props.loginField, password: "" });
+          debugger;
+          login({ login: formData.login, password: formData.password });
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
-          window.router.go("/messenger");
+          // this.props.router.go("/messenger");
         },
         children: props.isRegistration
           ? [
@@ -146,3 +151,7 @@ export class LoginPage extends Block {
       </main>`;
   }
 }
+
+const mapStateToPropsShort = ({ data, isLoading, loginError }) => ({ data, isLoading, loginError });
+
+export default connect(mapStateToPropsShort)(LoginPage);

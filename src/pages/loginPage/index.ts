@@ -1,2 +1,6 @@
+import { withRouter } from "../../tools/WithRouter";
 import "./loginPage.scss";
-export { LoginPage } from "./LoginPage";
+import { LoginPageProps, LoginPage as UnwrappedLoginPage } from "./LoginPage";
+
+export const LoginPage = withRouter<LoginPageProps>(UnwrappedLoginPage);
+export default LoginPage;

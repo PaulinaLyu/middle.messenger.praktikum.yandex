@@ -3,12 +3,14 @@ import { IUser } from "../../types";
 import { InputFile, Modal, Button, ProfileItem, Form } from "../../components";
 import { validation } from "../../utils";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
+import { Router } from "../../tools/Router";
 
-interface ProfilePageProps {
+export interface ProfilePageProps {
   isChangePass: boolean;
   user: IUser;
   disabled: boolean;
   isShowModal: boolean;
+  router?: Router;
 }
 
 export class ProfilePage extends Block {
@@ -48,7 +50,7 @@ export class ProfilePage extends Block {
         },
       }),
 
-      buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => router.go("/") }),
+      buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => this.props.router.go("/") }),
 
       buttonChangeData: new Button({
         text: "Изменить данные",

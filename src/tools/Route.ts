@@ -1,16 +1,6 @@
 import Block from "./Block";
 import { isEqual } from "../utils/isEqual";
 
-function render(query: string, block: Block): HTMLElement | null {
-  const root = document.querySelector(query) as HTMLElement | null;
-  if (root) {
-    root.innerHTML = ``;
-    root.appendChild(block.getContent()!);
-  }
-
-  return root;
-}
-
 type Props = {
   rootQuery: string;
 };
@@ -35,21 +25,25 @@ export class Route {
     }
   }
 
-  leave(): void {
-    if (this._block) {
-      this._block.hide();
-    }
-  }
-
   match(pathname: string): boolean {
     return isEqual(pathname, this._pathname);
   }
 
+  _renderDom(query: string, block: Block): HTMLElement | null {
+    const root = document.querySelector(query) as HTMLElement | null;
+    if (root) {
+      root.innerHTML = ``;
+      root.appendChild(block.getContent()!);
+    }
+
+    return root;
+  }
+
   render(): void {
     if (!this._block) {
-      this._block = new this._blockClass(this._props);
+      this._block = this._blockClass;
 
-      render(this._props.rootQuery, this._block);
+      this._renderDom(this._props.rootQuery, this._block);
 
       return;
     }

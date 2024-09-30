@@ -1,16 +1,8 @@
 import { HTTPTransport } from "../tools/HTTPTransport";
 import { APIError, CreateUser, LoginRequestData, SignUpResponse, UserDTO } from "./type";
+import { BASE_URL } from "../consts";
 
-const authApi = new HTTPTransport("/auth");
-
-const delay = showError =>
-  new Promise((resolve, reject) => {
-    if (showError) {
-      setTimeout(() => reject(), 2000);
-    } else {
-      setTimeout(() => resolve(), 3000);
-    }
-  });
+const authApi = new HTTPTransport();
 
 export default class AuthApi {
   async create(data: CreateUser): Promise<SignUpResponse> {
@@ -18,8 +10,8 @@ export default class AuthApi {
   }
 
   async login(data: LoginRequestData): Promise<void | APIError> {
-    // return authApi.post('/signin', {data});
-    return await delay(data.login === "httperror");
+    debugger;
+    return authApi.post(`${BASE_URL}/auth/signin`, { data });
   }
 
   async me(): Promise<UserDTO | APIError> {

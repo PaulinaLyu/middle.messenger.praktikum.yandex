@@ -8,40 +8,54 @@ const router = new Router("#app");
 window.router = router;
 
 window.store = new Store({
-  user: {
-    isLoading: false,
-    userLogin: null,
-  },
+  isLoadingUser: false,
+  user: null,
+  errorUser: "",
 });
 
 router
-  .use("/", LoginPage, {
-    isRegistration: false,
-    buttonText: "Войти",
-    title: "Вход",
-    linkText: "Нет аккаунта?",
-    linkPage: "sign-up",
-  })
-  .use("/sign-up", LoginPage, {
-    isRegistration: true,
-    buttonText: "Зарегистрироваться",
-    title: "Регистрация",
-    linkText: "Вход",
-    linkPage: "/",
-  })
-  .use("/messenger", ChatPage, { chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat })
-  .use("/settings", ProfilePage, {
-    user: Mocks.profileMock,
-    isChangePass: false,
-    disabled: true,
-    isShowModal: false,
-  })
-  .use("*", ErrorPage, {
-    title: "Не туда попали",
-    error: "404",
-    linkPage: "messenger",
-    linkText: "Назад к чатам",
-  })
+  .use(
+    "/",
+    new LoginPage({
+      isRegistration: false,
+      buttonText: "Войти",
+      title: "Вход",
+      linkText: "Нет аккаунта?",
+      linkPage: "sign-up",
+    }),
+  )
+  .use(
+    "/sign-up",
+    new LoginPage({
+      isRegistration: true,
+      buttonText: "Зарегистрироваться",
+      title: "Регистрация",
+      linkText: "Вход",
+      linkPage: "/",
+    }),
+  )
+  .use(
+    "/messenger",
+    new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
+  )
+  .use(
+    "/settings",
+    new ProfilePage({
+      user: Mocks.profileMock,
+      isChangePass: false,
+      disabled: true,
+      isShowModal: false,
+    }),
+  )
+  .use(
+    "*",
+    new ErrorPage({
+      title: "Не туда попали",
+      error: "404",
+      linkPage: "messenger",
+      linkText: "Назад к чатам",
+    }),
+  )
   .start();
 
 // const pages = {
