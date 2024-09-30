@@ -12,10 +12,12 @@ export default class EventBus {
   }
 
   private hasEvent(event: string): boolean {
+    debugger;
     return !!this.listeners[event];
   }
 
   private checkEvent(event: string): void {
+    debugger;
     if (!this.hasEvent(event)) {
       throw new Error(`Нет события: ${event}`);
     }
@@ -36,6 +38,7 @@ export default class EventBus {
   }
 
   emit(event: string, ...args: unknown[]): void {
+    debugger;
     this.checkEvent(event);
     this.listeners[event].forEach(listener => {
       listener(...args);

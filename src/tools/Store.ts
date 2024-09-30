@@ -16,6 +16,11 @@ export class Store<T extends Record<string, unknown>> extends EventBus {
 
     this.state = defaultState;
     this.set(defaultState, false);
+
+    this.on(StoreEvents.Updated, (prevState, nextState) => {
+      console.log("Состояние обновлено", prevState, nextState);
+    });
+
     Store.__instance = this;
   }
 
@@ -29,6 +34,7 @@ export class Store<T extends Record<string, unknown>> extends EventBus {
     this.state = { ...this.state, ...nextState };
     debugger;
     if (emitUpdate) {
+      debugger;
       this.emit(StoreEvents.Updated, prevState, nextState);
     }
   }

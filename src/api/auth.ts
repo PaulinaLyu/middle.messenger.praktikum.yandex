@@ -1,6 +1,6 @@
 import { HTTPTransport } from "../tools/HTTPTransport";
 import { APIError, CreateUser, LoginRequestData, SignUpResponse, UserDTO } from "./type";
-import { BASE_URL } from "../consts";
+import { apiYandex } from "../consts";
 
 const authApi = new HTTPTransport();
 
@@ -11,7 +11,7 @@ export default class AuthApi {
 
   async login(data: LoginRequestData): Promise<void | APIError> {
     debugger;
-    return authApi.post(`${BASE_URL}/auth/signin`, { data });
+    return authApi.post(`${apiYandex}/auth/signin`, { data });
   }
 
   async me(): Promise<UserDTO | APIError> {

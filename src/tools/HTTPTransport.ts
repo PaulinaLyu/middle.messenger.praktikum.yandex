@@ -19,7 +19,7 @@ function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
   }
-
+  debugger;
   const keys = Object.keys(data);
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
@@ -29,12 +29,15 @@ function queryStringify(data: Record<string, unknown>) {
 export class HTTPTransport {
   get: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   put: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-  post: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  post: HTTPMethod = (url, options = {}) => {
+    debugger;
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  };
   delete: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: RequestOptions = {}, timeout: number = 5000): Promise<XMLHttpRequest> => {
     const { headers = {}, method, data } = options;
-
+    debugger;
     return new Promise(function (resolve, reject) {
       if (!method) {
         reject("No method");
@@ -43,13 +46,13 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
-
+      debugger;
       xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
-
+      debugger;
       Object.keys(headers).forEach(key => {
         xhr.setRequestHeader(key, headers[key]);
       });
-
+      debugger;
       xhr.onload = function () {
         resolve(xhr);
       };
@@ -59,10 +62,12 @@ export class HTTPTransport {
 
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
-
+      debugger;
       if (isGet || !data) {
+        debugger;
         xhr.send();
       } else {
+        debugger;
         xhr.send(JSON.stringify(data));
       }
     });

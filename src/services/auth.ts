@@ -7,6 +7,7 @@ export const login = async model => {
   window.store.set({ isLoadingUser: true });
   debugger;
   try {
+    debugger;
     await authApi.login(model);
     debugger;
     // window.router.go("/cats");

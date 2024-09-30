@@ -1,1 +1,1 @@
-export const BASE_URL = "ya-praktikum.tech/api/v2";
+export const apiYandex = "https://ya-praktikum.tech/api/v2";
