@@ -1,5 +1,5 @@
 import { Input, Link } from "..";
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 
 export class ChatHeader extends Block {
   constructor() {

@@ -1,4 +1,4 @@
-import { withRouter } from "../../tools/WithRouter";
+import { withRouter } from "../../hocs/WithRouter";
 import { ProfilePage as UnwrappedProfilePage } from "./ProfilePage";
 import type { ProfilePageProps } from "./ProfilePage";
 

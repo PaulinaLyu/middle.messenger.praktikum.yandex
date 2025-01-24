@@ -1,5 +1,5 @@
 import { Button, DropdownOptionItem, DropdownOptionItemProps } from "..";
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 
 interface DropdownProps {
   iconSrc: string;

@@ -1,4 +1,4 @@
-import Block, { Props } from "../../tools/Block";
+import Block, { Props } from "../../core/Block";
 import { Button } from "../button";
 import { Link } from "../link";
 import { Title } from "../title";

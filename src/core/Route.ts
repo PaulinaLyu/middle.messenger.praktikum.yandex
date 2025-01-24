@@ -1,5 +1,5 @@
 import Block from "./Block";
-import { isEqual } from "../utils/isEqual";
+import { isEqual } from "@/utils/isEqual";
 
 type Props = {
   rootQuery: string;

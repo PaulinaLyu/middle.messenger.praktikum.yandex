@@ -1,5 +1,5 @@
 import { Button } from "..";
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 
 interface ModalProps {
   id: string | number;

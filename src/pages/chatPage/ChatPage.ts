@@ -1,4 +1,4 @@
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { ChatHeader, ChatItem, IChat, MessagesFeed } from "../../components";
 
 interface ChatPageProps {

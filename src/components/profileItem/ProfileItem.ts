@@ -1,5 +1,5 @@
 import { InputElement } from "..";
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { IValidationReturn } from "../../utils";
 
 interface ProfileItemProps<T> {

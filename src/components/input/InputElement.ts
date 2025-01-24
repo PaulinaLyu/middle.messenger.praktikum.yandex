@@ -1,4 +1,4 @@
-import Block, { Props } from "../../tools/Block";
+import Block, { Props } from "../../core/Block";
 import { IValidationReturn } from "../../utils";
 import { ErrorLine } from "./ErrorLine";
 import { Input } from "./Input";

@@ -1,9 +1,9 @@
-import Block, { Props } from "../../tools/Block";
+import Block, { Props } from "../../core/Block";
 import { IUser } from "../../types";
 import { InputFile, Modal, Button, ProfileItem, Form } from "../../components";
 import { validation } from "../../utils";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
-import { Router } from "../../tools/Router";
+import { Router } from "../../core/Router";
 
 export interface ProfilePageProps {
   isChangePass: boolean;

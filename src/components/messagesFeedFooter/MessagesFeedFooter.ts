@@ -1,5 +1,5 @@
 import { Button, Dropdown, Form, InputElement } from "..";
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { validation } from "../../utils";
 import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
 

@@ -1,4 +1,4 @@
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { MessagesFeedFooter, MessagesFeedHeader } from "..";
 
 interface MessagesFeedProps {

@@ -1,4 +1,4 @@
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { Label } from "../../components/label";
 import { InputElement } from "../../components/input";
 import { IValidationReturn } from "../../utils";

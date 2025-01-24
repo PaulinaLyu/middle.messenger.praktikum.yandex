@@ -1,5 +1,5 @@
-import Block from "./Block";
-import { Router } from "./Router";
+import Block from "../core/Block";
+import { Router } from "../core/Router";
 
 export function withRouter<T extends { router?: Router }>(WrappedBlock: typeof Block) {
   return class extends WrappedBlock {

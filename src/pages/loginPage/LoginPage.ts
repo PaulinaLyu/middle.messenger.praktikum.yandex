@@ -1,10 +1,10 @@
-import Block from "../../tools/Block";
-import { Form, InputField } from "../../components";
-import { validation } from "../../utils";
-import { login } from "../../services/auth";
-import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
-import { Router } from "../../tools/Router";
-import { connect } from "../../utils/connect";
+import Block from "@/core/Block";
+import { Form, InputField } from "@/components";
+import { validation } from "@/utils";
+import { AuthController } from "@/controllers/auth";
+import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
+import { Router } from "@/core/Router";
+// import { connect } from "@/utils/connect";
 
 export interface LoginPageProps {
   isRegistration: boolean;
@@ -31,15 +31,24 @@ export class LoginPage extends Block {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
           const { isValid, formData } = validateAndCollectFormData(form);
-          debugger;
           if (!isValid) {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-          debugger;
-          login({ login: formData.login, password: formData.password });
+          if (props?.isRegistration) {
+            AuthController.signup({
+              login: formData.login,
+              password: formData.password,
+              first_name: formData.first_name,
+              second_name: formData.second_name,
+              email: formData.email,
+              phone: formData.phone,
+            });
+          } else {
+            AuthController.signin({ login: formData.login, password: formData.password });
+          }
+
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
-          // this.props.router.go("/messenger");
         },
         children: props.isRegistration
           ? [
@@ -152,6 +161,6 @@ export class LoginPage extends Block {
   }
 }
 
-const mapStateToPropsShort = ({ data, isLoading, loginError }) => ({ data, isLoading, loginError });
+// const mapStateToPropsShort = ({ data, isLoading, loginError }) => ({ data, isLoading, loginError });
 
-export default connect(mapStateToPropsShort)(LoginPage);
+export default LoginPage;

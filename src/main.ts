@@ -1,21 +1,21 @@
 import * as Mocks from "./mocks";
 import "./main.scss";
-import { Router } from "./tools/Router";
+import { Router } from "./core/Router";
 import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
-import { Store } from "./tools/Store";
+import { Routes } from "./types";
 
 const router = new Router("#app");
 window.router = router;
 
-window.store = new Store({
-  isLoadingUser: false,
-  user: null,
-  errorUser: "",
-});
+// window.store = new Store({
+//   isLoadingUser: false,
+//   user: null,
+//   errorUser: "",
+// });
 
 router
   .use(
-    "/",
+    Routes.Home,
     new LoginPage({
       isRegistration: false,
       buttonText: "Войти",
@@ -25,7 +25,7 @@ router
     }),
   )
   .use(
-    "/sign-up",
+    Routes.Register,
     new LoginPage({
       isRegistration: true,
       buttonText: "Зарегистрироваться",
@@ -35,11 +35,11 @@ router
     }),
   )
   .use(
-    "/messenger",
+    Routes.Chats,
     new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
   )
   .use(
-    "/settings",
+    Routes.EditProfile,
     new ProfilePage({
       user: Mocks.profileMock,
       isChangePass: false,

@@ -1,8 +1,9 @@
-import { StoreEvents } from "../tools/Store";
+import Block from "../core/Block";
+import { StoreEvents } from "../core/Store";
 import { isEqual } from "./isEqual";
 
 export function connect(mapStateToProps) {
-  return function (Component) {
+  return function (Component: Block) {
     return class extends Component {
       private onChangeStoreCallback: () => void;
       constructor(props) {
