@@ -9,6 +9,7 @@ export class AuthController {
       await authAPI.signin(data);
       await this.fetchUser();
       window.router.go(Routes.Chats);
+      debugger;
     } catch (error) {
       console.log(error, "sign in error");
     }
