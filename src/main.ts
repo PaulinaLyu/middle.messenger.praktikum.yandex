@@ -1,13 +1,13 @@
 import "./main.scss";
 import * as Mocks from "./mocks";
 import { Router } from "./core/Router";
-import { ErrorPage, ChatPage, ProfilePage, LoginPage} from "./pages";
+import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
 import { Routes } from "./types";
 import { AuthController } from "./controllers/auth";
 
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener("DOMContentLoaded", async () => {
   Router.getInstance()
-    .use(Routes.Home, LoginPage,{
+    .use(Routes.Home, LoginPage, {
       isRegistration: false,
       buttonText: "Войти",
       title: "Вход",
@@ -19,24 +19,37 @@ window.addEventListener('DOMContentLoaded', async () => {
       buttonText: "Зарегистрироваться",
       title: "Регистрация",
       linkText: "Вход",
-      linkPage: "/"})
-    // .use(Routes.Chats, ChatPage)
-    // .use(Routes.EditPassword, ProfilePage)
-    // .use(Routes.EditProfile, ProfilePage)
+      linkPage: "/",
+    })
+    .use(Routes.Chats, ChatPage, {
+      chatsList: Mocks.chatsListMock,
+      currentChat: 3,
+      chatAvatar: "",
+      chatName: Mocks.chatMock.display_name,
+      chatDate: Mocks.chatMock.chat.date,
+      chat: Mocks.chatMock.chat,
+    })
     .use(Routes.Profile, ProfilePage, {
-            isChangePass: false,
-            disabled: true,
-            buttonArrowPage: "chat",
-            buttonExit: "login",
-            isShowModal: false,
-          })
+      isChangePass: false,
+      disabled: true,
+      isShowModal: false,
+    })
+    .use(Routes.EditPassword, ProfilePage, {
+      isChangePass: true,
+      disabled: false,
+      isShowModal: false,
+    })
+    .use(Routes.EditProfile, ProfilePage, {
+      isChangePass: false,
+      disabled: false,
+      isShowModal: false,
+    })
     .use(Routes.NotFound, ErrorPage, {
-            title: "Не туда попали",
-            error: "404",
-            linkPage: "messenger",
-            linkText: "Назад к чатам",
-          })
-    // .use(Routes.Error, ErrorPage);
+      title: "Не туда попали",
+      error: "404",
+      linkPage: "messenger",
+      linkText: "Назад к чатам",
+    });
 
   let isProtectedRoute = true;
 
@@ -71,16 +84,16 @@ window.addEventListener('DOMContentLoaded', async () => {
 // });
 
 // router
-  // .use(
-  //   Routes.Home,
-  //   new LoginPage({
-  //     isRegistration: false,
-  //     buttonText: "Войти",
-  //     title: "Вход",
-  //     linkText: "Нет аккаунта?",
-  //     linkPage: "sign-up",
-  //   }),
-  // )
+// .use(
+//   Routes.Home,
+//   new LoginPage({
+//     isRegistration: false,
+//     buttonText: "Войти",
+//     title: "Вход",
+//     linkText: "Нет аккаунта?",
+//     linkPage: "sign-up",
+//   }),
+// )
 //   .use(
 //     Routes.Register,
 //     new LoginPage({

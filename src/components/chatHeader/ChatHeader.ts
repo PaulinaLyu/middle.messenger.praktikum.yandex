@@ -6,7 +6,7 @@ export class ChatHeader extends Block {
     super({
       linkProfile: new Link({
         text: "Профиль ",
-        url: "/settings",
+        url: "/profile",
         secondary: "secondary",
       }),
       input: new Input({

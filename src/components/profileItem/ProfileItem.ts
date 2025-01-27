@@ -14,6 +14,7 @@ interface ProfileItemProps<T> {
 
 export class ProfileItem<T> extends Block {
   constructor(props: ProfileItemProps<T>) {
+    debugger;
     super({
       ...props,
       input: new InputElement({

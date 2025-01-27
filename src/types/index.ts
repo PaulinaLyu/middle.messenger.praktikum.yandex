@@ -1,13 +1,12 @@
 export enum Routes {
+  Home = "/",
+  Register = "/sign-up",
   Chats = "/messenger",
   EditPassword = "/edit-password",
-  EditProfile = "/settings",
-  Error = "/500",
-  Home = "/",
-  Login = "/login",
-  NotFound = "/404",
+  EditProfile = "/edit-profile",
   Profile = "/profile",
-  Register = "/sign-up",
+  Error = "/500",
+  NotFound = "/404",
 }
 
 export type { AuthSignupRequest, AuthSignupResponse, AuthSignInRequest } from "./Auth/Auth.dto";
