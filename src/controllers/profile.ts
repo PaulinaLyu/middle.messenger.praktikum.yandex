@@ -4,7 +4,7 @@ import { Router } from '@/core/Router.ts';
 import { AuthController } from './auth.ts';
 import { ChangePasswordRequest, profileRequest, profileResponse } from '@/types/Profile/Profile.dto.ts';
 
-export class UserController {
+export class ProfileController {
   static async changeProfile(data: profileRequest) {
     try {
       const newProfileData: profileResponse = await ProfileAPI.changeProfile(data);

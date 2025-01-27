@@ -24,7 +24,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     // .use(Routes.EditPassword, ProfilePage)
     // .use(Routes.EditProfile, ProfilePage)
     .use(Routes.Profile, ProfilePage, {
-            // user: Mocks.profileMock,
             isChangePass: false,
             disabled: true,
             buttonArrowPage: "chat",

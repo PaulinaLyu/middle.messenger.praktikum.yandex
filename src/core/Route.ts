@@ -47,7 +47,6 @@ export class Route {
   }
 
   render() {
-    debugger;
     if (!this._block) {
       this._block = new this._blockClass(this._props.defaultProps);
       this._renderDom(this._props.rootQuery, this._block as Block);

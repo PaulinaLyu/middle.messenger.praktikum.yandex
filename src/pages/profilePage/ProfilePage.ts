@@ -5,6 +5,8 @@ import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { Router } from "@/core/Router";
 import { UserModel } from "@/types/models/User";
 import { AuthController } from "@/controllers/auth";
+import { ProfileController } from "@/controllers/profile";
+import { profileRequest } from "@/types/Profile/Profile.dto";
 
 export interface ProfilePageProps {
   isChangePass: boolean;
@@ -44,12 +46,14 @@ export class ProfilePage extends Block {
         onClick: () => window.router.back(),
       }),
 
-      buttonSave: new Button({
-        text: "Сохранить",
-        onClick: () => {
-          this.setProps({ disabled: true, isChangePass: false });
-        },
-      }),
+      // buttonSave: new Button({
+      //   text: "Сохранить",
+      //   type: "submit",
+      //   onClick: () => {
+      //     this.setProps({ disabled: true, isChangePass: false });
+
+      //   },
+      // }),
 
       buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => AuthController.logout()}),
 
@@ -70,20 +74,23 @@ export class ProfilePage extends Block {
       }),
       form: new Form({
         className: "profile-page__main__body",
-        isFooter: props.isChangePass || !props.disabled,
+        // isFooter: props.isChangePass || !props.disabled,
         buttonText: "Сохранить",
         onSubmit: (e: Event) => {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
-
+          debugger;
           const { isValid, formData } = validateAndCollectFormData(form);
-
+          debugger;
           if (!isValid) {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-
-          console.log(`Данные формы отправки сообщения: `, formData);
+          debugger;
+          if (formData) {
+            ProfileController.changeProfile(formData as unknown as profileRequest);
+          }
+          
         },
         children: props.isChangePass
           ? [

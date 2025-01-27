@@ -1,4 +1,4 @@
-import Block, { Props } from "../../core/Block";
+import Block, { BlockProps } from "@/core/Block";
 import { Button } from "../button";
 import { Link } from "../link";
 import { Title } from "../title";
@@ -37,7 +37,7 @@ export class Form extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     if (oldProps === newProps) {
       return false;
     }
