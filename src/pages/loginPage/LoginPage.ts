@@ -4,7 +4,6 @@ import { validation } from "@/utils";
 import { AuthController } from "@/controllers/auth";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { Router } from "@/core/Router";
-// import { connect } from "@/utils/connect";
 
 export interface LoginPageProps {
   isRegistration: boolean;
