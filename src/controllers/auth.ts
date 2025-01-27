@@ -1,4 +1,5 @@
 import authAPI from "@/api/auth-api.ts";
+import { Router } from "@/core/Router";
 import store from "@/core/Store.ts";
 import { AuthSignupRequest, AuthSignInRequest, Routes } from "@/types/index.ts";
 import { UserModel } from "@/types/models/User";
@@ -8,7 +9,7 @@ export class AuthController {
     try {
       await authAPI.signin(data);
       await this.fetchUser();
-      window.router.go(Routes.Chats);
+      Router.getInstance().go(Routes.Chats);
     } catch (error) {
       console.log(error, "sign in error");
     }
@@ -18,7 +19,7 @@ export class AuthController {
     try {
       await authAPI.signup(data);
       await this.fetchUser();
-      window.router.go(Routes.Chats);
+      Router.getInstance().go(Routes.Chats);
     } catch (error) {
       console.log(error, "sign up error");
     }
@@ -28,7 +29,7 @@ export class AuthController {
     try {
       await authAPI.logout();
       store.set("user", undefined);
-      window.router.go(Routes.Login);
+      Router.getInstance().go(Routes.Home);
     } catch (error) {
       console.log(error, "log out error");
     }

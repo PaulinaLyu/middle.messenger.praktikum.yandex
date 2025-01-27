@@ -1,13 +1,14 @@
-import Block, { Props } from "../../core/Block";
-import { IUser } from "../../types";
-import { InputFile, Modal, Button, ProfileItem, Form } from "../../components";
-import { validation } from "../../utils";
-import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
-import { Router } from "../../core/Router";
+import Block, { BlockProps } from "@/core/Block";
+import { InputFile, Modal, Button, ProfileItem, Form } from "@/components";
+import { validation } from "@/utils";
+import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
+import { Router } from "@/core/Router";
+import { UserModel } from "@/types/models/User";
+import { AuthController } from "@/controllers/auth";
 
 export interface ProfilePageProps {
   isChangePass: boolean;
-  user: IUser;
+  user: UserModel;
   disabled: boolean;
   isShowModal: boolean;
   router?: Router;
@@ -50,7 +51,7 @@ export class ProfilePage extends Block {
         },
       }),
 
-      buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => this.props.router.go("/") }),
+      buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => AuthController.logout()}),
 
       buttonChangeData: new Button({
         text: "Изменить данные",
@@ -98,18 +99,18 @@ export class ProfilePage extends Block {
               }),
             ]
           : [
-              new ProfileItem<string>({ name: "email", label: "Почта", disabled: props.disabled, value: props.user.email, validate: validation, validationName: "email" }),
-              new ProfileItem<string>({ name: "login", label: "Логин", disabled: props.disabled, value: props.user.login, validate: validation, validationName: "login" }),
-              new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: props.disabled, value: props.user.firstName, validate: validation, validationName: "name" }),
-              new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: props.disabled, value: props.user.secondName, validate: validation, validationName: "name" }),
-              new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: props.disabled, value: props.user.displayName }),
-              new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: props.disabled, value: props.user.phone, validate: validation, validationName: "phone" }),
+              new ProfileItem<string>({ name: "email", label: "Почта", disabled: props.disabled, value: props.user?.email, validate: validation, validationName: "email" }),
+              new ProfileItem<string>({ name: "login", label: "Логин", disabled: props.disabled, value: props.user?.login, validate: validation, validationName: "login" }),
+              new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: props.disabled, value: props.user?.first_name, validate: validation, validationName: "name" }),
+              new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: props.disabled, value: props.user?.second_name, validate: validation, validationName: "name" }),
+              new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: props.disabled, value: props.user?.display_name }),
+              new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: props.disabled, value: props.user?.phone, validate: validation, validationName: "phone" }),
             ],
       }),
     });
   }
 
-  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     if (oldProps === newProps) {
       return false;
     }
@@ -150,14 +151,13 @@ export class ProfilePage extends Block {
         //   ],
         // });
       } else {
-        console.log(this);
         this.children.form.lists.children = [
-          new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user.email, validate: validation, validationName: "email" }),
-          new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user.login, validate: validation, validationName: "login" }),
-          new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user.firstName, validate: validation, validationName: "name" }),
-          new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user.secondName, validate: validation, validationName: "name" }),
-          new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user.displayName }),
-          new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user.phone, validate: validation, validationName: "phone" }),
+          new ProfileItem<string>({ name: "email", label: "Почта", disabled: Boolean(this.props.disabled), value: this.props?.user?.email || '', validate: validation, validationName: "email" }),
+          new ProfileItem<string>({ name: "login", label: "Логин", disabled: Boolean(this.props.disabled), value: this.props?.user?.login || '', validate: validation, validationName: "login" }),
+          new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: Boolean(this.props.disabled), value: this.props?.user?.firstName, validate: validation, validationName: "name" }),
+          new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: Boolean(this.props.disabled), value: this.props?.user?.secondName, validate: validation, validationName: "name" }),
+          new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user?.displayName }),
+          new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user?.phone, validate: validation, validationName: "phone" }),
         ];
         // this.children.form.setProps({
         //   children: [

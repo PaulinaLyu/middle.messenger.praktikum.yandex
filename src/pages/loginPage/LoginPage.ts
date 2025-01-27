@@ -161,6 +161,4 @@ export class LoginPage extends Block {
   }
 }
 
-// const mapStateToPropsShort = ({ data, isLoading, loginError }) => ({ data, isLoading, loginError });
-
 export default LoginPage;

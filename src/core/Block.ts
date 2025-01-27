@@ -5,7 +5,7 @@ type EventHandlers = {
   [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
 };
 
-export interface Props {
+export interface BlockProps {
   [key: string]: unknown;
   events?: EventHandlers;
   attr?: { [key: string]: string | boolean };
@@ -29,11 +29,11 @@ export default class Block {
   private _element: HTMLElement | null = null;
   private _id: number = Math.floor(100000 + Math.random() * 900000);
   private eventBus: () => EventBus;
-  protected props: Props;
+  protected props: BlockProps;
   protected children: Children;
   protected lists: Lists;
 
-  constructor(propsWithChildren: Props = {}) {
+  constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
     const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
@@ -89,7 +89,7 @@ export default class Block {
   }
 
   private _componentDidUpdate(...args: unknown[]): void {
-    const [oldProps, newProps] = args as [Props, Props];
+    const [oldProps, newProps] = args as [BlockProps, BlockProps];
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (!response) {
@@ -99,14 +99,14 @@ export default class Block {
     this._render();
   }
 
-  protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+  protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     console.log(oldProps, newProps);
     return true;
   }
 
-  private _getChildrenPropsAndProps(propsAndChildren: Props): { children: Children; props: Props; lists: Lists } {
+  private _getChildrenPropsAndProps(propsAndChildren: BlockProps): { children: Children; props: BlockProps; lists: Lists } {
     const children: Children = {};
-    const props: Props = {};
+    const props: BlockProps = {};
     const lists: Lists = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -136,7 +136,7 @@ export default class Block {
     });
   }
 
-  public setProps = (nextProps: Props): void => {
+  public setProps = (nextProps: BlockProps): void => {
     if (!nextProps) {
       return;
     }
@@ -214,7 +214,7 @@ export default class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props: Props): Props {
+  private _makePropsProxy(props: BlockProps): BlockProps {
     const self = this;
 
     return new Proxy(props, {
@@ -253,11 +253,9 @@ export default class Block {
     return document.createElement(tagName) as HTMLTemplateElement;
   }
 
-  public show(): void {
-    const element = this.getContent();
-    if (element) {
-      element.style.display = "block";
-    }
+  public show(query: string, render: (query: string, block: Block) => void) {
+    this.eventBus().emit(Block.EVENTS.INIT);
+    render(query, this);
   }
 
   public hide(): void {

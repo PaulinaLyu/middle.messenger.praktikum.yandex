@@ -1,8 +1,9 @@
-import { withRouter } from "../../hocs/WithRouter";
-import { ProfilePage as UnwrappedProfilePage } from "./ProfilePage";
-import type { ProfilePageProps } from "./ProfilePage";
+import { State } from "@/core/Store";
+import { ProfilePage as BaseProfile } from "./ProfilePage";
 
 import "./profilePage.scss";
+import { withStore } from "@/hocs/withStore";
 
-export const ProfilePage = withRouter<ProfilePageProps>(UnwrappedProfilePage);
-export default ProfilePage;
+const mapStateToProps = (state: State) => ({ user: state.user });
+
+export const ProfilePage = withStore(mapStateToProps)(BaseProfile);

@@ -1,4 +1,4 @@
-import { withRouter } from "../../hocs/WithRouter";
+import { withRouter } from "../../hocs/withRouter";
 import "./loginPage.scss";
 import { LoginPageProps, LoginPage as UnwrappedLoginPage } from "./LoginPage";
 

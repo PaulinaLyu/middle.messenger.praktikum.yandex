@@ -1,11 +1,69 @@
-import * as Mocks from "./mocks";
 import "./main.scss";
+import * as Mocks from "./mocks";
 import { Router } from "./core/Router";
-import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
+import { ErrorPage, ChatPage, ProfilePage, LoginPage} from "./pages";
 import { Routes } from "./types";
+import { AuthController } from "./controllers/auth";
 
-const router = new Router("#app");
-window.router = router;
+window.addEventListener('DOMContentLoaded', async () => {
+  Router.getInstance()
+    .use(Routes.Home, LoginPage,{
+      isRegistration: false,
+      buttonText: "Войти",
+      title: "Вход",
+      linkText: "Нет аккаунта?",
+      linkPage: "sign-up",
+    })
+    .use(Routes.Register, LoginPage, {
+      isRegistration: true,
+      buttonText: "Зарегистрироваться",
+      title: "Регистрация",
+      linkText: "Вход",
+      linkPage: "/"})
+    // .use(Routes.Chats, ChatPage)
+    // .use(Routes.EditPassword, ProfilePage)
+    // .use(Routes.EditProfile, ProfilePage)
+    .use(Routes.Profile, ProfilePage, {
+            // user: Mocks.profileMock,
+            isChangePass: false,
+            disabled: true,
+            buttonArrowPage: "chat",
+            buttonExit: "login",
+            isShowModal: false,
+          })
+    .use(Routes.NotFound, ErrorPage, {
+            title: "Не туда попали",
+            error: "404",
+            linkPage: "messenger",
+            linkText: "Назад к чатам",
+          })
+    // .use(Routes.Error, ErrorPage);
+
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case Routes.Home:
+    case Routes.Register:
+      isProtectedRoute = false;
+      break;
+  }
+
+  try {
+    await AuthController.fetchUser();
+    Router.getInstance().start();
+    if (!isProtectedRoute) {
+      Router.getInstance().go(Routes.Profile);
+    }
+  } catch (error) {
+    Router.getInstance().start();
+    if (isProtectedRoute) {
+      Router.getInstance().go(Routes.Home);
+    }
+  }
+});
+
+// const router = new Router("#app");
+// window.router = router;
 
 // window.store = new Store({
 //   isLoadingUser: false,
@@ -13,50 +71,49 @@ window.router = router;
 //   errorUser: "",
 // });
 
-router
-  .use(
-    Routes.Home,
-    new LoginPage({
-      isRegistration: false,
-      buttonText: "Войти",
-      title: "Вход",
-      linkText: "Нет аккаунта?",
-      linkPage: "sign-up",
-    }),
-  )
-  .use(
-    Routes.Register,
-    new LoginPage({
-      isRegistration: true,
-      buttonText: "Зарегистрироваться",
-      title: "Регистрация",
-      linkText: "Вход",
-      linkPage: "/",
-    }),
-  )
-  .use(
-    Routes.Chats,
-    new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
-  )
-  .use(
-    Routes.EditProfile,
-    new ProfilePage({
-      user: Mocks.profileMock,
-      isChangePass: false,
-      disabled: true,
-      isShowModal: false,
-    }),
-  )
-  .use(
-    "*",
-    new ErrorPage({
-      title: "Не туда попали",
-      error: "404",
-      linkPage: "messenger",
-      linkText: "Назад к чатам",
-    }),
-  )
-  .start();
+// router
+  // .use(
+  //   Routes.Home,
+  //   new LoginPage({
+  //     isRegistration: false,
+  //     buttonText: "Войти",
+  //     title: "Вход",
+  //     linkText: "Нет аккаунта?",
+  //     linkPage: "sign-up",
+  //   }),
+  // )
+//   .use(
+//     Routes.Register,
+//     new LoginPage({
+//       isRegistration: true,
+//       buttonText: "Зарегистрироваться",
+//       title: "Регистрация",
+//       linkText: "Вход",
+//       linkPage: "/",
+//     }),
+//   )
+//   .use(
+//     Routes.Chats,
+//     new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
+//   )
+//   .use(
+//     Routes.EditProfile,
+//     new ProfilePage({
+//       isChangePass: false,
+//       disabled: true,
+//       isShowModal: false,
+//     }),
+//   )
+//   .use(
+//     "*",
+//     new ErrorPage({
+//       title: "Не туда попали",
+//       error: "404",
+//       linkPage: "messenger",
+//       linkText: "Назад к чатам",
+//     }),
+//   )
+//   .start();
 
 // const pages = {
 //   chat: () => new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
