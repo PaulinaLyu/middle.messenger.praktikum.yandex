@@ -1,9 +1,15 @@
 import EventBus from "./EventBus.ts";
 import { set } from "@/utils/set.ts";
-import { UserModel } from "@/types/models/User/index.ts";
+import { UserModel } from "@/types/models/User";
+import { ChatModel } from "@/types/models/Chat";
+import { MessageModel } from "@/types/models/Message";
 
 export interface State {
+  chats?: ChatModel[];
+  selectedChat?: ChatModel[] | null;
   user?: UserModel;
+  currentMessages?: MessageModel[];
+  messages?: Record<number, MessageModel[]>;
 }
 
 export enum StoreEvents {
