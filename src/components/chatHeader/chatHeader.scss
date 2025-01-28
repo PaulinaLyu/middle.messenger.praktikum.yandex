@@ -6,4 +6,13 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  &__search {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__create-btn {
+    margin-left: 10px;
+  }
 }

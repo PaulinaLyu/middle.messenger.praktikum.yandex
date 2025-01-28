@@ -39,7 +39,6 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
     this.lists = lists;
-
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -77,21 +76,36 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
+  // _componentDidMount() {
+  //   this.componentDidMount();
+  // }
+
+  // protected componentDidMount() {}
+
+  protected componentDidMount() {}
+
   private _componentDidMount(): void {
-    // this.componentDidMount();
-    Object.values(this.children).forEach(child => {
-      child.dispatchComponentDidMount();
-    });
+    this.componentDidMount();
+    // Object.values(this.children).forEach(child => {
+    //   child.dispatchComponentDidMount();
+    // });
   }
 
   protected dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((c) => c.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   private _componentDidUpdate(...args: unknown[]): void {
     const [oldProps, newProps] = args as [BlockProps, BlockProps];
     const response = this.componentDidUpdate(oldProps, newProps);
-
+  
     if (!response) {
       return;
     }
@@ -103,6 +117,16 @@ export default class Block {
     console.log(oldProps, newProps);
     return true;
   }
+
+  // private _componentDidUpdate() {
+  //   if (this.componentDidUpdate()) {
+  //     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  //   }
+  // }
+
+  // protected componentDidUpdate() {
+  //   return true;
+  // }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): { children: Children; props: BlockProps; lists: Lists } {
     const children: Children = {};
@@ -140,7 +164,6 @@ export default class Block {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
@@ -168,11 +191,10 @@ export default class Block {
     const fragment = this._createDocumentElement("template");
 
     fragment.innerHTML = template(propsAndStubs);
-
+  
     Object.values(this.children).forEach(child => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       const childContent = child.getContent();
-
       if (stub && childContent) {
         stub.replaceWith(childContent);
       }
@@ -201,7 +223,6 @@ export default class Block {
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
-
     this._addEvents();
     this.addAttributes();
   }

@@ -1,5 +1,4 @@
-import { Button } from "..";
-import Block from "../../core/Block";
+import Block from "@/core/Block";
 
 interface ModalProps {
   id: string | number;
@@ -14,13 +13,13 @@ export class Modal extends Block {
     super({
       id: props.id,
       title: props.title,
-      button: new Button({
-        text: props.btnText,
-        className: "modal__footer__btn",
-        onClick: () => {
-          this.setProps({ isShow: false });
-        },
-      }),
+      // button: new Button({
+      //   text: props.btnText,
+      //   className: "modal__footer__btn",
+      //   onClick: () => {
+      //     this.setProps({ isShow: false });
+      //   },
+      // }),
       isShow: props.isShow,
       children: props.children,
     });
@@ -31,9 +30,6 @@ export class Modal extends Block {
       <div class="modal__content">
         <h3 class="modal__content__title">{{title}}</h3>
         {{{children}}}
-        <div class="modal__footer">
-          {{{button}}}
-        </div>
       </div>
     </div>`;
   }

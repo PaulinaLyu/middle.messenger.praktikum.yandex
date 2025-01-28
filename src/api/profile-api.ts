@@ -11,6 +11,7 @@ export class ProfileAPI extends BaseAPI {
   }
 
   changeAvatar(data: FormData) {
+    debugger;
     return this.http.put("/profile/avatar", { data });
   }
 

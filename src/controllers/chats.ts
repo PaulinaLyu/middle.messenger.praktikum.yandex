@@ -1,6 +1,6 @@
 import { ChatModel, ChatUserModel } from "@/types/models/Chat";
-import chatsAPI from "../api/chats-api.ts";
-import store from "../core/Store.ts";
+import chatsAPI from "@/api/chats-api.ts";
+import store from "@/core/Store.ts";
 import { MessagesController } from "./messages.ts";
 
 export class ChatsController {
@@ -15,7 +15,7 @@ export class ChatsController {
 
   static async getChatsList() {
     try {
-      const chats = await chatsAPI.getChats({ limit: 50 });
+      const chats = await chatsAPI.getChats({ limit: 20 });
       chats.map(async (chat: ChatModel) => {
         const { token } = await this.getToken(chat.id);
         await MessagesController.connect(chat.id, token);

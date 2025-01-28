@@ -1,5 +1,7 @@
-import Block from "../../core/Block";
-import { ChatHeader, ChatItem, IChat, MessagesFeed } from "../../components";
+import Block from "@/core/Block";
+import { ChatHeader, ChatItem, IChat, MessagesFeed } from "@/components";
+import { ChatsController } from "@/controllers/chats";
+import { ChatModel } from "@/types/models/Chat";
 
 interface ChatPageProps {
   chatsList: IChat[];
@@ -15,11 +17,30 @@ interface ChatPageProps {
 
 export class ChatPage extends Block {
   constructor(props: ChatPageProps) {
+    debugger;
     super({
-      chatHeader: new ChatHeader(),
-      lists: props.chatsList.map(chat => new ChatItem({ chat: chat, isCurrent: chat.id === props.currentChat })),
+      chatHeader: new ChatHeader({isOpenCreateModal: false}),
+      lists: props?.chatsList?.map(chat => new ChatItem({ chat: chat, isCurrent: chat.id === props.currentChat })) || [],
       messagesFeed: new MessagesFeed({ chatAvatar: props.chatAvatar, chatName: props.chatName, chatDate: props.chatDate, chat: props.chat }),
     });
+    debugger;
+  }
+
+  componentDidUpdate() {
+    if (this.props.chatsList) {
+      const propsChatsList = this.props.chatsList as ChatModel[];
+      debugger;
+      const test = propsChatsList.map(chat => new ChatItem({ chat: chat, isCurrent: chat.id === this.props.currentChat }))
+      debugger;
+      this.children.lists = test
+    }
+    return true;
+  }
+
+
+  componentDidMount() {
+    debugger;
+    ChatsController.getChatsList();
   }
 
   override render() {

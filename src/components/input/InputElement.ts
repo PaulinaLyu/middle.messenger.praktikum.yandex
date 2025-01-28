@@ -1,4 +1,4 @@
-import Block, { Props } from "../../core/Block";
+import Block, { BlockProps } from "../../core/Block";
 import { IValidationReturn } from "../../utils";
 import { ErrorLine } from "./ErrorLine";
 import { Input } from "./Input";
@@ -30,6 +30,7 @@ export class InputElement<T> extends Block {
       input: new Input({
         className: props.className,
         isCircle: props.isCircle,
+        disabled: props.disabled,
         nobg: props.nobg,
         placeholder: props.placeholder,
         name: props.name,
@@ -55,7 +56,7 @@ export class InputElement<T> extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     if (oldProps === newProps) {
       return false;
     }

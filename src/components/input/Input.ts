@@ -2,6 +2,7 @@ import Block from "../../core/Block";
 
 interface InputProps<T> {
   className?: string;
+  accept?: string
   border?: boolean;
   nobg?: boolean;
   isCircle?: boolean;
@@ -23,7 +24,6 @@ export class Input<T> extends Block {
       events: {
         blur: props.onBlur,
       },
-
       value: String(props.value || ""),
       className: `input--w100 ${props.className ? `${props.className}` : ""}${props.nobg ? " input__element--no-bg" : ""}${props.isCircle ? " input--circle-border" : ""}${props.border ? " input--border" : ""}`,
       attr: {

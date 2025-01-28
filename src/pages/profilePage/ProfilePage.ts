@@ -18,6 +18,7 @@ export interface ProfilePageProps {
 
 export class ProfilePage extends Block {
   constructor(props: ProfilePageProps) {
+  
     super({
       ...props,
       isChangePass: props.isChangePass,
@@ -27,14 +28,32 @@ export class ProfilePage extends Block {
         id: "profileAvatarSettingModal",
         title: "Загрузите файл",
         btnText: "Поменять",
-        children: new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" }),
         isShow: props.isShowModal,
+        children: new Form({
+          className: "change-avatar",
+          formTitle: "",
+          buttonText: "Изменить аватар",
+          isFooter: true,
+          onSubmit: (e: Event) => {
+            e.preventDefault()
+            const formData = new FormData();
+            const target = e.target as HTMLInputElement;
+            if (target.files && target.files.length !== 0) {
+              const file = target.files[0];
+              formData.append('avatar', file);
+              ProfileController.changeAvatar(formData);
+            }
+          },
+          children:[
+            new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })
+          ]
+        })
       }),
       user: props.user,
 
       buttonAvatar: new Button({
         isGhost: true,
-        text: `<div class="profile-page__main__avatar"><img width="40px" height="40px" alt="User avatar" src='/icons/img.svg'><img></div>`,
+        text: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${props?.user?.avatar}` : '/icons/img.svg'}"><img></div>`,
         onClick: () => {
           this.setProps({ isShowModal: true });
         },
@@ -45,15 +64,6 @@ export class ProfilePage extends Block {
         text: `<img src='/icons/arrow-left.svg' alt="Arrow left icon"><img>`,
         onClick: () => Router.getInstance().back(),
       }),
-
-      // buttonSave: new Button({
-      //   text: "Сохранить",
-      //   type: "submit",
-      //   onClick: () => {
-      //     this.setProps({ disabled: true, isChangePass: false });
-
-      //   },
-      // }),
 
       buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => AuthController.logout() }),
 
@@ -87,7 +97,7 @@ export class ProfilePage extends Block {
           if (formData && props.isChangePass) {
             ProfileController.changePassword(formData as unknown as ChangePasswordRequest);
           }
-          if (formData && props.disabled) {
+          if (formData && !props.disabled) {
             ProfileController.changeProfile(formData as unknown as profileRequest);
           }
         },
@@ -121,70 +131,35 @@ export class ProfilePage extends Block {
     if (oldProps === newProps) {
       return false;
     }
-    debugger;
     if (oldProps.isShowModal !== newProps.isShowModal) {
-      debugger;
+                this.children.modal = new Modal({
+                  id: "profileAvatarSettingModal",
+                  title: "Загрузите файл",
+                  btnText: "Поменять",
+                  isShow: newProps.isShowModal as boolean,
+                  children: new Form({
+                    className: "change-avatar",
+                    formTitle: "",
+                    buttonText: "Изменить аватар",
+                    isFooter: true,
+                    onSubmit: (e: Event) => {
+                      const formData = new FormData();
+                      e.preventDefault()
+                      const target = e.target?.[0];
+                      if (target.files && target.files.length !== 0) {
+                        const file = target.files[0];
+                        formData.append('avatar', file);
+                        ProfileController.changeAvatar(formData);
+                      }
+                      this.setProps({isOpenCreateModal: false})
+                    },
+                    children:[
+                      new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })
+                    ]
+                  })
+                })
       this.setProps({ isShowModal: newProps.isShowModal });
     }
-
-    // if (oldProps.disabled !== newProps.disabled) {
-    //   const lists = this.children.form.lists.children;
-    //   lists.forEach(element => element.setProps({ disabled: newProps.disabled }));
-    //   this.setProps({ disabled: newProps.disabled });
-    // }
-    // if (oldProps.isChangePass !== newProps.isChangePass) {
-    //   if (newProps.isChangePass) {
-    //     console.log(this);
-    //     this.children.form.lists.children = [
-    //       new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
-    //       new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
-    //       new ProfileItem<string>({
-    //         name: "repeatNewPassword",
-    //         label: "Повторите новый пароль",
-    //         type: "password",
-    //         disabled: false,
-    //         validate: validation,
-    //         validationName: "password",
-    //       }),
-    //     ];
-    //     // debugger;
-    //     // this.children.form.setProps({
-    //     //   children: [
-    //     //     new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
-    //     //     new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
-    //     //     new ProfileItem<string>({
-    //     //       name: "repeatNewPassword",
-    //     //       label: "Повторите новый пароль",
-    //     //       type: "password",
-    //     //       disabled: false,
-    //     //       validate: validation,
-    //     //       validationName: "password",
-    //     //     }),
-    //     //   ],
-    //     // });
-    //   } else {
-    //     this.children.form.lists.children = [
-    //       new ProfileItem<string>({ name: "email", label: "Почта", disabled: Boolean(this.props.disabled), value: this.props?.user?.email || "", validate: validation, validationName: "email" }),
-    //       new ProfileItem<string>({ name: "login", label: "Логин", disabled: Boolean(this.props.disabled), value: this.props?.user?.login || "", validate: validation, validationName: "login" }),
-    //       new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: Boolean(this.props.disabled), value: this.props?.user?.firstName, validate: validation, validationName: "name" }),
-    //       new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: Boolean(this.props.disabled), value: this.props?.user?.secondName, validate: validation, validationName: "name" }),
-    //       new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: Boolean(this.props.disabled), value: this.props.user?.displayName }),
-    //       new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: Boolean(this.props.disabled), value: this.props.user?.phone, validate: validation, validationName: "phone" }),
-    //     ];
-    //     // this.children.form.setProps({
-    //     //   children: [
-    //     //     new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user.email, validate: validation, validationName: "email" }),
-    //     //     new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user.login, validate: validation, validationName: "login" }),
-    //     //     new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user.firstName, validate: validation, validationName: "name" }),
-    //     //     new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user.secondName, validate: validation, validationName: "name" }),
-    //     //     new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user.displayName }),
-    //     //     new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user.phone, validate: validation, validationName: "phone" }),
-    //     //   ],
-    //     // });
-    //   }
-    //   this.setProps({ isChangePass: newProps.isChangePass });
-    // }
-
     return true;
   }
 
@@ -201,7 +176,7 @@ export class ProfilePage extends Block {
           {{{form}}}
           <div class="profile-page__footer">
           ${
-            !this.props.isChangePass || this.props.disabled
+            this.props.disabled
               ? `
                 <div class="profile-page__footer__item">
                   {{{buttonChangeData}}}
