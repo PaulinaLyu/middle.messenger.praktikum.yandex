@@ -1,17 +1,9 @@
-import Block from "../../core/Block";
-
-export interface IChat {
-  id: number;
-  avatar?: string;
-  name: string;
-  message: string;
-  date: string;
-  unread?: number;
-}
+import Block from "@/core/Block";
+import { ChatModel } from "@/types/models/Chat";
 
 interface ChatItemProps {
   isCurrent?: boolean;
-  chat: IChat;
+  chat: ChatModel;
 }
 
 export class ChatItem extends Block {
@@ -20,7 +12,7 @@ export class ChatItem extends Block {
       isCurrent: props?.isCurrent || false,
       chat: props?.chat,
       avatar: props?.chat?.avatar || null,
-      unread: props?.chat?.unread,
+      unread_count: props?.chat?.unread_count,
     });
   }
 

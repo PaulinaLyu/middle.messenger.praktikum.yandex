@@ -18,7 +18,6 @@ export interface ProfilePageProps {
 
 export class ProfilePage extends Block {
   constructor(props: ProfilePageProps) {
-  
     super({
       ...props,
       isChangePass: props.isChangePass,
@@ -35,25 +34,23 @@ export class ProfilePage extends Block {
           buttonText: "Изменить аватар",
           isFooter: true,
           onSubmit: (e: Event) => {
-            e.preventDefault()
+            e.preventDefault();
             const formData = new FormData();
             const target = e.target as HTMLInputElement;
             if (target.files && target.files.length !== 0) {
               const file = target.files[0];
-              formData.append('avatar', file);
+              formData.append("avatar", file);
               ProfileController.changeAvatar(formData);
             }
           },
-          children:[
-            new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })
-          ]
-        })
+          children: [new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })],
+        }),
       }),
       user: props.user,
 
       buttonAvatar: new Button({
         isGhost: true,
-        text: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${props?.user?.avatar}` : '/icons/img.svg'}"><img></div>`,
+        text: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
         onClick: () => {
           this.setProps({ isShowModal: true });
         },
@@ -132,32 +129,30 @@ export class ProfilePage extends Block {
       return false;
     }
     if (oldProps.isShowModal !== newProps.isShowModal) {
-                this.children.modal = new Modal({
-                  id: "profileAvatarSettingModal",
-                  title: "Загрузите файл",
-                  btnText: "Поменять",
-                  isShow: newProps.isShowModal as boolean,
-                  children: new Form({
-                    className: "change-avatar",
-                    formTitle: "",
-                    buttonText: "Изменить аватар",
-                    isFooter: true,
-                    onSubmit: (e: Event) => {
-                      const formData = new FormData();
-                      e.preventDefault()
-                      const target = e.target?.[0];
-                      if (target.files && target.files.length !== 0) {
-                        const file = target.files[0];
-                        formData.append('avatar', file);
-                        ProfileController.changeAvatar(formData);
-                      }
-                      this.setProps({isOpenCreateModal: false})
-                    },
-                    children:[
-                      new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })
-                    ]
-                  })
-                })
+      this.children.modal = new Modal({
+        id: "profileAvatarSettingModal",
+        title: "Загрузите файл",
+        btnText: "Поменять",
+        isShow: newProps.isShowModal as boolean,
+        children: new Form({
+          className: "change-avatar",
+          formTitle: "",
+          buttonText: "Изменить аватар",
+          isFooter: true,
+          onSubmit: (e: Event) => {
+            const formData = new FormData();
+            e.preventDefault();
+            const target = e.target?.[0];
+            if (target.files && target.files.length !== 0) {
+              const file = target.files[0];
+              formData.append("avatar", file);
+              ProfileController.changeAvatar(formData);
+            }
+            this.setProps({ isOpenCreateModal: false });
+          },
+          children: [new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })],
+        }),
+      });
       this.setProps({ isShowModal: newProps.isShowModal });
     }
     return true;

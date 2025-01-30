@@ -8,7 +8,7 @@ export const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
       continue;
     }
     try {
-      if (rhs[p].constructor === Object) {
+      if (typeof rhs[p] === "object" && rhs[p] !== null) {
         rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
       } else {
         lhs[p] = rhs[p];
