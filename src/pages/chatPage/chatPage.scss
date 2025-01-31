@@ -15,7 +15,9 @@
 
   &__list-container {
     padding: 0;
+    overflow-y: auto;
     list-style-type: none;
+    height: calc(100vh - $chatlist-header);
   }
 
   &__messages {
