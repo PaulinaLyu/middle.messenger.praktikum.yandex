@@ -14,68 +14,6 @@
     padding: 46px 0 30px;
     display: flex;
     flex-direction: column;
-
-    &__date {
-      width: 100%;
-      text-align: center;
-      color: $secondary-text-color;
-      font: $font-regular;
-      margin-bottom: 28px;
-    }
-
-    &__user-message {
-      position: relative;
-      max-width: 40%;
-      line-height: 17px;
-      overflow-wrap: break-word;
-      margin-bottom: 10px;
-      background-color: $secondary-bgcolor;
-      padding: 10px;
-      border-radius: $messages-user-card-radius;
-
-      &::after {
-        content: "";
-        display: block;
-        height: 1em;
-      }
-    }
-
-    &__user-time {
-      font-size: 9px;
-      color: $secondary-text-color;
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-    }
-
-    &__user-text {
-      white-space: pre-line;
-    }
-
-    &__owner-message {
-      position: relative;
-      max-width: 40%;
-      line-height: 17px;
-      overflow-wrap: break-word;
-      margin-bottom: 10px;
-      background-color: $secondary-color;
-      padding: 10px;
-      border-radius: $messages-owner-card-radius;
-
-      &::after {
-        content: "";
-        display: block;
-        height: 1em;
-      }
-    }
-
-    &__owner-time {
-      font-size: 9px;
-      color: $primary-color;
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-    }
   }
 
   &__no-data {
@@ -83,9 +21,4 @@
 
     @include center-element-with-position;
   }
-}
-
-img.messages-feed__main__user-message {
-  max-width: 40%;
-  background-color: transparent;
 }

@@ -1,17 +1,11 @@
 import { Routes } from "@/types";
 import { Input, Link, Button, InputField, Modal, Form } from "..";
-import Block, { BlockProps } from "@/core/Block";
+import Block from "@/core/Block";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { ChatsController } from "@/controllers/chats";
 
-interface ChatHeaderProps {
-  isOpenCreateModal: boolean
-}
-
 export class ChatHeader extends Block {
-
-  constructor(props: ChatHeaderProps) {
-
+  constructor() {
     super({
       linkProfile: new Link({
         text: "Профиль ",
@@ -28,78 +22,42 @@ export class ChatHeader extends Block {
         isSearch: true,
       }),
       createBtn: new Button({
-        className: 'chat-header__create-btn',
+        className: "chat-header__create-btn",
         isCircle: true,
         isGhost: true,
         text: `<img alt="Create chat button" src='/icons/circle-plus.svg' />`,
         onClick: () => {
-          this.setProps({ isOpenCreateModal: !props.isOpenCreateModal });
+          this.setProps({ isOpenCreateModal: true });
         },
       }),
       modal: new Modal({
-        id: 'create-chat-modal',
+        id: "create-chat-modal",
         title: "Создать чат",
         btnText: "Создать",
-        isShow: props.isOpenCreateModal,
+        isShow: true,
         children: new Form({
-                className: "create-chat",
-                formTitle: "",
-                buttonText: "Создать",
-                isFooter: true,
-                onSubmit: (e: Event) => {
-                  const form = e.target as HTMLFormElement;
-                  const { formData } = validateAndCollectFormData(form);
-                  ChatsController.create(formData.title);
-                  this.setProps({isOpenCreateModal: false})
-                },
-                children:[
-                  new InputField({
-                    title: "Имя чата",
-                    name: "title",
-                    id: "create-chat-form-title",
-                    border: true,
-                  }),
-                ]
-              })
-      })
-    })}
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-      if (oldProps === newProps) {
-        return false;
-      }
-      debugger;
-      if (oldProps.isOpenCreateModal !== newProps.isOpenCreateModal) {
-          this.children.modal = new Modal({
-            id: 'create-chat-modal',
-            title: "Создать чат",
-            btnText: "Создать",
-            isShow: newProps.isOpenCreateModal as boolean,
-            children: new Form({
-                    className: "create-chat",
-                    formTitle: "",
-                    buttonText: "Создать",
-                    isFooter: true,
-                    onSubmit: (e: Event) => {
-                      const form = e.target as HTMLFormElement;
-                      const { formData } = validateAndCollectFormData(form);
-                      ChatsController.create(formData.title);
-                      this.setProps({isOpenCreateModal: false})
-                    },
-                    children:[
-                      new InputField({
-                        title: "Имя чата",
-                        name: "title",
-                        id: "create-chat-form-title",
-                        border: true,
-                      }),
-                    ]
-                  })
-          })
-        this.setProps({ isOpenCreateModal: newProps.isOpenCreateModal });
-      }
-
-      return true;
-    }
+          className: "create-chat",
+          formTitle: "",
+          buttonText: "Создать",
+          isFooter: true,
+          onSubmit: (e: Event) => {
+            const form = e.target as HTMLFormElement;
+            const { formData } = validateAndCollectFormData(form);
+            ChatsController.create(formData.title);
+            this.setProps({ isOpenCreateModal: false });
+          },
+          children: [
+            new InputField({
+              title: "Имя чата",
+              name: "title",
+              id: "create-chat-form-title",
+              border: true,
+            }),
+          ],
+        }),
+      }),
+    });
+  }
 
   render() {
     return `<div class="chat-header">
@@ -110,7 +68,9 @@ export class ChatHeader extends Block {
               {{{input}}}
               {{{createBtn}}}
             </div>
-              {{{modal}}}
+              {{#if isOpenCreateModal}}
+                {{{modal}}}
+              {{/if}}
         </div>`;
   }
 }

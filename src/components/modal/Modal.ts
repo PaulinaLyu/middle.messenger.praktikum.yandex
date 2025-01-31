@@ -13,13 +13,6 @@ export class Modal extends Block {
     super({
       id: props.id,
       title: props.title,
-      // button: new Button({
-      //   text: props.btnText,
-      //   className: "modal__footer__btn",
-      //   onClick: () => {
-      //     this.setProps({ isShow: false });
-      //   },
-      // }),
       isShow: props.isShow,
       children: props.children,
     });

@@ -1,0 +1,36 @@
+@import "../../../static/variables";
+
+.message {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: baseline;
+
+  width: fit-content;
+  max-width: 70%;
+  padding: 16px 16px 16px 24px;
+
+  background-color: $secondary-color;
+  border-radius: 0 8px 8px;
+
+  &__time {
+    font-size: calc(12rem / 16);
+    color: $secondary-text-color;
+  }
+
+  &__text {
+    font-size: 1rem;
+  }
+}
+
+.sent {
+  align-self: flex-end;
+
+  background-color: $primary-color;
+  border-radius: 8px 8px 0;
+
+  &__time {
+    color: #96c0ff;
+  }
+}

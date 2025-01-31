@@ -1,4 +1,4 @@
-import Block, { BlockProps } from "@/core/Block";
+import Block from "@/core/Block";
 import { Button } from "../button";
 import { Link } from "../link";
 import { Title } from "../title";
@@ -37,22 +37,16 @@ export class Form extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    if (oldProps === newProps) {
-      return false;
-    }
-
-    if (oldProps.children !== newProps.children) {
-      this.setProps({ children: newProps.children });
-    }
-
-    return true;
+  init() {
+    this.children.inputs = this.props.children as Block;
   }
 
   render() {
     return `<form>
               ${this.props.formTitle ? `{{{title}}}` : ""}
-                {{{children}}}
+                {{#each inputs}}
+                    {{{this}}}
+                {{/each}}
               ${
                 this.props.isFooter
                   ? `<div class="form__footer">

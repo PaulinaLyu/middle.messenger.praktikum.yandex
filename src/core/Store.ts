@@ -6,7 +6,7 @@ import { MessageModel } from "@/types/models/Message";
 
 export interface State {
   chats?: ChatModel[];
-  selectedChat?: ChatModel[] | null;
+  selectedChat?: ChatModel | null;
   user?: UserModel;
   currentMessages?: MessageModel[];
   messages?: Record<number, MessageModel[]>;

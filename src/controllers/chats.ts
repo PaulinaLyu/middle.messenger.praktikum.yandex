@@ -46,7 +46,7 @@ export class ChatsController {
 
   static selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
-    store.set("selectedChat", [target]);
+    store.set("selectedChat", target);
     this.fetchChatUsers(chatId);
   }
 
@@ -56,7 +56,7 @@ export class ChatsController {
       const nonAdminMembers = chatMembers.filter(user => user.role !== "admin");
       store.set("selectedChat", [
         {
-          ...store.getState().selectedChat?.[0],
+          ...store.getState().selectedChat,
           members: nonAdminMembers,
         },
       ]);
@@ -95,7 +95,7 @@ export class ChatsController {
       }
       store.set("selectedChat", [
         {
-          ...selectedChat?.[0],
+          ...selectedChat,
           avatar,
         },
       ]);

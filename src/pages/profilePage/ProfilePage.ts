@@ -121,7 +121,6 @@ export class ProfilePage extends Block {
             ],
       }),
     });
-    debugger;
   }
 
   componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
