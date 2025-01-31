@@ -33,6 +33,7 @@ export class Dropdown extends Block {
           text: option.text,
           iconSrc: option.iconSrc,
           onClick: () => {
+            option.onClick();
             this.setProps({ isOpen: false });
           },
         }),

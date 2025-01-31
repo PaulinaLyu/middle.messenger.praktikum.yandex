@@ -1,7 +1,9 @@
-import { Button, Dropdown, Form, InputElement } from "..";
-import Block from "../../core/Block";
-import { validation } from "../../utils";
-import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
+import { MessagesController } from "@/controllers/messages";
+import { Button, Dropdown, Form, Input, InputElement, Label } from "..";
+import Block from "@/core/Block";
+import { validation } from "@/utils";
+import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
+import store from "@/core/Store.ts";
 
 export class MessagesFeedFooter extends Block {
   constructor() {
@@ -20,11 +22,26 @@ export class MessagesFeedFooter extends Block {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-
+          debugger;
+          if (formData) {
+            const { message } = formData;
+            const chatId = store.getState().selectedChat.id;
+            if (chatId) {
+              MessagesController.sendMessage(chatId, message);
+              form.reset();
+            }
+          }
           console.log(`Данные формы отправки сообщения: `, formData);
+          debugger;
         },
         children: [
-          new InputElement({
+          new Label({ inputId: "file", title: "", className: " messages-feed-footer__form__file-label" }),
+          new Input({
+            name: "file",
+            id: "file",
+            type: "file",
+          }),
+          new InputElement<string>({
             className: "input__element",
             isCircle: true,
             id: "message-input",
@@ -41,22 +58,20 @@ export class MessagesFeedFooter extends Block {
           }),
         ],
       }),
-      dropdown: new Dropdown({
-        isOpen: false,
-        iconSrc: "/icons/clip.svg",
-        position: "top",
-        options: [
-          { iconSrc: "/icons/photo.svg", text: "Фото или Видео" },
-          { iconSrc: "/icons/file.svg", text: "Файл" },
-          { iconSrc: "/icons/location.svg", text: "Локация" },
-        ],
-      }),
+      // dropdown: new Dropdown({
+      //   isOpen: false,
+      //   iconSrc: "/icons/clip.svg",
+      //   position: "top",
+      //   options: [
+      //     { iconSrc: "/icons/photo.svg", text: "Фото или Видео" },
+      //     { iconSrc: "/icons/file.svg", text: "Файл" },
+      //   ],
+      // }),
     });
   }
 
   override render() {
     return `<footer class="messages-feed-footer">
-        {{{dropdown}}}
         {{{form}}}
     </footer>`;
   }

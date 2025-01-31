@@ -12,7 +12,6 @@ interface MessagesFeedProps extends BlockProps {
 
 export class MessagesFeed extends Block {
   constructor(props: MessagesFeedProps) {
-    debugger;
     super({
       messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar, name: props.selectedChatTitle }),
       messagesFeedFooter: new MessagesFeedFooter(),
@@ -28,13 +27,14 @@ export class MessagesFeed extends Block {
           time: formatDate(message.time),
         }))
         .map((message: MessageModel) => new Message({ message }));
+    } else {
+      this.children.messages = [];
     }
 
-    if (this.props.selectedChatAvatar) {
-      console.log(this.children.messagesFeedHeader);
-      console.log(this.children.messagesFeedHeader);
-      debugger;
-    }
+    this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar });
+
+    this.children.messagesFeedHeader.setProps({ name: this.props.selectedChatTitle });
+
     return true;
   }
 
@@ -47,7 +47,7 @@ export class MessagesFeed extends Block {
                       {{{this}}}
                     {{/each}}
                   {{else}}
-                    <span class="messages-feed__no-data">Выберите чат чтобы отправить сообщение</span>
+                    <span class="messages-feed__no-data">Выберите чат чтобы отправить сообщение или отправте сообщение</span>
                   {{/if}}
                 </main>
                 {{{messagesFeedFooter}}}

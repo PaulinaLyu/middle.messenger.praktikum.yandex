@@ -17,9 +17,7 @@ export class ProfileController {
 
   static async changeAvatar(data: FormData) {
     try {
-      debugger;
       await ProfileAPI.changeAvatar(data);
-      debugger;
       await AuthController.fetchUser();
     } catch (error) {
       console.log(error, "change avatar error");

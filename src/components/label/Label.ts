@@ -3,6 +3,7 @@ import Block from "../../core/Block";
 interface LabelProps {
   title: string;
   inputId: string;
+  className?: string;
 }
 
 export class Label extends Block {
@@ -11,7 +12,7 @@ export class Label extends Block {
       ...props,
       title: props.title,
       attr: {
-        class: "label",
+        class: "label" + (props.className || ""),
         for: props.inputId,
       },
     });

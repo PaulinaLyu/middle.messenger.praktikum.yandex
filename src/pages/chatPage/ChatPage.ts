@@ -15,6 +15,7 @@ export class ChatPage extends Block {
   }
   componentDidUpdate() {
     if (this.props.chatsList) {
+      debugger;
       const propsChatsList = this.props.chatsList as ChatModel[];
       const chatItem = propsChatsList.map(
         chat =>

@@ -13,14 +13,15 @@ export class ChatsController {
     }
   }
 
-  static async getChatsList() {
+  static async getChatsList(title?: string) {
     try {
-      const chats = await chatsAPI.getChats({ limit: 20 });
-      chats.map(async (chat: ChatModel) => {
-        const { token } = await this.getToken(chat.id);
-        await MessagesController.connect(chat.id, token);
-      });
+      const chats = await chatsAPI.getChats({ limit: 20, title: title || "" });
+      // chats.map(async (chat: ChatModel) => {
+      //   const { token } = await this.getToken(chat.id);
+      //   await MessagesController.connect(chat.id, token);
+      // });
       store.set("chats", chats);
+      debugger;
     } catch (error) {
       console.log(error, "get chats list error");
     }
@@ -44,9 +45,13 @@ export class ChatsController {
     }
   }
 
-  static selectChat(chatId: number) {
+  static async selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
     store.set("selectedChat", target);
+    if (target) {
+      const { token } = await this.getToken(target.id);
+      await MessagesController.connect(target.id, token);
+    }
     this.fetchChatUsers(chatId);
   }
 
@@ -72,35 +77,6 @@ export class ChatsController {
       await this.getChatsList();
     } catch (error) {
       console.log(error, "delete the chat error");
-    }
-  }
-
-  static async editChatAvatar(data: FormData) {
-    try {
-      const response = await chatsAPI.changeChatAvatar(data);
-      const { avatar, id } = response;
-
-      const { chats, selectedChat } = store.getState();
-      const updatedChats = chats?.map(chat =>
-        chat.id !== id
-          ? chat
-          : {
-              ...chat,
-              avatar,
-            },
-      );
-
-      if (updatedChats) {
-        store.set("chats", updatedChats);
-      }
-      store.set("selectedChat", [
-        {
-          ...selectedChat,
-          avatar,
-        },
-      ]);
-    } catch (error) {
-      console.log(error, "edit chat avatar error");
     }
   }
 

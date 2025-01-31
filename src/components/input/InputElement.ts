@@ -56,24 +56,6 @@ export class InputElement<T> extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    if (oldProps === newProps) {
-      return false;
-    }
-
-    if (oldProps.error !== newProps.error) {
-      this.children.errorLine.setProps({ error: newProps.error });
-    }
-
-    if (oldProps.className !== newProps.className) {
-      this.children.input.setProps({ className: newProps.className });
-    }
-    if (oldProps.value !== newProps.value) {
-      this.children.input.setProps({ value: newProps.value });
-    }
-    return true;
-  }
-
   render() {
     return `
       <div class="input__error__container">

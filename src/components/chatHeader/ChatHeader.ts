@@ -20,6 +20,11 @@ export class ChatHeader extends Block {
         name: "chat-search",
         nobg: false,
         isSearch: true,
+        onBlur: event => {
+          const target = event.target as HTMLInputElement;
+          const value = target.value;
+          ChatsController.getChatsList(value);
+        },
       }),
       createBtn: new Button({
         className: "chat-header__create-btn",
