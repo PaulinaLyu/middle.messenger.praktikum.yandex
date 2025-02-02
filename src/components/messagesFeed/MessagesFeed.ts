@@ -39,9 +39,9 @@ export class MessagesFeed extends Block {
   }
 
   render() {
-    return `<div class="messages-feed">
+    return `<main class="messages-feed">
                 {{{messagesFeedHeader}}}
-                <main class="messages-feed__main">
+                <ul class="messages-feed__main">
                   {{#if messages}}
                     {{#each messages}}
                       {{{this}}}
@@ -49,8 +49,8 @@ export class MessagesFeed extends Block {
                   {{else}}
                     <span class="messages-feed__no-data">Выберите чат чтобы отправить сообщение или отправте сообщение</span>
                   {{/if}}
-                </main>
+                </ul>
                 {{{messagesFeedFooter}}}
-            </div>`;
+            </main>`;
   }
 }
