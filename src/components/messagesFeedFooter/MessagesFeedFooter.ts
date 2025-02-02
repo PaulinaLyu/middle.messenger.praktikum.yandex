@@ -1,5 +1,5 @@
 import { MessagesController } from "@/controllers/messages";
-import { Button, Dropdown, Form, Input, InputElement, Label } from "..";
+import { Button, Form, Input, InputElement, Label } from "..";
 import Block from "@/core/Block";
 import { validation } from "@/utils";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
@@ -58,15 +58,6 @@ export class MessagesFeedFooter extends Block {
           }),
         ],
       }),
-      // dropdown: new Dropdown({
-      //   isOpen: false,
-      //   iconSrc: "/icons/clip.svg",
-      //   position: "top",
-      //   options: [
-      //     { iconSrc: "/icons/photo.svg", text: "Фото или Видео" },
-      //     { iconSrc: "/icons/file.svg", text: "Файл" },
-      //   ],
-      // }),
     });
   }
 
