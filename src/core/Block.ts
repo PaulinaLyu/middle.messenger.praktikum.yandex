@@ -11,7 +11,7 @@ export interface BlockProps {
   attr?: { [key: string]: string | boolean };
 }
 interface Children {
-  [key: string]: Block;
+  [key: string]: Block | Block[];
 }
 
 export default class Block {

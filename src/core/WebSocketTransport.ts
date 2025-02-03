@@ -11,7 +11,7 @@ export enum WebSocketEvents {
 export class WebSocketTransport extends EventBus {
   private socket: WebSocket | null = null;
 
-  private interval: number = 0;
+  private interval: number | NodeJS.Timeout = 0;
 
   private readonly url: string;
 

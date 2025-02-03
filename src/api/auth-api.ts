@@ -1,4 +1,3 @@
-import { UserModel } from "@/types/models/User";
 import { BaseAPI } from "./base-api.ts";
 import { AuthSignInRequest, AuthSignupRequest } from "@/types/index.ts";
 
@@ -15,7 +14,7 @@ class AuthAPI extends BaseAPI {
     return this.http.post("/signin", { data });
   }
 
-  getUser(): Promise<UserModel> {
+  getUser() {
     return this.http.get("/user");
   }
 

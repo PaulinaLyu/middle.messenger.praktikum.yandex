@@ -41,11 +41,10 @@ export class ChatsController {
   }
 
   static async selectChat(chatId: number) {
-    const chatsCopy = [...store.getState().chats];
-    const target = chatsCopy?.find(chat => chat.id === chatId);
+    const target = store.getState().chats?.find(chat => chat.id === chatId);
     store.set("selectedChat", target);
     if (target) {
-      const { token } = await this.getToken(target.id);
+      const { token } = (await this.getToken(target.id)) as { token: string };
       await MessagesController.connect(target.id, token);
     }
     this.fetchChatUsers(chatId);
@@ -53,7 +52,7 @@ export class ChatsController {
 
   static async fetchChatUsers(chatId: number) {
     try {
-      const chatMembers: ChatUserModel[] = await chatsAPI.getChatUsers(chatId);
+      const chatMembers: ChatUserModel[] = (await chatsAPI.getChatUsers(chatId)) as ChatUserModel[];
       const nonAdminMembers = chatMembers.filter(user => user.role !== "admin");
       store.set("selectedChat", {
         ...store.getState().selectedChat,

@@ -7,7 +7,7 @@ import { ChangePasswordRequest, profileRequest, profileResponse } from "@/types/
 export class ProfileController {
   static async changeProfile(data: profileRequest) {
     try {
-      const newProfileData: profileResponse = await ProfileAPI.changeProfile(data);
+      const newProfileData: profileResponse = (await ProfileAPI.changeProfile(data)) as profileResponse;
       store.set("user", newProfileData);
 
       Router.getInstance().go("/profile");

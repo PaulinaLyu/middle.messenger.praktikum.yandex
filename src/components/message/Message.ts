@@ -1,8 +1,8 @@
-import Block from "@/core/Block.ts";
+import Block, { BlockProps } from "@/core/Block.ts";
 import { MessageModel } from "@/types/models/Message/index.ts";
 import "./message.scss";
 
-export interface MessageProps {
+export interface MessageProps extends BlockProps {
   message: MessageModel;
 }
 

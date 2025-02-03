@@ -114,14 +114,15 @@ export class ProfilePage extends Block {
 
   protected componentDidUpdate() {
     if (this.props.user) {
+      const propsUser = this.props.user as UserModel;
       this.children.fileLabel = new Label({
         inputId: "avatarFile",
-        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${this.props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${this.props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
+        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${propsUser?.avatar ? `https://ya-praktikum.tech/api/v2/resources${this.props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
         className: "",
       });
       this.children.form = new Form({
         className: "profile-page__main__body",
-        isFooter: this.props.isChangePass || !this.props.disabled,
+        isFooter: (this.props.isChangePass as boolean) || (!this.props.disabled as boolean),
         buttonText: "Сохранить",
         onSubmit: (e: Event) => {
           e.preventDefault();
@@ -152,12 +153,19 @@ export class ProfilePage extends Block {
               }),
             ]
           : [
-              new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user?.email, validate: validation, validationName: "email" }),
-              new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user?.login, validate: validation, validationName: "login" }),
-              new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user?.first_name, validate: validation, validationName: "name" }),
-              new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user?.second_name, validate: validation, validationName: "name" }),
-              new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user?.display_name }),
-              new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user?.phone, validate: validation, validationName: "phone" }),
+              new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled as boolean, value: propsUser?.email, validate: validation, validationName: "email" }),
+              new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled as boolean, value: propsUser?.login, validate: validation, validationName: "login" }),
+              new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled as boolean, value: propsUser?.first_name, validate: validation, validationName: "name" }),
+              new ProfileItem<string>({
+                name: "second_name",
+                label: "Фамилия",
+                disabled: this.props.disabled as boolean,
+                value: propsUser?.second_name as string,
+                validate: validation,
+                validationName: "name",
+              }),
+              new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled as boolean, value: propsUser?.display_name as string }),
+              new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled as boolean, value: propsUser?.phone, validate: validation, validationName: "phone" }),
             ],
       });
     }

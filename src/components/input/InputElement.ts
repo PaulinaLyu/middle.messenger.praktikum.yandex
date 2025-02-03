@@ -38,8 +38,8 @@ export class InputElement<T> extends Block {
       name: this.props.name as string,
       id: this.props.id as string,
       value: this.props?.value,
-      type: this.props.type,
-      border: this.props.border,
+      type: this.props.type as string,
+      border: this.props.border as boolean,
       onBlur: (event: FocusEvent) => {
         const target = event.target as HTMLInputElement;
         if (this.props.validate) {

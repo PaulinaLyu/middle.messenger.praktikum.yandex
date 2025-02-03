@@ -27,7 +27,8 @@ export class Dropdown extends Block {
   }
 
   init() {
-    this.children.lists = this.props.options.map(
+    const propsOptions = this.props.options as DropdownOptionItemProps[];
+    this.children.lists = propsOptions.map(
       option =>
         new DropdownOptionItem({
           text: option.text,

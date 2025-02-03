@@ -20,7 +20,8 @@ export class MessagesFeed extends Block {
 
   componentDidUpdate() {
     if (this.props.messages) {
-      this.children.messages = this.props.messages
+      const propsMess = this.props.messages as MessageModel[];
+      this.children.messages = propsMess
         .map((message: MessageModel) => ({
           ...message,
           sent: message.user_id === this.props.userId,
@@ -30,10 +31,11 @@ export class MessagesFeed extends Block {
     } else {
       this.children.messages = [];
     }
-
-    this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar });
-
-    this.children.messagesFeedHeader.setProps({ name: this.props.selectedChatTitle });
+    if (Array.isArray(this.children.messagesFeedHeader)) {
+      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle }));
+    } else {
+      this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle });
+    }
 
     return true;
   }

@@ -13,7 +13,7 @@ interface InputProps<T> {
   isSearch?: boolean;
   value?: T;
   disabled?: boolean;
-  onChange?: (value: KeyboardEvent) => void;
+  onChange?: (value: Event) => void;
   onBlur?: (event: FocusEvent) => void;
 }
 
