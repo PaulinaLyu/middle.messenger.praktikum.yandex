@@ -3,6 +3,7 @@ import store from "@/core/Store.ts";
 import { Router } from "@/core/Router.ts";
 import { AuthController } from "./auth.ts";
 import { ChangePasswordRequest, profileRequest, profileResponse } from "@/types/Profile/Profile.dto.ts";
+import { Routes } from "@/types/index.ts";
 
 export class ProfileController {
   static async changeProfile(data: profileRequest) {
@@ -10,7 +11,7 @@ export class ProfileController {
       const newProfileData: profileResponse = (await ProfileAPI.changeProfile(data)) as profileResponse;
       store.set("user", newProfileData);
 
-      Router.getInstance().go("/profile");
+      Router.getInstance().go(Routes.Profile);
     } catch (error) {
       console.log(error, "change profile error");
     }
@@ -28,7 +29,7 @@ export class ProfileController {
   static async changePassword(data: ChangePasswordRequest) {
     try {
       await ProfileAPI.changePassword(data);
-      Router.getInstance().go("/profile");
+      Router.getInstance().go(Routes.Profile);
     } catch (error) {
       console.log(error, "change password error");
     }

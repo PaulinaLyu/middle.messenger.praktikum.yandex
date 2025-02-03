@@ -4,7 +4,7 @@ export enum Routes {
   Chats = "/messenger",
   EditPassword = "/edit-password",
   EditProfile = "/edit-profile",
-  Profile = "/profile",
+  Profile = "/settings",
   Error = "/500",
   NotFound = "/404",
 }

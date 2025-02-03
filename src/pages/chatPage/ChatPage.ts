@@ -28,7 +28,6 @@ export class ChatPage extends Block {
           }),
       );
       this.children.lists = chatItem;
-      // this.children.inputs = this.props.children as Block;
     }
     return true;
   }
