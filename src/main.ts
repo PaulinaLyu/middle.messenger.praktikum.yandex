@@ -1,5 +1,4 @@
 import "./main.scss";
-import * as Mocks from "./mocks";
 import { Router } from "./core/Router";
 import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
 import { Routes } from "./types";

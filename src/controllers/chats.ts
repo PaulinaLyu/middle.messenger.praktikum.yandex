@@ -15,15 +15,8 @@ export class ChatsController {
 
   static async getChatsList(title?: string) {
     try {
-      debugger;
       const chats = await chatsAPI.getChats({ limit: 20, title: title || "" });
-      debugger;
-      // chats.map(async (chat: ChatModel) => {
-      //   const { token } = await this.getToken(chat.id);
-      //   await MessagesController.connect(chat.id, token);
-      // });
       store.set("chats", chats);
-      debugger;
     } catch (error) {
       console.log(error, "get chats list error");
     }
@@ -49,9 +42,7 @@ export class ChatsController {
 
   static async selectChat(chatId: number) {
     const chatsCopy = [...store.getState().chats];
-    debugger;
     const target = chatsCopy?.find(chat => chat.id === chatId);
-    debugger;
     store.set("selectedChat", target);
     if (target) {
       const { token } = await this.getToken(target.id);
@@ -63,7 +54,6 @@ export class ChatsController {
   static async fetchChatUsers(chatId: number) {
     try {
       const chatMembers: ChatUserModel[] = await chatsAPI.getChatUsers(chatId);
-      debugger;
       const nonAdminMembers = chatMembers.filter(user => user.role !== "admin");
       store.set("selectedChat", {
         ...store.getState().selectedChat,

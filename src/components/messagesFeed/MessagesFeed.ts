@@ -19,9 +19,7 @@ export class MessagesFeed extends Block {
   }
 
   componentDidUpdate() {
-    debugger;
     if (this.props.messages) {
-      debugger;
       this.children.messages = this.props.messages
         .map((message: MessageModel) => ({
           ...message,
@@ -30,7 +28,6 @@ export class MessagesFeed extends Block {
         }))
         .map((message: MessageModel) => new Message({ message }));
     } else {
-      debugger;
       this.children.messages = [];
     }
 

@@ -57,14 +57,11 @@ export class InputElement<T> extends Block {
   }
 
   componentDidUpdate() {
-    debugger;
     if (this.props.error.length > 0) {
-      debugger;
       this.children.errorLine = new ErrorLine({
         error: this.props.error || "",
       });
     } else {
-      debugger;
       this.children.errorLine.hide();
     }
 

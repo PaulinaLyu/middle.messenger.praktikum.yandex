@@ -3,7 +3,7 @@ import Block, { BlockProps } from "@/core/Block.ts";
 import { isEqual } from "@/utils/isEqual.ts";
 
 export const withStore =
-  (mapStateToProps: (state: State) => any) =>
+  (mapStateToProps: (state: State) => typeof mapStateToProps) =>
   <P extends BlockProps>(Component: new (props: P) => Block) =>
     class extends Component {
       constructor(props: P) {

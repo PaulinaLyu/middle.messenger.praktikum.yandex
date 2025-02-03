@@ -22,7 +22,6 @@ export class MessagesFeedFooter extends Block {
             console.log("Форма содержит ошибки валидации");
             return;
           }
-          debugger;
           if (formData) {
             const { message } = formData;
             const chatId = store.getState().selectedChat.id;
@@ -32,7 +31,6 @@ export class MessagesFeedFooter extends Block {
             }
           }
           console.log(`Данные формы отправки сообщения: `, formData);
-          debugger;
         },
         children: [
           new Label({ inputId: "file", title: "", className: " messages-feed-footer__form__file-label" }),

@@ -8,12 +8,12 @@ const METHODS = {
 };
 
 type Methods = (typeof METHODS)[keyof typeof METHODS];
-type HTTPMethod = (url: string, options?: RequestOptions) => Promise<any>;
+type HTTPMethod = (url: string, options?: RequestOptions) => Promise<unknown>;
 
 interface RequestOptions {
   headers?: Record<string, string>;
   method?: Methods;
-  data?: any;
+  data?: unknown;
   timeout?: number;
 }
 
@@ -41,7 +41,7 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
-      const requestUrl = isGet && !!data ? `${url}${queryStringify(data)}` : url;
+      const requestUrl = isGet && !!data ? `${url}${queryStringify(data as Record<string, unknown>)}` : url;
 
       xhr.open(method, requestUrl);
       if (headers) {

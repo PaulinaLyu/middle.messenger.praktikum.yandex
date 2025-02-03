@@ -13,7 +13,7 @@ export const set = (object: Indexed | unknown, path: string, value: unknown): In
     (acc, key) => ({
       [key]: acc,
     }),
-    value as any,
+    value as Indexed,
   );
   return merge(object as Indexed, result);
 };

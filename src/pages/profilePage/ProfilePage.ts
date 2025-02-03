@@ -1,5 +1,5 @@
 import Block, { BlockProps } from "@/core/Block";
-import { InputFile, Modal, Button, ProfileItem, Form, Label, Input } from "@/components";
+import { Button, ProfileItem, Form, Label, Input } from "@/components";
 import { validation } from "@/utils";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { Router } from "@/core/Router";

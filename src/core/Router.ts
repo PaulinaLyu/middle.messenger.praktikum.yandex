@@ -1,13 +1,13 @@
-import { Routes } from '@/types/index.ts';
-import Block, { BlockProps } from './Block.ts';
-import { Route } from './Route.ts';
+import { Routes } from "@/types/index.ts";
+import Block, { BlockProps } from "./Block.ts";
+import { Route } from "./Route.ts";
 
 export class Router {
   private readonly routes: Route[] = [];
 
   private static _instance: Router | null = null;
 
-  private readonly _rootQuery: string = '';
+  private readonly _rootQuery: string = "";
 
   private _currentRoute: null | Route = null;
 
@@ -22,7 +22,7 @@ export class Router {
 
   static getInstance() {
     if (!this._instance) {
-      this._instance = new Router('#app');
+      this._instance = new Router("#app");
     }
     return this._instance;
   }
@@ -59,7 +59,7 @@ export class Router {
   }
 
   go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+    this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
 
@@ -72,6 +72,6 @@ export class Router {
   }
 
   getRoute(pathname: string): Route {
-    return this.routes.find((route) => route.match(pathname))!;
+    return this.routes.find(route => route.match(pathname))!;
   }
 }
