@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "@/core/Block";
 
 interface ErrorLineProps {
   error: string;
@@ -10,6 +10,11 @@ export class ErrorLine extends Block {
       ...props,
       error: props.error,
     });
+  }
+
+  protected componentDidUpdate(): boolean {
+    this.setProps({ error: this.props.error || "" });
+    return true;
   }
 
   render() {

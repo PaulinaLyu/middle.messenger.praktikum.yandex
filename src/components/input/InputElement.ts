@@ -1,9 +1,9 @@
-import Block, { BlockProps } from "../../core/Block";
-import { IValidationReturn } from "../../utils";
+import Block, { BlockProps } from "@/core/Block";
+import { IValidationReturn } from "@/utils";
 import { ErrorLine } from "./ErrorLine";
 import { Input } from "./Input";
 
-interface InputElementProps<T> {
+interface InputElementProps<T> extends BlockProps {
   className?: string;
   border?: boolean;
   nobg?: boolean;
@@ -24,36 +24,51 @@ interface InputElementProps<T> {
 export class InputElement<T> extends Block {
   constructor(props: InputElementProps<T>) {
     super({
-      errorLine: new ErrorLine({
-        error: props.error || "",
-      }),
-      input: new Input({
-        className: props.className,
-        isCircle: props.isCircle,
-        disabled: props.disabled,
-        nobg: props.nobg,
-        placeholder: props.placeholder,
-        name: props.name,
-        id: props.id,
-        value: props?.value,
-        type: props.type,
-        border: props.border,
-        onBlur: (event: FocusEvent) => {
-          const target = event.target as HTMLInputElement;
-
-          if (props.validate) {
-            const { isValid, errorMessage } = props.validate(props.validationName || "", target.value as string);
-            const classLine = {
-              className: isValid ? target?.className.split(" input--invalid").join("") : target?.className.includes("input--invalid") ? target?.className : target?.className + " input--invalid",
-            };
-
-            this.setProps({ error: errorMessage, value: target.value, ...classLine });
-          } else {
-            this.setProps({ value: target.value });
-          }
-        },
-      }),
+      ...props,
     });
+  }
+
+  init() {
+    this.children.input = new Input({
+      className: this.props.className as string,
+      isCircle: this.props.isCircle as boolean,
+      disabled: this.props.disabled as boolean,
+      nobg: this.props.nobg as boolean,
+      placeholder: this.props.placeholder as string,
+      name: this.props.name as string,
+      id: this.props.id as string,
+      value: this.props?.value,
+      type: this.props.type,
+      border: this.props.border,
+      onBlur: (event: FocusEvent) => {
+        const target = event.target as HTMLInputElement;
+        if (this.props.validate) {
+          const { isValid, errorMessage } = this.props.validate(this.props.validationName || "", target.value as string);
+          const classLine = {
+            className: isValid ? target?.className.split(" input--invalid").join("") : target?.className.includes("input--invalid") ? target?.className : target?.className + " input--invalid",
+          };
+
+          this.setProps({ error: errorMessage, value: target.value, ...classLine });
+        } else {
+          this.setProps({ value: target.value, error: "" });
+        }
+      },
+    });
+  }
+
+  componentDidUpdate() {
+    debugger;
+    if (this.props.error.length > 0) {
+      debugger;
+      this.children.errorLine = new ErrorLine({
+        error: this.props.error || "",
+      });
+    } else {
+      debugger;
+      this.children.errorLine.hide();
+    }
+
+    return true;
   }
 
   render() {

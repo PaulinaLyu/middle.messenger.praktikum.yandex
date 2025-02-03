@@ -3,6 +3,7 @@ import { ChatHeader, ChatItem, MessagesFeed } from "@/components";
 import { ChatsController } from "@/controllers/chats";
 import { ChatModel } from "@/types/models/Chat";
 import { MessagesController } from "@/controllers/messages";
+import store from "@/core/Store.ts";
 
 export class ChatPage extends Block {
   constructor() {
@@ -23,6 +24,9 @@ export class ChatPage extends Block {
             chat: chat,
             isCurrent: chat.id === this.props.currentChat,
             onClick: (chatId: number) => {
+              const chats = store.getState().chats;
+              debugger;
+              debugger;
               ChatsController.selectChat(chatId);
               MessagesController.findMessages(chatId);
             },

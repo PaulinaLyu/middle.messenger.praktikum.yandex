@@ -1,5 +1,5 @@
 import Block, { BlockProps } from "@/core/Block";
-import { InputFile, Modal, Button, ProfileItem, Form } from "@/components";
+import { InputFile, Modal, Button, ProfileItem, Form, Label, Input } from "@/components";
 import { validation } from "@/utils";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { Router } from "@/core/Router";
@@ -8,7 +8,7 @@ import { AuthController } from "@/controllers/auth";
 import { ProfileController } from "@/controllers/profile";
 import { ChangePasswordRequest, profileRequest } from "@/types/Profile/Profile.dto";
 
-export interface ProfilePageProps {
+export interface ProfilePageProps extends BlockProps {
   isChangePass: boolean;
   user: UserModel;
   disabled: boolean;
@@ -22,37 +22,26 @@ export class ProfilePage extends Block {
       ...props,
       isChangePass: props.isChangePass,
       disabled: props.disabled,
-      isShowModal: props.isShowModal,
-      modal: new Modal({
-        id: "profileAvatarSettingModal",
-        title: "Загрузите файл",
-        btnText: "Поменять",
-        isShow: props.isShowModal,
-        children: new Form({
-          className: "change-avatar",
-          formTitle: "",
-          buttonText: "Изменить аватар",
-          isFooter: true,
-          onSubmit: (e: Event) => {
-            e.preventDefault();
-            const formData = new FormData();
-            const target = e.target as HTMLInputElement;
-            if (target.files && target.files.length !== 0) {
-              const file = target.files[0];
-              formData.append("avatar", file);
-              ProfileController.changeAvatar(formData);
-            }
-          },
-          children: [new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })],
-        }),
-      }),
+      isShowModal: false,
       user: props.user,
-
-      buttonAvatar: new Button({
-        isGhost: true,
-        text: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
-        onClick: () => {
-          this.setProps({ isShowModal: true });
+      fileLabel: new Label({
+        inputId: "avatarFile",
+        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
+        className: "",
+      }),
+      fileInput: new Input({
+        name: "avatarFile",
+        id: "avatarFile",
+        type: "file",
+        onChange: (e: Event) => {
+          e.preventDefault();
+          const formData = new FormData();
+          const target = e.target as HTMLInputElement;
+          if (target.files && target.files.length !== 0) {
+            const file = target.files[0];
+            formData.append("avatar", file);
+            ProfileController.changeAvatar(formData);
+          }
         },
       }),
 
@@ -123,36 +112,54 @@ export class ProfilePage extends Block {
     });
   }
 
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    if (oldProps === newProps) {
-      return false;
-    }
-    if (oldProps.isShowModal !== newProps.isShowModal) {
-      this.children.modal = new Modal({
-        id: "profileAvatarSettingModal",
-        title: "Загрузите файл",
-        btnText: "Поменять",
-        isShow: newProps.isShowModal as boolean,
-        children: new Form({
-          className: "change-avatar",
-          formTitle: "",
-          buttonText: "Изменить аватар",
-          isFooter: true,
-          onSubmit: (e: Event) => {
-            const formData = new FormData();
-            e.preventDefault();
-            const target = e.target?.[0];
-            if (target.files && target.files.length !== 0) {
-              const file = target.files[0];
-              formData.append("avatar", file);
-              ProfileController.changeAvatar(formData);
-            }
-            this.setProps({ isOpenCreateModal: false });
-          },
-          children: [new InputFile({ isMultiple: false, id: "avatar", name: "avatar", accept: "image/png, image/jpeg, image/jpg" })],
-        }),
+  protected componentDidUpdate() {
+    if (this.props.user) {
+      this.children.fileLabel = new Label({
+        inputId: "avatarFile",
+        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${this.props?.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources${this.props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
+        className: "",
       });
-      this.setProps({ isShowModal: newProps.isShowModal });
+      this.children.form = new Form({
+        className: "profile-page__main__body",
+        isFooter: this.props.isChangePass || !this.props.disabled,
+        buttonText: "Сохранить",
+        onSubmit: (e: Event) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          const { isValid, formData } = validateAndCollectFormData(form);
+          if (!isValid) {
+            console.log("Форма содержит ошибки валидации");
+            return;
+          }
+          if (formData && this.props.isChangePass) {
+            ProfileController.changePassword(formData as unknown as ChangePasswordRequest);
+          }
+          if (formData && !this.props.disabled) {
+            ProfileController.changeProfile(formData as unknown as profileRequest);
+          }
+        },
+        children: this.props.isChangePass
+          ? [
+              new ProfileItem<string>({ name: "oldPassword", label: "Старый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+              new ProfileItem<string>({ name: "newPassword", label: "Новый пароль", type: "password", disabled: false, validate: validation, validationName: "password" }),
+              new ProfileItem<string>({
+                name: "repeatNewPassword",
+                label: "Повторите новый пароль",
+                type: "password",
+                disabled: false,
+                validate: validation,
+                validationName: "password",
+              }),
+            ]
+          : [
+              new ProfileItem<string>({ name: "email", label: "Почта", disabled: this.props.disabled, value: this.props.user?.email, validate: validation, validationName: "email" }),
+              new ProfileItem<string>({ name: "login", label: "Логин", disabled: this.props.disabled, value: this.props.user?.login, validate: validation, validationName: "login" }),
+              new ProfileItem<string>({ name: "first_name", label: "Имя", disabled: this.props.disabled, value: this.props.user?.first_name, validate: validation, validationName: "name" }),
+              new ProfileItem<string>({ name: "second_name", label: "Фамилия", disabled: this.props.disabled, value: this.props.user?.second_name, validate: validation, validationName: "name" }),
+              new ProfileItem<string>({ name: "display_name", label: "Имя в чате", disabled: this.props.disabled, value: this.props.user?.display_name }),
+              new ProfileItem<string>({ name: "phone", label: "Телефон", disabled: this.props.disabled, value: this.props.user?.phone, validate: validation, validationName: "phone" }),
+            ],
+      });
     }
     return true;
   }
@@ -166,7 +173,8 @@ export class ProfilePage extends Block {
       <main class="profile-page__main">
         <div class="profile-page__main__container">
           <div><span class="profile-page__main__name-text">{{ user.name }}</span></div>
-          {{{buttonAvatar}}}
+          {{{fileLabel}}}
+          {{{fileInput}}}
           {{{form}}}
           <div class="profile-page__footer">
           ${

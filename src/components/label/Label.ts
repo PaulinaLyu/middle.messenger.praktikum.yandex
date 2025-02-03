@@ -10,7 +10,6 @@ export class Label extends Block {
   constructor(props: LabelProps) {
     super({
       ...props,
-      title: props.title,
       attr: {
         class: "label" + (props.className || ""),
         for: props.inputId,
@@ -18,7 +17,12 @@ export class Label extends Block {
     });
   }
 
+  protected componentDidUpdate(): boolean {
+    this.setProps({ title: this.props.title || "" });
+    return true;
+  }
+
   render() {
-    return `<label>{{ title }}</label>`;
+    return `<label>{{{ title }}}</label>`;
   }
 }

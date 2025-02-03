@@ -23,6 +23,7 @@ export class Input<T> extends Block {
       ...props,
       events: {
         blur: props.onBlur,
+        ...(props.onChange ? { change: props.onChange } : {}),
       },
       value: String(props.value || ""),
       className: `input--w100 ${props.className ? `${props.className}` : ""}`,

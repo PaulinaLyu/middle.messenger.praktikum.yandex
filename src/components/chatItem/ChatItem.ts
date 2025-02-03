@@ -1,6 +1,7 @@
 import Block, { BlockProps } from "@/core/Block";
 import { ChatModel } from "@/types/models/Chat";
 import { formatDate } from "@/utils/formatDate";
+import store from "@/core/Store.ts";
 
 interface ChatItemProps extends BlockProps {
   isCurrent?: boolean;
@@ -23,10 +24,11 @@ export class ChatItem extends Block {
           time: props.chat.last_message?.time ? formatDate(props.chat.last_message?.time) : "",
         },
       },
-      onClick: props.onClick,
       events: {
         click: () => {
-          this.props.onClick(this.props.chat.id);
+          const chats = store.getState().chats;
+          debugger;
+          props.onClick(props.chat.id);
         },
       },
     });

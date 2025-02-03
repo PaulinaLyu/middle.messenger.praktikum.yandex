@@ -18,12 +18,30 @@ export class Button extends Block {
       ...props,
       events: props?.onClick ? { click: props.onClick } : {},
       attr: {
-        class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}${props.isGhost ? " button--ghost" : ""}${props.isWarning ? "  button--ghost--warning" : ""}${props.underline ? "  button--underline" : ""}`,
+        class: `button ${props.className || ""}`,
+        // class: `button ${props.className || ""}${props.isCircle ? " button--circle" : ""}${props.isGhost ? " button--ghost" : ""}${props.isWarning ? "  button--ghost--warning" : ""}${props.underline ? "  button--underline" : ""}`,
         type: props.type || "button",
         page: props.page || "",
       },
     });
   }
+
+  componentDidMount() {
+    const element = this.element as HTMLInputElement;
+    if (this.props.isGhost) {
+      element.classList.add("button--ghost");
+    }
+    if (this.props.isWarning) {
+      element.classList.add("button--ghost--warning");
+    }
+    if (this.props.isCircle) {
+      element.classList.add("button--circle");
+    }
+    if (this.props.underline) {
+      element.classList.add("button--underline");
+    }
+  }
+
   render() {
     return `<button>{{{text}}}</button>`;
   }

@@ -52,13 +52,16 @@ export class MessagesController {
     const currentMessages = store.getState().messages?.[chatId] ?? [];
     const allMessages = [...currentMessages, ...incomingMessages].filter(message => message.type === "message");
     store.set(`messages.${chatId}`, allMessages);
+    debugger;
     if (!Array.isArray(messages)) {
       this.findMessages(chatId);
     }
+    debugger;
     ChatsController.getChatsList();
   }
 
   static findMessages(chatId: number) {
+    debugger;
     const messages = store.getState().messages?.[chatId];
     store.set("currentMessages", messages);
   }

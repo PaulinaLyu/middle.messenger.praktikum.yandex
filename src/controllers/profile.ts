@@ -9,6 +9,7 @@ export class ProfileController {
     try {
       const newProfileData: profileResponse = await ProfileAPI.changeProfile(data);
       store.set("user", newProfileData);
+
       Router.getInstance().go("/profile");
     } catch (error) {
       console.log(error, "change profile error");
