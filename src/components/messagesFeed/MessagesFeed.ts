@@ -13,13 +13,15 @@ interface MessagesFeedProps extends BlockProps {
 export class MessagesFeed extends Block {
   constructor(props: MessagesFeedProps) {
     super({
-      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar, name: props.selectedChatTitle }),
+      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar, name: "Чат не выбран" }),
       messagesFeedFooter: new MessagesFeedFooter(),
     });
   }
 
   componentDidUpdate() {
+    debugger;
     if (this.props.messages) {
+      debugger;
       const propsMess = this.props.messages as MessageModel[];
       this.children.messages = propsMess
         .map((message: MessageModel) => ({
@@ -29,10 +31,11 @@ export class MessagesFeed extends Block {
         }))
         .map((message: MessageModel) => new Message({ message }));
     } else {
+      debugger;
       this.children.messages = [];
     }
     if (Array.isArray(this.children.messagesFeedHeader)) {
-      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle }));
+      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar || null, name: this.props.selectedChatTitle || "Чат не выбран"}));
     } else {
       this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle });
     }
@@ -49,7 +52,7 @@ export class MessagesFeed extends Block {
                       {{{this}}}
                     {{/each}}
                   {{else}}
-                    <span class="messages-feed__no-data">Выберите чат чтобы отправить сообщение или отправте сообщение</span>
+                    <span class="messages-feed__no-data">Отправте сообщение</span>
                   {{/if}}
                 </ul>
                 {{{messagesFeedFooter}}}

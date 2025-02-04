@@ -121,8 +121,10 @@ export class MessagesFeedHeader extends Block {
           text: "Удалить чат",
           onClick: () => {
             const selectedChatId: number | null | undefined = store?.getState()?.selectedChat.id;
+            debugger;
             if (selectedChatId) {
               ChatsController.deleteChat(selectedChatId);
+              debugger;
             }
 
             this.setProps({ isOpen: false });
@@ -131,6 +133,7 @@ export class MessagesFeedHeader extends Block {
       ],
     });
   }
+
 
   override render() {
     return `<header class="messages-feed-header">

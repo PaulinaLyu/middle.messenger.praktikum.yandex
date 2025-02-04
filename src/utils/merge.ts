@@ -3,12 +3,14 @@ type Indexed<T = Record<string, unknown>> = {
 };
 
 export const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
+  // eslint-disable-next-line no-restricted-syntax
   for (const p in rhs) {
-    if (!Object.prototype.hasOwnProperty.call(rhs, p)) {
+    if (!rhs.hasOwnProperty(p)) {
       continue;
     }
+
     try {
-      if (typeof rhs[p] === "object" && rhs[p] !== null) {
+      if (rhs[p].constructor === Object) {
         rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
       } else {
         lhs[p] = rhs[p];

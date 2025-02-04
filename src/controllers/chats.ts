@@ -1,4 +1,4 @@
-import { ChatUserModel } from "@/types/models/Chat";
+import { ChatModel, ChatUserModel } from "@/types/models/Chat";
 import chatsAPI from "@/api/chats-api.ts";
 import store from "@/core/Store.ts";
 import { MessagesController } from "./messages.ts";
@@ -15,8 +15,14 @@ export class ChatsController {
 
   static async getChatsList(title?: string) {
     try {
-      const chats = await chatsAPI.getChats({ limit: 20, title: title || "" });
+      const chats: ChatModel[] = await chatsAPI.getChats({ limit: 20, title: title || "" }) as ChatModel[];
+      chats.map(async (chat: ChatModel) => {
+        const { token } = (await this.getToken(chat.id)) as { token: string };
+        await MessagesController.connect(chat.id, token);
+      });
+      debugger;
       store.set("chats", chats);
+      debugger;
     } catch (error) {
       console.log(error, "get chats list error");
     }
@@ -34,7 +40,9 @@ export class ChatsController {
   static async deleteUserFromChat(chatId: number, userId: number[]) {
     try {
       await chatsAPI.deleteUsers(userId, chatId);
+      debugger;
       await this.getChatsList();
+      debugger;
     } catch (error) {
       console.log(error, "delete user from chat error");
     }
@@ -42,11 +50,14 @@ export class ChatsController {
 
   static async selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
+    debugger;
     store.set("selectedChat", target);
-    if (target) {
-      const { token } = (await this.getToken(target.id)) as { token: string };
-      await MessagesController.connect(target.id, token);
-    }
+    store.set("currentMessages", null);
+    // if (target) {
+    //   const { token } = (await this.getToken(target.id)) as { token: string };
+    //   await MessagesController.connect(target.id, token);
+    // }
+    debugger;
     this.fetchChatUsers(chatId);
   }
 
@@ -67,6 +78,7 @@ export class ChatsController {
     try {
       await chatsAPI.delete(chatId);
       store.set("selectedChat", undefined);
+      debugger;
       await this.getChatsList();
     } catch (error) {
       console.log(error, "delete the chat error");

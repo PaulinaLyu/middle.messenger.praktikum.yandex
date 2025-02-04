@@ -7,17 +7,20 @@ export const withStore =
   (Component: new (props: P) => Block) =>
     class extends Component {
       constructor(props: P) {
-        const testStore = store.getState();
-        let state = mapStateToProps(testStore);
-
+        let state = mapStateToProps(store.getState());
+        debugger;
         super({ ...props, ...mapStateToProps(store.getState()) });
+        debugger;
         store.on(StoreEvents.Updated, () => {
           const propsFromState = mapStateToProps(store.getState());
+          debugger;
           if (!isEqual(state, propsFromState)) {
+            debugger;
             this.setProps({ ...propsFromState });
           }
-
+          debugger;
           state = propsFromState;
         });
       }
     };
+

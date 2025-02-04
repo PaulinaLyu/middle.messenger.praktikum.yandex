@@ -49,6 +49,7 @@ export class ChatHeader extends Block {
             const form = e.target as HTMLFormElement;
             const { formData } = validateAndCollectFormData(form);
             ChatsController.create(formData.title);
+            form.reset();
             this.setProps({ isOpenCreateModal: false });
           },
           children: [

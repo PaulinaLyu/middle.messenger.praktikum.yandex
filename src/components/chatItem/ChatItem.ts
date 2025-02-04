@@ -25,6 +25,7 @@ export class ChatItem extends Block {
       },
       events: {
         click: () => {
+          debugger;
           if (props.onClick) props.onClick(props.chat.id);
         },
       },

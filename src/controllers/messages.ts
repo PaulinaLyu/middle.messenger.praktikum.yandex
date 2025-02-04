@@ -59,8 +59,11 @@ export class MessagesController {
   }
 
   static findMessages(chatId: number) {
+    debugger;
     const messages = store.getState().messages?.[chatId];
+    debugger;
     store.set("currentMessages", messages);
+    debugger;
   }
 
   static subscribe(transport: WebSocketTransport, chatId: number) {

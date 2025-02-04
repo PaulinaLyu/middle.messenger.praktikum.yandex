@@ -22,7 +22,9 @@ export class ChatPage extends Block {
             chat: chat,
             isCurrent: chat.id === this.props.currentChat,
             onClick: (chatId: number) => {
+              debugger;
               ChatsController.selectChat(chatId);
+              debugger;
               MessagesController.findMessages(chatId);
             },
           }),
@@ -46,9 +48,15 @@ export class ChatPage extends Block {
                       {{/each}}
                     </ul>
                 </aside>
-            <div  class="chat-page__messages">
-              {{{messagesFeed}}}
-            </div>
+              
+  
+              <div class="chat-page__messages">
+                {{#if currentChat}}
+                  {{{messagesFeed}}}
+                {{else}}
+                  <span class="chat-page__no-data">Выберите чат чтобы отправить сообщение</span>
+                {{/if}}    
+              </div>
         </div>`;
   }
 }
