@@ -3,9 +3,9 @@ import { Message, MessagesFeedFooter, MessagesFeedHeader } from "..";
 import { formatDate } from "@/utils/formatDate";
 import { MessageModel } from "@/types/models/Message";
 
-interface MessagesFeedProps extends BlockProps {
+export interface MessagesFeedProps extends BlockProps {
   messages: MessageModel[];
-  userId: number;
+  userId: number | undefined;
   selectedChatTitle: string;
   selectedChatAvatar: string;
 }
@@ -13,15 +13,13 @@ interface MessagesFeedProps extends BlockProps {
 export class MessagesFeed extends Block {
   constructor(props: MessagesFeedProps) {
     super({
-      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar, name: "Чат не выбран" }),
+      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar || '', name: "Чат не выбран" }),
       messagesFeedFooter: new MessagesFeedFooter(),
     });
   }
 
   componentDidUpdate() {
-    debugger;
     if (this.props.messages) {
-      debugger;
       const propsMess = this.props.messages as MessageModel[];
       this.children.messages = propsMess
         .map((message: MessageModel) => ({
@@ -31,7 +29,6 @@ export class MessagesFeed extends Block {
         }))
         .map((message: MessageModel) => new Message({ message }));
     } else {
-      debugger;
       this.children.messages = [];
     }
     if (Array.isArray(this.children.messagesFeedHeader)) {

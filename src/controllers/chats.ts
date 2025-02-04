@@ -20,9 +20,7 @@ export class ChatsController {
         const { token } = (await this.getToken(chat.id)) as { token: string };
         await MessagesController.connect(chat.id, token);
       });
-      debugger;
       store.set("chats", chats);
-      debugger;
     } catch (error) {
       console.log(error, "get chats list error");
     }
@@ -40,9 +38,7 @@ export class ChatsController {
   static async deleteUserFromChat(chatId: number, userId: number[]) {
     try {
       await chatsAPI.deleteUsers(userId, chatId);
-      debugger;
       await this.getChatsList();
-      debugger;
     } catch (error) {
       console.log(error, "delete user from chat error");
     }
@@ -50,14 +46,13 @@ export class ChatsController {
 
   static async selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
-    debugger;
     store.set("selectedChat", target);
     store.set("currentMessages", null);
     // if (target) {
     //   const { token } = (await this.getToken(target.id)) as { token: string };
     //   await MessagesController.connect(target.id, token);
     // }
-    debugger;
+
     this.fetchChatUsers(chatId);
   }
 
@@ -78,7 +73,6 @@ export class ChatsController {
     try {
       await chatsAPI.delete(chatId);
       store.set("selectedChat", undefined);
-      debugger;
       await this.getChatsList();
     } catch (error) {
       console.log(error, "delete the chat error");

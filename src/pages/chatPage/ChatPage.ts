@@ -20,11 +20,10 @@ export class ChatPage extends Block {
         chat =>
           new ChatItem({
             chat: chat,
+            id: chat.id,
             isCurrent: chat.id === this.props.currentChat,
             onClick: (chatId: number) => {
-              debugger;
               ChatsController.selectChat(chatId);
-              debugger;
               MessagesController.findMessages(chatId);
             },
           }),

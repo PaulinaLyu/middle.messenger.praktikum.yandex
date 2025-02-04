@@ -10,7 +10,7 @@ import { ChangePasswordRequest, profileRequest } from "@/types/Profile/Profile.d
 
 export interface ProfilePageProps extends BlockProps {
   isChangePass: boolean;
-  user: UserModel;
+  user: UserModel | undefined;
   disabled: boolean;
   isShowModal: boolean;
   router?: Router;
@@ -117,7 +117,7 @@ export class ProfilePage extends Block {
       const propsUser = this.props.user as UserModel;
       this.children.fileLabel = new Label({
         inputId: "avatarFile",
-        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${propsUser?.avatar ? `https://ya-praktikum.tech/api/v2/resources${this.props?.user?.avatar}` : "/icons/img.svg"}"><img></div>`,
+        title: `<div class="profile-page__main__avatar"><img width="100%" height="100%" alt="User avatar" src="${propsUser?.avatar ? `https://ya-praktikum.tech/api/v2/resources${propsUser?.avatar}` : "/icons/img.svg"}"><img></div>`,
         className: "",
       });
       this.children.form = new Form({

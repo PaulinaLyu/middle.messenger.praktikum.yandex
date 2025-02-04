@@ -33,7 +33,7 @@ export class MessagesFeedHeader extends Block {
           const { formData } = validateAndCollectFormData(target);
           if (formData) {
             const userId = formData["user-id"].split(",").map(n => +n);
-            const chatId = store?.getState()?.selectedChat.id;
+            const chatId = store?.getState()?.selectedChat?.id;
             if (chatId && userId) {
               ChatsController.addUserToChat(chatId, userId);
               target.reset();
@@ -69,14 +69,9 @@ export class MessagesFeedHeader extends Block {
           event.preventDefault();
           const target = event.target as HTMLFormElement;
           const { formData } = validateAndCollectFormData(target);
-          // const form = e.target as HTMLFormElement;
-          // const { formData } = validateAndCollectFormData(form);
-          // ChatsController.create(formData.title);
-          // this.setProps({ isOpenCreateModal: false });
-
           if (formData) {
             const userId = formData["user-id"].split(",").map(n => +n);
-            const chatId = store?.getState()?.selectedChat.id;
+            const chatId = store?.getState()?.selectedChat?.id;
             if (chatId && userId) {
               ChatsController.deleteUserFromChat(chatId, userId);
               target.reset();
@@ -120,11 +115,9 @@ export class MessagesFeedHeader extends Block {
           iconSrc: "/icons/circle-cross.svg",
           text: "Удалить чат",
           onClick: () => {
-            const selectedChatId: number | null | undefined = store?.getState()?.selectedChat.id;
-            debugger;
+            const selectedChatId = store?.getState()?.selectedChat?.id;
             if (selectedChatId) {
               ChatsController.deleteChat(selectedChatId);
-              debugger;
             }
 
             this.setProps({ isOpen: false });
