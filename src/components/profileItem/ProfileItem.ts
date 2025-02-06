@@ -1,6 +1,6 @@
 import { InputElement } from "..";
-import Block from "../../tools/Block";
-import { IValidationReturn } from "../../utils";
+import Block from "@/core/Block";
+import { IValidationReturn } from "@/utils";
 
 interface ProfileItemProps<T> {
   label: string;

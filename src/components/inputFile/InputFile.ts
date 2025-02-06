@@ -1,5 +1,5 @@
-import Block from "../../tools/Block";
-import { Button } from "..";
+import Block from "../../core/Block";
+import { Button, Input } from "..";
 
 interface InputFileProps {
   isMultiple?: boolean;
@@ -15,26 +15,24 @@ export class InputFile extends Block {
         text: "Выбрать файл на компьютере",
         underline: true,
         isGhost: true,
-        onClick: () => {},
       }),
       multiple: props.isMultiple || false,
       id: props.id || false,
       accept: props.accept,
-      // input: new Input({
-      //   className: "inputFile__input",
-      //   type: "file",
-
-      //   id: props.id,
-      //   name: props.name,
-      //   accept: props.accept,
-      // }),
+      input: new Input({
+        className: "inputFile__input",
+        type: "file",
+        id: props.id,
+        name: props.name,
+        accept: props.accept,
+      }),
     });
   }
 
   render() {
     return `
       <div class="inputFile">
-        <input class="inputFile__input" type="file" multiple={{multiple}} id={{id}} name={{name}} accept={{accept}} />
+        {{{input}}}
         {{{button}}}
       </div>
     `;

@@ -2,12 +2,12 @@
 @import "../../../static/mixins";
 
 .chat-item {
+  cursor: pointer;
   &__container {
     height: 70px;
     width: 100%;
     border-top: $divider;
     padding: 12px;
-    cursor: pointer;
 
     &--current {
       background: $secondary-color;

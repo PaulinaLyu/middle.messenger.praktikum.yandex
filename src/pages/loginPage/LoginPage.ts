@@ -1,16 +1,18 @@
-import Block from "../../tools/Block";
-import { Form, InputField } from "../../components";
-import { validation } from "../../utils";
-import { validateAndCollectFormData } from "../../utils/validateAndCollectFormData";
+import Block from "@/core/Block";
+import { Form, InputField } from "@/components";
+import { validation } from "@/utils";
+import { AuthController } from "@/controllers/auth";
+import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
+import { Router } from "@/core/Router";
 
-interface LoginPageProps {
+export interface LoginPageProps {
   isRegistration: boolean;
   buttonText: string;
   onBtnClick?: () => void;
-  buttonPage: string;
   title: string;
   linkText: string;
   linkPage: string;
+  router?: Router;
 }
 
 export class LoginPage extends Block {
@@ -22,7 +24,6 @@ export class LoginPage extends Block {
         className: "login-form",
         formTitle: props.title,
         buttonText: props.buttonText,
-        buttonPage: props.buttonPage,
         linkText: props.linkText,
         linkPage: props.linkPage,
         onSubmit: (e: Event) => {
@@ -33,11 +34,24 @@ export class LoginPage extends Block {
             console.log("Форма содержит ошибки валидации");
             return;
           }
+          if (props?.isRegistration) {
+            AuthController.signup({
+              login: formData.login,
+              password: formData.password,
+              first_name: formData.first_name,
+              second_name: formData.second_name,
+              email: formData.email,
+              phone: formData.phone,
+            });
+          } else {
+            AuthController.signin({ login: formData.login, password: formData.password });
+          }
+
           console.log(`Данные формы ${props?.isRegistration ? "регистрации" : "логина"}: `, formData);
         },
         children: props.isRegistration
           ? [
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Логин",
                 name: "login",
@@ -47,7 +61,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "login",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Почта",
                 name: "email",
@@ -57,7 +71,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "email",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Имя",
                 name: "first_name",
@@ -67,7 +81,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "name",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Фамилия",
                 name: "second_name",
@@ -77,7 +91,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "name",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Телефон",
                 name: "phone",
@@ -87,7 +101,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "phone",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Пароль",
                 name: "password",
@@ -98,7 +112,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "password",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Пароль (еще раз)",
                 name: "password_repeat",
@@ -111,7 +125,7 @@ export class LoginPage extends Block {
               }),
             ]
           : [
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Логин",
                 name: "login",
@@ -121,7 +135,7 @@ export class LoginPage extends Block {
                 validate: validation,
                 validationName: "login",
               }),
-              new InputField({
+              new InputField<string>({
                 className: "login-form__input",
                 title: "Пароль",
                 name: "password",
@@ -145,3 +159,5 @@ export class LoginPage extends Block {
       </main>`;
   }
 }
+
+export default LoginPage;

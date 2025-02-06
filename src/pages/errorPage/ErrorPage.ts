@@ -1,12 +1,12 @@
-import Block from "../../tools/Block";
+import Block from "../../core/Block";
 import { Link } from "../../components/link";
 import { Title } from "../../components/title";
 
 interface ErrorPageProps {
   error: string;
   title: string;
-  linkText: string;
   linkPage: string;
+  linkText: string;
 }
 
 export class ErrorPage extends Block {
@@ -15,8 +15,8 @@ export class ErrorPage extends Block {
       ...props,
       title: new Title({ title: props.title }),
       link: new Link({
+        url: props.linkPage,
         text: props.linkText,
-        page: props.linkPage,
       }),
     });
   }

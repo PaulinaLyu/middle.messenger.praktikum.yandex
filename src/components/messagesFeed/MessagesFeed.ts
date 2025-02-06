@@ -1,47 +1,58 @@
-import Block from "../../tools/Block";
-import { MessagesFeedFooter, MessagesFeedHeader } from "..";
+import Block, { BlockProps } from "@/core/Block";
+import { Message, MessagesFeedFooter, MessagesFeedHeader } from "..";
+import { formatDate } from "@/utils/formatDate";
+import { MessageModel } from "@/types/models/Message";
 
-interface MessagesFeedProps {
-  chatAvatar: string;
-  chatName: string;
-  chatDate: string;
-  chat: {
-    user_1: { message: string; time: string }[];
-    user_2: { message: string; time: string }[];
-  };
+export interface MessagesFeedProps extends BlockProps {
+  messages: MessageModel[];
+  userId: number | undefined;
+  selectedChatTitle: string;
+  selectedChatAvatar: string;
 }
 
 export class MessagesFeed extends Block {
   constructor(props: MessagesFeedProps) {
     super({
-      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.chatAvatar, name: props.chatName }),
+      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar || "", name: "Чат не выбран" }),
       messagesFeedFooter: new MessagesFeedFooter(),
-      chatDate: props.chatDate,
-      chatAvatar: props.chatAvatar,
-      chatName: props.chatName,
-      chat: props.chat,
-      user1: props.chat.user_1[0],
-      user2: props.chat.user_2[0],
     });
   }
 
+  componentDidUpdate() {
+    if (this.props.messages) {
+      const propsMess = this.props.messages as MessageModel[];
+      this.children.messages = propsMess
+        .map((message: MessageModel) => ({
+          ...message,
+          sent: message.user_id === this.props.userId,
+          time: formatDate(message.time),
+        }))
+        .map((message: MessageModel) => new Message({ message }));
+    } else {
+      this.children.messages = [];
+    }
+    if (Array.isArray(this.children.messagesFeedHeader)) {
+      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar || null, name: this.props.selectedChatTitle || "Чат не выбран" }));
+    } else {
+      this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle });
+    }
+
+    return true;
+  }
+
   render() {
-    return `<div class="messages-feed">
-                {{!-- <span class="messages-feed__no-data">Выберите чат чтобы отправить сообщение</span> --}}
+    return `<main class="messages-feed">
                 {{{messagesFeedHeader}}}
-                <main class="messages-feed__main">
-                    <div class="messages-feed__main__date"><span>{{chatDate}}</span></div>
-                    <div class="messages-feed__main__user-message">
-                      <p class="messages-feed__main__user-text">{{user1.message}}</p>
-                      <div class="messages-feed__main__user-time">{{user1.time}}</div>
-                    </div>
-                    <img class="messages-feed__main__user-message" alt="Image icon" src="/img.png" />
-                    <div class="messages-feed__main__owner-message">
-                      <p class="messages-feed__main__owner-text">{{user2.message}}</p>
-                      <div class="messages-feed__main__owner-time">{{user2.time}}</div>
-                    </div>
-                </main>
+                <ul class="messages-feed__main">
+                  {{#if messages}}
+                    {{#each messages}}
+                      {{{this}}}
+                    {{/each}}
+                  {{else}}
+                    <span class="messages-feed__no-data">Отправте сообщение</span>
+                  {{/if}}
+                </ul>
                 {{{messagesFeedFooter}}}
-        </div>`;
+            </main>`;
   }
 }
