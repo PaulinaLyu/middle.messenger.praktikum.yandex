@@ -1,7 +1,7 @@
-import Block from "../../core/Block";
-import { Label } from "../../components/label";
-import { InputElement } from "../../components/input";
-import { IValidationReturn } from "../../utils";
+import Block from "@/core/Block";
+import { Label } from "@/components/label";
+import { InputElement } from "@/components/input";
+import { IValidationReturn } from "@/utils";
 
 interface InputFieldProps<T> {
   className?: string;
@@ -17,6 +17,7 @@ interface InputFieldProps<T> {
   isSearch?: boolean;
   border?: boolean;
   validationName?: string;
+  s;
   validate?: (name: string, value: string) => IValidationReturn;
   error?: string;
 }

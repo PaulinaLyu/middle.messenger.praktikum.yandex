@@ -6,7 +6,7 @@ import { MessagesController } from "@/controllers/messages";
 
 export class ChatPage extends Block {
   constructor() {
-    super();
+    super({});
   }
 
   init() {

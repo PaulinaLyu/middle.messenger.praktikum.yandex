@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "vite build && node server.cjs",
-    "build": "vite build",
+    "start": "tsc && vite build && node server.cjs",
+    "build": "tsc && vite build",
     "lint": "eslint \"./src/**/*.{ts,tsx,json}\"",
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx,json}\"",
     "stylelint": "stylelint './src/**/*.{css,scss}' './static/**/*.{css,scss}'",
