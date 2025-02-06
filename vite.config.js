@@ -2,9 +2,9 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: resolve(__dirname),
+  base: "./",
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: "dist",
   },
   publicDir: "static",
   server: {
