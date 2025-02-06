@@ -25,8 +25,12 @@ export class ChatItem extends Block {
         },
       },
       events: {
-        click: e => {
-          if (props.onClick) props.onClick(+e?.currentTarget?.id);
+        click: (e: MouseEvent) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = +target.id;
+          if (!isNaN(id)) {
+            if (props.onClick) props.onClick(id);
+          }
         },
       },
     });

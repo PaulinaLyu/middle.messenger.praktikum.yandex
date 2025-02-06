@@ -19,7 +19,7 @@ export class Form extends Block {
     super({
       ...props,
       events: {
-        submit: e => props.onSubmit(e),
+        submit: (e: Event) => props.onSubmit(e),
       },
       attr: {
         class: props.className || "",
