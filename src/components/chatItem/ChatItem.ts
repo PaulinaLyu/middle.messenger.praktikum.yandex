@@ -15,6 +15,7 @@ export class ChatItem extends Block {
   constructor(props: ChatItemProps) {
     super({
       ...props,
+      id: props.chat.id,
       isCurrent: props?.isCurrent || false,
       chat: {
         ...props.chat,
@@ -24,15 +25,15 @@ export class ChatItem extends Block {
         },
       },
       events: {
-        click: () => {
-          if (props.onClick) props.onClick(props.chat.id);
+        click: e => {
+          if (props.onClick) props.onClick(+e?.currentTarget?.id);
         },
       },
     });
   }
 
   render() {
-    return `<li class="chat-item">
+    return `<li id={{{id}}} class="chat-item">
     <div class='chat-item__container${this.props.isCurrent ? ` chat-item__container--current` : ""}'>
         <div class="chat-item__main">
           {{#if chat.avatar}}

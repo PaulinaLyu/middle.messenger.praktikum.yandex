@@ -15,7 +15,7 @@ export class ChatsController {
 
   static async getChatsList(title?: string) {
     try {
-      const chats: ChatModel[] = await chatsAPI.getChats({ limit: 20, title: title || "" }) as ChatModel[];
+      const chats: ChatModel[] = (await chatsAPI.getChats({ limit: 20, title: title || "" })) as ChatModel[];
       chats.map(async (chat: ChatModel) => {
         const { token } = (await this.getToken(chat.id)) as { token: string };
         await MessagesController.connect(chat.id, token);
@@ -46,12 +46,8 @@ export class ChatsController {
 
   static async selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
-    store.set("selectedChat", target);
+    store.set("selectedChat", [target]);
     store.set("currentMessages", null);
-    // if (target) {
-    //   const { token } = (await this.getToken(target.id)) as { token: string };
-    //   await MessagesController.connect(target.id, token);
-    // }
 
     this.fetchChatUsers(chatId);
   }
@@ -61,7 +57,7 @@ export class ChatsController {
       const chatMembers: ChatUserModel[] = (await chatsAPI.getChatUsers(chatId)) as ChatUserModel[];
       const nonAdminMembers = chatMembers.filter(user => user.role !== "admin");
       store.set("selectedChat", {
-        ...store.getState().selectedChat,
+        ...store.getState().selectedChat?.[0],
         members: nonAdminMembers,
       });
     } catch (error) {

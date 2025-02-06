@@ -4,8 +4,8 @@ type PlainObject<T = unknown> = {
   [k in string]: T;
 };
 
-const isPlainObject = (value: unknown): value is PlainObject => typeof value === 'object' && value !== null
-  && value.constructor === Object && Object.prototype.toString.call(value) === '[object Object]';
+const isPlainObject = (value: unknown): value is PlainObject =>
+  typeof value === "object" && value !== null && value.constructor === Object && Object.prototype.toString.call(value) === "[object Object]";
 
 const isArrayOrObject = (value: unknown): value is [] | PlainObject => isPlainObject(value) || isArray(value);
 

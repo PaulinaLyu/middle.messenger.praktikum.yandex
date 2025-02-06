@@ -13,7 +13,7 @@ export interface MessagesFeedProps extends BlockProps {
 export class MessagesFeed extends Block {
   constructor(props: MessagesFeedProps) {
     super({
-      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar || '', name: "Чат не выбран" }),
+      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar || "", name: "Чат не выбран" }),
       messagesFeedFooter: new MessagesFeedFooter(),
     });
   }
@@ -32,7 +32,7 @@ export class MessagesFeed extends Block {
       this.children.messages = [];
     }
     if (Array.isArray(this.children.messagesFeedHeader)) {
-      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar || null, name: this.props.selectedChatTitle || "Чат не выбран"}));
+      this.children.messagesFeedHeader.forEach(header => header.setProps({ avatar: this.props.selectedChatAvatar || null, name: this.props.selectedChatTitle || "Чат не выбран" }));
     } else {
       this.children.messagesFeedHeader.setProps({ avatar: this.props.selectedChatAvatar, name: this.props.selectedChatTitle });
     }

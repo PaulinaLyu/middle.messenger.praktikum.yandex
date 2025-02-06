@@ -33,7 +33,7 @@ export class MessagesFeedHeader extends Block {
           const { formData } = validateAndCollectFormData(target);
           if (formData) {
             const userId = formData["user-id"].split(",").map(n => +n);
-            const chatId = store?.getState()?.selectedChat?.id;
+            const chatId = store?.getState()?.selectedChat?.[0]?.id;
             if (chatId && userId) {
               ChatsController.addUserToChat(chatId, userId);
               target.reset();
@@ -71,7 +71,7 @@ export class MessagesFeedHeader extends Block {
           const { formData } = validateAndCollectFormData(target);
           if (formData) {
             const userId = formData["user-id"].split(",").map(n => +n);
-            const chatId = store?.getState()?.selectedChat?.id;
+            const chatId = store?.getState()?.selectedChat?.[0]?.id;
             if (chatId && userId) {
               ChatsController.deleteUserFromChat(chatId, userId);
               target.reset();
@@ -115,7 +115,7 @@ export class MessagesFeedHeader extends Block {
           iconSrc: "/icons/circle-cross.svg",
           text: "Удалить чат",
           onClick: () => {
-            const selectedChatId = store?.getState()?.selectedChat?.id;
+            const selectedChatId = store?.getState()?.selectedChat?.[0]?.id;
             if (selectedChatId) {
               ChatsController.deleteChat(selectedChatId);
             }
@@ -126,7 +126,6 @@ export class MessagesFeedHeader extends Block {
       ],
     });
   }
-
 
   override render() {
     return `<header class="messages-feed-header">

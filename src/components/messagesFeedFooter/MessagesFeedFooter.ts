@@ -24,7 +24,7 @@ export class MessagesFeedFooter extends Block {
           }
           if (formData) {
             const { message } = formData;
-            const chatId = store.getState().selectedChat.id;
+            const chatId = store.getState().selectedChat?.[0]?.id;
             if (chatId) {
               MessagesController.sendMessage(chatId, message);
               form.reset();

@@ -65,7 +65,8 @@ export class MessagesController {
 
   static subscribe(transport: WebSocketTransport, chatId: number) {
     transport.on(WebSocketEvents.Message, data => {
-      this.handleMessages(data, chatId);
+      const messageData = data as MessageModel | MessageModel[];
+      this.handleMessages(messageData, chatId);
     });
   }
 }
