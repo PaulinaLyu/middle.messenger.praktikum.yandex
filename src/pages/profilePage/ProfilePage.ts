@@ -197,6 +197,9 @@ export class ProfilePage extends Block {
             this.props.disabled
               ? `
                 <div class="profile-page__footer__item">
+                  {{{buttonToChat}}}
+                </div>
+                <div class="profile-page__footer__item">
                   {{{buttonChangeData}}}
                 </div>
                 <div class="profile-page__footer__item">
