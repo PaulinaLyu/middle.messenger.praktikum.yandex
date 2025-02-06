@@ -3,17 +3,18 @@ import { Router } from "./core/Router";
 import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
 import { Routes } from "./types";
 import { AuthController } from "./controllers/auth";
+import Block from "./core/Block";
 
 window.addEventListener("DOMContentLoaded", async () => {
   Router.getInstance()
-    .use(Routes.Home, LoginPage, {
+    .use(Routes.Home, LoginPage as typeof Block, {
       isRegistration: false,
       buttonText: "Войти",
       title: "Вход",
       linkText: "Нет аккаунта?",
       linkPage: "sign-up",
     })
-    .use(Routes.Register, LoginPage, {
+    .use(Routes.Register, LoginPage as typeof Block, {
       isRegistration: true,
       buttonText: "Зарегистрироваться",
       title: "Регистрация",
@@ -36,7 +37,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       disabled: false,
       isShowModal: false,
     })
-    .use(Routes.NotFound, ErrorPage, {
+    .use(Routes.NotFound, ErrorPage as typeof Block, {
       title: "Не туда попали",
       error: "404",
       linkPage: "messenger",

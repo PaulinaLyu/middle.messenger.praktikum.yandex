@@ -1,8 +1,9 @@
 import Block from "@/core/Block";
-import { ChatHeader, ChatItem, MessagesFeed } from "@/components";
+import { ChatHeader, ChatItem } from "@/components";
 import { ChatsController } from "@/controllers/chats";
 import { ChatModel } from "@/types/models/Chat";
 import { MessagesController } from "@/controllers/messages";
+import { MessagesFeed } from "@/components/messagesFeed/MessagesFeed";
 
 export class ChatPage extends Block {
   constructor() {
