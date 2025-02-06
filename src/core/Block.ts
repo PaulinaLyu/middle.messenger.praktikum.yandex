@@ -14,7 +14,8 @@ interface Children {
   [key: string]: Block | Block[];
 }
 
-export default class Block {
+// eslint-disable-next-line
+export default class Block<P extends BlockProps = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -25,10 +26,10 @@ export default class Block {
   private _element: HTMLElement | null = null;
   private id: number = Math.floor(100000 + Math.random() * 900000);
   private eventBus: () => EventBus;
-  protected props: BlockProps;
+  protected props: P;
   protected children: Children;
 
-  constructor(propsWithChildren: BlockProps = {}) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
     const { children, props } = this._getChildrenAndProps(propsWithChildren);
@@ -106,7 +107,7 @@ export default class Block {
     return true;
   }
 
-  private _getChildrenAndProps(childrenAndProps: BlockProps): { children: Children; props: BlockProps } {
+  private _getChildrenAndProps(childrenAndProps: P): { children: Children; props: P } {
     const props: BlockProps = {};
     const children: Children = {};
 
@@ -119,7 +120,7 @@ export default class Block {
     });
 
     return {
-      props: props as BlockProps,
+      props: props as P,
       children,
     };
   }
@@ -152,7 +153,7 @@ export default class Block {
   private _render(): void {
     this._removeEvents();
 
-    const propsAndStubs = { ...this.props };
+    const propsAndStubs = { ...this.props } as Record<string, unknown>;
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
@@ -209,7 +210,7 @@ export default class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props: BlockProps): BlockProps {
+  private _makePropsProxy(props: P): P {
     const self = this;
 
     return new Proxy(props, {
@@ -227,7 +228,7 @@ export default class Block {
           throw new Error("Нет прав");
         } else {
           const oldTarget = { ...target };
-          target[prop] = value;
+          target[prop as keyof P] = value;
 
           self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
           return true;

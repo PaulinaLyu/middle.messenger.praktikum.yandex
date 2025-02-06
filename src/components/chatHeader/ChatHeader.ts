@@ -3,6 +3,7 @@ import { Input, Link, Button, InputField, Modal, Form } from "..";
 import Block from "@/core/Block";
 import { validateAndCollectFormData } from "@/utils/validateAndCollectFormData";
 import { ChatsController } from "@/controllers/chats";
+import { InputFieldProps } from "../inputField";
 
 export class ChatHeader extends Block {
   constructor() {
@@ -53,7 +54,7 @@ export class ChatHeader extends Block {
             this.setProps({ isOpenCreateModal: false });
           },
           children: [
-            new InputField({
+            new InputField<InputFieldProps<string>>({
               title: "Имя чата",
               name: "title",
               id: "create-chat-form-title",

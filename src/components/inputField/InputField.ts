@@ -1,9 +1,9 @@
-import Block from "../../core/Block";
-import { Label } from "../../components/label";
-import { InputElement } from "../../components/input";
-import { IValidationReturn } from "../../utils";
+import Block from "@/core/Block";
+import { Label } from "@/components/label";
+import { InputElement } from "@/components/input";
+import { IValidationReturn } from "@/utils";
 
-interface InputFieldProps<T> {
+export interface InputFieldProps<T> {
   className?: string;
   inputClassName?: string;
   isCircle?: boolean;

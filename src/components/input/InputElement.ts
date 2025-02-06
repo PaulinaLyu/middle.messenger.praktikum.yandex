@@ -63,7 +63,8 @@ export class InputElement<T> extends Block {
         error: error || "",
       });
     } else {
-      this.children.errorLine?.hide();
+      const errorLine = this.children.errorLine as Block;
+      errorLine?.hide();
     }
 
     return true;

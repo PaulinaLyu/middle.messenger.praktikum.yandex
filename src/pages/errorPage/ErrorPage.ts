@@ -1,6 +1,6 @@
-import Block from "../../core/Block";
-import { Link } from "../../components/link";
-import { Title } from "../../components/title";
+import Block from "@/core/Block";
+import { Link } from "@/components/link";
+import { Title } from "@/components/title";
 
 interface ErrorPageProps {
   error: string;

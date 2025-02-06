@@ -1,21 +1,16 @@
-import Block, { BlockProps } from "@/core/Block";
+import Block from "@/core/Block";
 import { Message, MessagesFeedFooter, MessagesFeedHeader } from "..";
 import { formatDate } from "@/utils/formatDate";
 import { MessageModel } from "@/types/models/Message";
 
-export interface MessagesFeedProps extends BlockProps {
-  messages: MessageModel[];
-  userId: number | undefined;
-  selectedChatTitle: string;
-  selectedChatAvatar: string;
-}
-
 export class MessagesFeed extends Block {
-  constructor(props: MessagesFeedProps) {
-    super({
-      messagesFeedHeader: new MessagesFeedHeader({ avatar: props.selectedChatAvatar || "", name: "Чат не выбран" }),
-      messagesFeedFooter: new MessagesFeedFooter(),
-    });
+  constructor() {
+    super({});
+  }
+
+  init() {
+    this.children.messagesFeedHeader = new MessagesFeedHeader({ avatar: this.props.selectedChatAvatar || "", name: "Чат не выбран" });
+    this.children.messagesFeedFooter = new MessagesFeedFooter();
   }
 
   componentDidUpdate() {

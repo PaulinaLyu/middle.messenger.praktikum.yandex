@@ -46,7 +46,7 @@ export class ChatsController {
 
   static async selectChat(chatId: number) {
     const target = store.getState().chats?.find(chat => chat.id === chatId);
-    store.set("selectedChat", [target]);
+    store.set("selectedChat", target);
     store.set("currentMessages", null);
 
     this.fetchChatUsers(chatId);
