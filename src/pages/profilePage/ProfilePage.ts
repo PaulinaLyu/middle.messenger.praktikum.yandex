@@ -7,6 +7,7 @@ import { UserModel } from "@/types/models/User";
 import { AuthController } from "@/controllers/auth";
 import { ProfileController } from "@/controllers/profile";
 import { ChangePasswordRequest, profileRequest } from "@/types/Profile/Profile.dto";
+import { Routes } from "@/types";
 
 export interface ProfilePageProps extends BlockProps {
   isChangePass: boolean;
@@ -52,12 +53,19 @@ export class ProfilePage extends Block {
       }),
 
       buttonExit: new Button({ text: "Выйти", isGhost: true, isWarning: true, className: "profile-page__footer__btn--warning", onClick: () => AuthController.logout() }),
+      buttonToChat: new Button({
+        text: "К чатам",
+        isGhost: true,
+        onClick: () => {
+          Router.getInstance().go(Routes.Chats);
+        },
+      }),
 
       buttonChangeData: new Button({
         text: "Изменить данные",
         isGhost: true,
         onClick: () => {
-          Router.getInstance().go("/edit-profile");
+          Router.getInstance().go(Routes.EditProfile);
         },
       }),
 
@@ -65,7 +73,7 @@ export class ProfilePage extends Block {
         text: "Изменить пароль",
         isGhost: true,
         onClick: () => {
-          Router.getInstance().go("/edit-password");
+          Router.getInstance().go(Routes.EditPassword);
         },
       }),
       form: new Form({
