@@ -4,11 +4,9 @@ import path from "path";
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, "dist")));
+const __dirname = path.resolve();
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
