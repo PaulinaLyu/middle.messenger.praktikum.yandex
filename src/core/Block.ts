@@ -14,6 +14,7 @@ interface Children {
   [key: string]: Block | Block[];
 }
 
+// eslint-disable-next-line
 export default class Block<P extends BlockProps = any> {
   static EVENTS = {
     INIT: "init",

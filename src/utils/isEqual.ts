@@ -1,6 +1,6 @@
 const isArray = (value: unknown): value is [] => Array.isArray(value);
 
-type PlainObject<T = unknown> = {
+export type PlainObject<T = unknown> = {
   [k in string]: T;
 };
 

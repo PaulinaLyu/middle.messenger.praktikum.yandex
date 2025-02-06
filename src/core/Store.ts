@@ -28,7 +28,11 @@ class Store extends EventBus {
   }
 
   set(path: string, value: unknown) {
-    set(this.state, path, value);
+    if (path === "selectedChat") {
+      set(this.state, path, [value]);
+    } else {
+      set(this.state, path, value);
+    }
     this.emit(StoreEvents.Updated, this.state);
   }
 }

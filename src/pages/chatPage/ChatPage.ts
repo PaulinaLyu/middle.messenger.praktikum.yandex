@@ -3,7 +3,7 @@ import { ChatHeader, ChatItem } from "@/components";
 import { ChatsController } from "@/controllers/chats";
 import { ChatModel } from "@/types/models/Chat";
 import { MessagesController } from "@/controllers/messages";
-import { MessagesFeed } from "@/components/messagesFeed/MessagesFeed";
+import { MessagesFeed } from "@/components/messagesFeed";
 
 export class ChatPage extends Block {
   constructor() {
@@ -11,9 +11,10 @@ export class ChatPage extends Block {
   }
 
   init() {
-    this.children.messagesFeed = new MessagesFeed();
+    this.children.messagesFeed = new MessagesFeed({});
     this.children.chatHeader = new ChatHeader();
   }
+
   componentDidUpdate() {
     if (this.props.chatsList) {
       const propsChatsList = this.props.chatsList as ChatModel[];
