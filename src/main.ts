@@ -1,101 +1,68 @@
-import * as Mocks from "./mocks";
 import "./main.scss";
-import { LoginPage } from "./pages/loginPage";
-import { ProfilePage } from "./pages/profilePage";
-import { ErrorPage } from "./pages/errorPage";
-import { ChatPage } from "./pages/chatPage";
+import { Router } from "./core/Router";
+import { ErrorPage, ChatPage, ProfilePage, LoginPage } from "./pages";
+import { Routes } from "./types";
+import { AuthController } from "./controllers/auth";
+import Block from "./core/Block";
 
-const pages = {
-  chat: () => new ChatPage({ chatsList: Mocks.chatsListMock, currentChat: 3, chatAvatar: "", chatName: Mocks.chatMock.display_name, chatDate: Mocks.chatMock.chat.date, chat: Mocks.chatMock.chat }),
-  login: () =>
-    new LoginPage({
+window.addEventListener("DOMContentLoaded", async () => {
+  Router.getInstance()
+    .use(Routes.Home, LoginPage as typeof Block, {
       isRegistration: false,
       buttonText: "Войти",
       title: "Вход",
       linkText: "Нет аккаунта?",
-      linkPage: "login-registration",
-      buttonPage: "chat",
-    }),
-  "login-registration": () =>
-    new LoginPage({
+      linkPage: "sign-up",
+    })
+    .use(Routes.Register, LoginPage as typeof Block, {
       isRegistration: true,
-      onBtnClick: () => console.log("Регистрация"),
       buttonText: "Зарегистрироваться",
       title: "Регистрация",
       linkText: "Вход",
-      linkPage: "login",
-      buttonPage: "chat",
-    }),
-  profile: () =>
-    new ProfilePage({
-      user: Mocks.profileMock,
+      linkPage: "/",
+    })
+    .use(Routes.Chats, ChatPage, {})
+    .use(Routes.Profile, ProfilePage, {
       isChangePass: false,
       disabled: true,
-      buttonArrowPage: "chat",
-      buttonExit: "login",
       isShowModal: false,
-    }),
-  "profile-edit": () =>
-    new ProfilePage({
-      user: Mocks.profileMock,
-      isChangePass: false,
-      disabled: false,
-      buttonArrowPage: "profile",
-      buttonExit: "login",
-      isShowModal: false,
-    }),
-  "profile-change-pass": () =>
-    new ProfilePage({
-      user: Mocks.profileMock,
+    })
+    .use(Routes.EditPassword, ProfilePage, {
       isChangePass: true,
       disabled: false,
-      buttonArrowPage: "profile",
-      buttonExit: "login",
       isShowModal: false,
-    }),
-  error500: () =>
-    new ErrorPage({
-      title: "Мы уже фиксим",
-      error: "500",
-      linkPage: "chat",
-      linkText: "Назад к чатам",
-    }),
-  error404: () =>
-    new ErrorPage({
+    })
+    .use(Routes.EditProfile, ProfilePage, {
+      isChangePass: false,
+      disabled: false,
+      isShowModal: false,
+    })
+    .use(Routes.NotFound, ErrorPage as typeof Block, {
       title: "Не туда попали",
       error: "404",
-      linkPage: "chat",
+      linkPage: "messenger",
       linkText: "Назад к чатам",
-    }),
-};
+    });
 
-function returnPage(page: pageType) {
-  return pages[page]();
-}
+  let isProtectedRoute = true;
 
-type pageType = keyof typeof pages;
-
-function navigate(page: pageType) {
-  const block = returnPage(page);
-  const container = document.getElementById("app")!;
-  if (container) {
-    container.innerHTML = ``;
-    container.appendChild(block.getContent()!);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => navigate("chat"));
-
-document.addEventListener("click", e => {
-  const target = e.target as HTMLElement;
-  let page = target.getAttribute("page");
-  if (!page && target.parentElement) {
-    page = (target.parentElement as HTMLElement).getAttribute("page");
+  switch (window.location.pathname) {
+    case Routes.Home:
+    case Routes.Register:
+      isProtectedRoute = false;
+      break;
   }
 
-  if (page && page in pages) {
-    navigate(page as pageType);
-    e.preventDefault();
-    e.stopImmediatePropagation();
+  try {
+    await AuthController.fetchUser();
+    Router.getInstance().start();
+    if (!isProtectedRoute) {
+      Router.getInstance().go(Routes.Profile);
+    }
+  } catch (error) {
+    Router.getInstance().start();
+    if (isProtectedRoute) {
+      Router.getInstance().go(Routes.Home);
+    }
   }
 });
