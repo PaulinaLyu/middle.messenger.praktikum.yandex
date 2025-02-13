@@ -2,11 +2,11 @@ import { JSDOM } from 'jsdom';
 import { afterEach, beforeEach } from 'mocha';
 import { expect } from 'chai';
 import { Router } from './Router.ts';
-import { LoginPage } from '@/pages/index.ts';
-import { Routes } from '@/types/index.ts';
+import { LoginPage } from '@/pages';
+import { Routes } from '@/types';
 import Block from './Block.ts';
 
-describe('Router Functionality Test', () => {
+describe('Router', () => {
   const html = '<!DOCTYPE html><html><body><div id="app"></div></body></html>';
   beforeEach(() => {
     const { window } = new JSDOM(html, { url: 'https://localhost' });
@@ -18,7 +18,7 @@ describe('Router Functionality Test', () => {
     window.history.replaceState({}, '', '/');
   });
 
-  it('should render content on a given route', () => {
+  it('должен отображать страницу по заданному маршруту', () => {
     Router.getInstance().use(Routes.Home, LoginPage as typeof Block, {
           isRegistration: false,
           buttonText: "Войти",
@@ -35,12 +35,12 @@ describe('Router Functionality Test', () => {
     Router.getInstance().start();
     Router.getInstance().go('/sign-up');
     const appElement = global.document.querySelector('#app');
-    const heading = appElement?.querySelector('h2');
+    const heading = appElement?.querySelector('h1');
     expect(heading).not.to.be.a('null');
-    expect(heading!.textContent).to.equal('Регистрация аккаунта');
+    expect(heading!.textContent).to.equal('Регистрация');
   });
 
-  it('should go back', async () => {
+  it('должен возращаться на предыдущую страницу', async () => {
     Router.getInstance().use(Routes.Home, LoginPage as typeof Block, {
         isRegistration: false,
         buttonText: "Войти",
@@ -65,12 +65,12 @@ describe('Router Functionality Test', () => {
     });
 
     const appElement = global.document.querySelector('#app');
-    const heading = appElement?.querySelector('h2');
+    const heading = appElement?.querySelector('h1');
     expect(heading).not.to.be.a('null');
     expect(heading!.textContent).to.equal('Вход');
   });
 
-  it('should go forward', async () => {
+  it('должен совершать шаг вперед по истории', async () => {
     Router.getInstance().use(Routes.Home, LoginPage as typeof Block, {
         isRegistration: false,
         buttonText: "Войти",
@@ -103,21 +103,21 @@ describe('Router Functionality Test', () => {
     });
 
     const appElement = global.document.querySelector('#app');
-    const heading = appElement?.querySelector('h2');
+    const heading = appElement?.querySelector('h1');
     expect(heading).not.to.be.a('null');
-    expect(heading!.textContent).to.equal('Регистрация аккаунта');
+    expect(heading!.textContent).to.equal('Регистрация');
   });
 });
 
-describe('Router Singleton Test', () => {
-  it('should have a single instance', () => {
+describe('Router Singleton', () => {
+  it('единственный экземпляр', () => {
     const routerInstance1 = Router.getInstance();
     const routerInstance2 = Router.getInstance();
 
     expect(routerInstance1).to.equal(routerInstance2);
   });
 
-  it('should destroy the instance', () => {
+  it('должен уничтожить экземпляр', () => {
     const routerInstance1 = Router.getInstance();
 
     Router.destroy();
