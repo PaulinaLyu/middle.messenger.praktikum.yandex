@@ -1,142 +1,106 @@
-// import { expect } from "chai";
-// import sinon from "sinon";
-// import { HTTPTransport } from "./HTTPTransport";
-// import { queryStringify } from "../utils/queryStringify";
+import { afterEach, beforeEach, describe } from "mocha";
+import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic } from "sinon";
+import { expect } from "chai";
+import { HTTPTransport } from "./HTTPTransport.ts";
 
-// describe("HTTPTransport", () => {
-//   let httpTransport: HTTPTransport;
-//   let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+describe("HTTP Transport test", () => {
+  let xhr: SinonFakeXMLHttpRequestStatic;
+  let instance: HTTPTransport;
+  const requests: SinonFakeXMLHttpRequest[] = [];
+  beforeEach(() => {
+    xhr = sinon.useFakeXMLHttpRequest();
 
-//   beforeEach(() => {
-//     httpTransport = new HTTPTransport("/test-endpoint");
-//     xhr = sinon.useFakeXMLHttpRequest();
-//     global.XMLHttpRequest = xhr;
-//   });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    global.XMLHttpRequest = xhr;
 
-//   afterEach(() => {
-//     sinon.restore();
-//   });
+    xhr.onCreate = req => {
+      requests.push(req);
+    };
 
-//   it("should perform a GET request and resolve with response data", done => {
-//     const fakeResponse = { data: "test" };
-//     const mockRequest = sinon.stub().callsFake(function () {
-//       this.readyState = 4;
-//       this.status = 200;
-//       this.responseText = JSON.stringify(fakeResponse);
-//       this.onreadystatechange();
-//     });
+    instance = new HTTPTransport("");
+  });
 
-//     xhr.onCreate = mockRequest;
+  afterEach(() => {
+    requests.length = 0;
+    xhr.restore();
+  });
 
-//     httpTransport
-//       .get("/test")
-//       .then(response => {
-//         expect(response).to.deep.equal(fakeResponse);
-//         done();
-//       })
-//       .catch(done);
+  describe("HTTP Transport", () => {
+    it("вызывает метод get", () => {
+      instance.get("/");
 
-//     mockRequest();
-//   });
+      const [request] = requests;
 
-//   it("should perform a POST request with data and resolve with response data", done => {
-//     const postData = { key: "value" };
-//     const fakeResponse = { success: true };
+      expect(request.method).to.equal("GET");
+    });
 
-//     const mockRequest = sinon.stub().callsFake(function () {
-//       this.readyState = 4;
-//       this.status = 200;
-//       this.responseText = JSON.stringify(fakeResponse);
-//       this.onreadystatechange();
-//     });
+    it("вызывает метод post", () => {
+      instance.post("/");
 
-//     xhr.onCreate = mockRequest;
+      const [request] = requests;
 
-//     httpTransport
-//       .post("/test", { data: postData })
-//       .then(response => {
-//         expect(response).to.deep.equal(fakeResponse);
-//         done();
-//       })
-//       .catch(done);
+      expect(request.method).to.equal("POST");
+    });
 
-//     mockRequest();
-//   });
+    it("вызывает метод put", () => {
+      instance.put("/");
 
-//   it("should perform a PUT request and resolve with response data", done => {
-//     const fakeResponse = { success: true };
+      const [request] = requests;
 
-//     const mockRequest = sinon.stub().callsFake(function () {
-//       this.readyState = 4;
-//       this.status = 200;
-//       this.responseText = JSON.stringify(fakeResponse);
-//       this.onreadystatechange();
-//     });
+      expect(request.method).to.equal("PUT");
+    });
 
-//     xhr.onCreate = mockRequest;
+    it("вызывает метод delete", () => {
+      instance.delete("/");
 
-//     httpTransport
-//       .put("/test", { data: { key: "new value" } })
-//       .then(response => {
-//         expect(response).to.deep.equal(fakeResponse);
-//         done();
-//       })
-//       .catch(done);
+      const [request] = requests;
 
-//     mockRequest();
-//   });
+      expect(request.method).to.equal("DELETE");
+    });
+  });
 
-//   it("should perform a DELETE request and resolve with response data", done => {
-//     const fakeResponse = { success: true };
+  describe("HTTP Transport", () => {
+    it("вызывает метод GET с правильными параметрами запроса", () => {
+      const url = "/test-get";
+      const params = {
+        limit: 50,
+      };
+      instance.get(`${url}`, { data: params });
+      const [request] = requests;
+      expect(request.url).to.include(`${url}?limit=50`);
+    });
 
-//     const mockRequest = sinon.stub().callsFake(function () {
-//       this.readyState = 4;
-//       this.status = 200;
-//       this.responseText = JSON.stringify(fakeResponse);
-//       this.onreadystatechange();
-//     });
+    it("вызывает метод POST с правильными параметрами запроса", () => {
+      const url = "/test-post";
+      const data = {
+        login: "test",
+        password: "123456qwerty",
+      };
+      instance.post(`${url}`, { data });
+      const [request] = requests;
+      expect(request.requestBody).to.equal(JSON.stringify(data));
+    });
 
-//     xhr.onCreate = mockRequest;
+    it("вызывает метод PUT с правильными параметрами запроса", () => {
+      const url = "/test-put";
+      const data = {
+        users: [123],
+        chatId: 123,
+      };
+      instance.put(`${url}`, { data });
+      const [request] = requests;
+      expect(request.requestBody).to.equal(JSON.stringify(data));
+    });
 
-//     httpTransport
-//       .delete("/test")
-//       .then(response => {
-//         expect(response).to.deep.equal(fakeResponse);
-//         done();
-//       })
-//       .catch(done);
-
-//     mockRequest();
-//   });
-
-//   it("should reject the promise if the request fails with status >= 400", done => {
-//     const fakeResponse = { error: "Bad Request" };
-
-//     const mockRequest = sinon.stub().callsFake(function () {
-//       this.readyState = 4;
-//       this.status = 400;
-//       this.responseText = JSON.stringify(fakeResponse);
-//       this.onreadystatechange();
-//     });
-
-//     xhr.onCreate = mockRequest;
-
-//     httpTransport
-//       .get("/test")
-//       .then(() => done(new Error("Expected request to fail")))
-//       .catch(response => {
-//         expect(response).to.deep.equal(fakeResponse);
-//         done();
-//       });
-
-//     mockRequest();
-//   });
-
-//   it("should correctly append query parameters to GET request URL", () => {
-//     const data = { param1: "value1", param2: "value2" };
-//     const expectedUrl = "/test-endpoint/test?param1=value1&param2=value2";
-//     const queryString = queryStringify(data);
-//     const url = `${httpTransport.endpoint}/test${queryString}`;
-//     expect(url).to.equal(expectedUrl);
-//   });
-// });
+    it("вызывает метод DELETE с правильными параметрами запроса", () => {
+      const url = "/test-delete";
+      const data = {
+        chatId: 123,
+      };
+      instance.delete(`${url}`, { data });
+      const [request] = requests;
+      expect(request.requestBody).to.equal(JSON.stringify(data));
+    });
+  });
+});
