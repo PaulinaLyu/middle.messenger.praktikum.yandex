@@ -1,4 +1,4 @@
-const { JSDOM } = require("jsdom");
+import { JSDOM } from "jsdom";
 
 const { window } = new JSDOM('<div id="app"></div>', {
   url: "http://localhost:5173",
@@ -7,7 +7,3 @@ const { window } = new JSDOM('<div id="app"></div>', {
 global.window = window;
 global.document = window.document;
 global.DocumentFragment = window.DocumentFragment;
-
-require.extensions[".scss"] = function () {
-  module.exports = () => ({});
-};
