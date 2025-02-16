@@ -21,8 +21,7 @@
     "reinstall": "rm -rf node_modules && npm install",
     "dev:restart": "npm run clean && npm run reinstall && npm run dev",
     "test": "mocha --require ts-node/register --require module-alias/register",
-    "prepare-husky": "install husky",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
@@ -40,7 +39,7 @@
     "express": "^4.19.2",
     "globals": "^15.4.0",
     "handlebars": "^4.7.8",
-    "husky": "8.0.0",
+    "husky": "8.0.3",
     "jsdom": "^26.0.0",
     "mocha": "^11.1.0",
     "module-alias": "^2.2.3",
