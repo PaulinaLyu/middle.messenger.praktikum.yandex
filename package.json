@@ -20,7 +20,8 @@
     "clean": "rm -rf node_modules/.vite",
     "reinstall": "rm -rf node_modules && npm install",
     "dev:restart": "npm run clean && npm run reinstall && npm run dev",
-    "test": "mocha --require ts-node/register --require module-alias/register"
+    "test": "mocha --require ts-node/register --require module-alias/register",
+    "prepare-husky": "install husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
