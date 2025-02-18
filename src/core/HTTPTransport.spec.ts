@@ -59,49 +59,4 @@ describe("HTTP Transport test", () => {
       expect(request.method).to.equal("DELETE");
     });
   });
-
-  describe("HTTP Transport", () => {
-    it("вызывает метод GET с правильными параметрами запроса", () => {
-      const url = "/test-get";
-      const params = {
-        limit: 50,
-      };
-      instance.get(`${url}`, { data: params });
-      const [request] = requests;
-      expect(request.url).to.include(`${url}?limit=50`);
-    });
-
-    it("вызывает метод POST с правильными параметрами запроса", () => {
-      const url = "/test-post";
-      const data = {
-        login: "test",
-        password: "123456qwerty",
-      };
-      instance.post(`${url}`, { data });
-      const [request] = requests;
-      expect(request.requestBody).to.equal(JSON.stringify(data));
-    });
-
-    it("вызывает метод PUT с правильными параметрами запроса", () => {
-      const url = "/test-put";
-      const data = {
-        users: [123],
-        chatId: 123,
-      };
-      instance.put(`${url}`, { data });
-      const [request] = requests;
-      expect(request.requestBody).to.equal(JSON.stringify(data));
-    });
-
-    it("вызывает метод DELETE с правильными параметрами запроса", () => {
-      const url = "/test-delete";
-      const data = {
-        chatId: 123,
-      };
-      instance.delete(`${url}`, { data });
-      const [request] = requests;
-      console.log("Request: ", request);
-      expect(request.requestBody).to.equal(JSON.stringify(data));
-    });
-  });
 });

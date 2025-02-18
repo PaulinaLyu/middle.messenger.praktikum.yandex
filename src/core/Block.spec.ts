@@ -64,7 +64,7 @@ describe("Block Component", function () {
     expect(renderSpy.calledOnce).to.be.true;
   });
 
-  it("should not allow direct modification of private properties", function () {
+  it("не должен изменять приватные значения", function () {
     expect(() => (block.props._element = "new value")).to.throw("Нет прав");
   });
 });
