@@ -100,6 +100,7 @@ describe("HTTP Transport test", () => {
       };
       instance.delete(`${url}`, { data });
       const [request] = requests;
+      console.log("Request: ", request);
       expect(request.requestBody).to.equal(JSON.stringify(data));
     });
   });
