@@ -2,6 +2,9 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  define: {
+    global: {},
+  },
   base: "./",
   build: {
     outDir: "dist",
@@ -11,11 +14,9 @@ export default defineConfig({
     port: 3000,
   },
   resolve: {
-    alias: [
-      {
-        find: "@",
-        replacement: resolve(__dirname, "./src"),
-      },
-    ],
+    alias: {
+      "@": resolve(__dirname, "./src"),
+      crypto: "crypto-js",
+    },
   },
 });

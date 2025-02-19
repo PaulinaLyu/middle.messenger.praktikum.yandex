@@ -21,5 +21,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/core/WithRouter.js"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/core/WithRouter.js"],
+  "exclude": ["src/**/*.spec.ts"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  }
 }
